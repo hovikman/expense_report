@@ -1,4 +1,6 @@
 ExpenseReport::Application.routes.draw do
+  resources :expense_statuses
+
   resources :user_types
 
   # The priority is based upon order of creation:
