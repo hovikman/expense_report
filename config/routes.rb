@@ -1,4 +1,6 @@
 ExpenseReport::Application.routes.draw do
+  resources :companies
+
   resources :currencies
 
   resources :expense_statuses

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  tag: MyString
+  currency_id: 1
+  contact_person: MyString
+  contact_title: MyString
+  contact_phone: MyString
+  contact_email: MyString
+
+two:
+  name: MyString
+  tag: MyString
+  currency_id: 1
+  contact_person: MyString
+  contact_title: MyString
+  contact_phone: MyString
+  contact_email: MyString
