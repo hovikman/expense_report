@@ -1,16 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
+  company: one
   name: MyString
+  manager: one
+  email: MyString
+  user_type: one
 
 two:
+  company: one
   name: MyString
-
-admin:
-  name: Administrator
-
-regular_use:
-  name: 'Regular User'
-
-vendor_admin:
-  name: 'Vendor Administrator'
+  manager: one
+  email: MyString
+  user_type: one

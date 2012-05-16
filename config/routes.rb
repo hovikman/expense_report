@@ -1,4 +1,6 @@
 ExpenseReport::Application.routes.draw do
+  resources :users
+
   resources :companies
 
   resources :currencies

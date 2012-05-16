@@ -3,6 +3,7 @@ require 'test_helper'
 class CurrenciesControllerTest < ActionController::TestCase
   setup do
     @currency = currencies(:one)
+    @currency2 = currencies(:two)
     @update = {
       :name => 'New Currency',
       :code => 'NNN'
@@ -46,7 +47,7 @@ class CurrenciesControllerTest < ActionController::TestCase
 
   test "should destroy currency" do
     assert_difference('Currency.count', -1) do
-      delete :destroy, id: @currency
+      delete :destroy, id: @currency2
     end
 
     assert_redirected_to currencies_path

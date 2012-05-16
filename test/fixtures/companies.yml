@@ -3,7 +3,7 @@
 one:
   name: MyString
   tag: MyString
-  currency_id: 1
+  currency: one
   contact_person: MyString
   contact_title: MyString
   contact_phone: MyString
@@ -12,7 +12,7 @@ one:
 two:
   name: MyString
   tag: MyString
-  currency_id: 1
+  currency: one
   contact_person: MyString
   contact_title: MyString
   contact_phone: MyString

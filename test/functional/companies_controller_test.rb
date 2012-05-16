@@ -3,10 +3,11 @@ require 'test_helper'
 class CompaniesControllerTest < ActionController::TestCase
   setup do
     @company = companies(:one)
+    @company2 = companies(:two)
     @update = {
       :name => 'New Company',
       :tag => 'new company',
-      :currency_id => 1,
+      :currency_id => :one,
       :contact_person => 'person',
       :contact_title => 'title',
       :contact_phone => '1234567890',
@@ -50,7 +51,7 @@ class CompaniesControllerTest < ActionController::TestCase
 
   test "should destroy company" do
     assert_difference('Company.count', -1) do
-      delete :destroy, id: @company
+      delete :destroy, id: @company2
     end
 
     assert_redirected_to companies_path

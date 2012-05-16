@@ -3,6 +3,7 @@ require 'test_helper'
 class UserTypesControllerTest < ActionController::TestCase
   setup do
     @user_type = user_types(:one)
+    @user_type2 = user_types(:two)
     @update = {
       :name => 'New User Type'
     }
@@ -44,7 +45,7 @@ class UserTypesControllerTest < ActionController::TestCase
 
   test "should destroy user_type" do
     assert_difference('UserType.count', -1) do
-      delete :destroy, id: @user_type
+      delete :destroy, id: @user_type2
     end
 
     assert_redirected_to user_types_path
