@@ -11,8 +11,10 @@ class Company < ActiveRecord::Base
 
   belongs_to :currency
   has_many :users
+  has_many :expense_types
 
   before_destroy :ensure_not_referenced_by_any_user
+  before_destroy :ensure_not_referenced_by_any_expense_type
 
   attr_accessible :contact_email, :contact_person, :contact_phone, :contact_title, :currency_id, :name, :tag
 
@@ -31,7 +33,17 @@ class Company < ActiveRecord::Base
       if users.empty?
         return true
       else
-        errors.add(:base, 'There users referencing this company')
+        errors.add(:base, 'There are users referencing this company')
+        return false
+      end
+    end
+
+    # ensure that there are no expense types referencing this company
+    def ensure_not_referenced_by_any_expense_type
+      if expense_types.empty?
+        return true
+      else
+        errors.add(:base, 'There expense types referencing this company')
         return false
       end
     end

@@ -7,6 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.delete_all
+ExpenseType.delete_all
 Company.delete_all
 UserType.delete_all
 ExpenseStatus.delete_all
@@ -63,6 +64,38 @@ Company.create(:name => 'Company B',
                :contact_email => 'dave.thomas@companyb.com'
               )
 
+#ExpenseType
+ExpenseType.create(:name => 'Airfare',
+                   :company_id => Company::vendor_id
+                  )
+ExpenseType.create(:name => 'Lodging',
+                   :company_id => Company::vendor_id
+                  )
+ExpenseType.create(:name => 'Ground Transportation',
+                   :company_id => Company::vendor_id
+                  )
+ExpenseType.create(:name => 'Meal',
+                   :company_id => Company::vendor_id
+                  )
+ExpenseType.create(:name => 'Conference and Seminar',
+                   :company_id => Company::vendor_id
+                  )
+ExpenseType.create(:name => 'Miscellaneous',
+                   :company_id => Company::vendor_id
+                  )
+ExpenseType.create(:name => 'Phone, Fax and Internet',
+                   :company_id => Company::vendor_id
+                  )
+ExpenseType.create(:name => 'Entertainment',
+                   :company_id => Company::vendor_id
+                  )
+ExpenseType.create(:name => 'Office Supply',
+                   :company_id => Company::vendor_id
+                  )
+ExpenseType.create(:name => 'Postage and Shipping',
+                   :company_id => Company::vendor_id
+                  )
+             
 #User
 User.create(:name => 'Hovik Manvelyan',
             :company_id => Company::vendor_id,
