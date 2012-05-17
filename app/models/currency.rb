@@ -17,7 +17,7 @@ class Currency < ActiveRecord::Base
       if companies.empty?
         return true
       else
-        errors.add(:base, 'There companies referencing this currency')
+        errors.add(:base, 'There are companies referencing this currency')
         return false
       end
     end

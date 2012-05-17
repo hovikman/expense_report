@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Expense.delete_all
 User.delete_all
 ExpenseType.delete_all
 Company.delete_all
@@ -128,3 +129,22 @@ User.create(:name => 'Leon Breedt',
             :email => 'leon.breedt@companyb.com'
             )
 
+#Expense
+Expense.create(:user_id => User.find_by_name("David Hansson").id,
+               :purpose => "Expenses for my trip to Paris",
+               :submit_date => Time.now,
+               :advance_pay => 500.00,
+               :expense_status_id => ExpenseStatus.not_approved_id
+              ) 
+Expense.create(:user_id => User.find_by_name("Leon Breedt").id,
+               :purpose => "Expenses for my trip to New York",
+               :submit_date => Time.now,
+               :advance_pay => 0.00,
+               :expense_status_id => ExpenseStatus.not_approved_id
+              ) 
+Expense.create(:user_id => User.find_by_name("Sam Ruby").id,
+               :purpose => "Expenses for my trip to Tokio",
+               :submit_date => Time.now,
+               :advance_pay => 0.00,
+               :expense_status_id => ExpenseStatus.not_approved_id
+              )

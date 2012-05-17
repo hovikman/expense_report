@@ -5,3 +5,12 @@ one:
 
 two:
   name: MyString
+
+not_approved:
+  name: 'Not Approved'
+
+approved:
+  name: 'Approved'
+
+declined:
+  name: 'Declined'

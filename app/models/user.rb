@@ -10,9 +10,12 @@ class User < ActiveRecord::Base
   belongs_to :company
   belongs_to :manager, :class_name => "User", :foreign_key => "manager_id"
   belongs_to :user_type
+
   has_many :users, :foreign_key => "manager_id"
+  has_many :expenses
 
   before_destroy :ensure_not_referenced_by_any_user
+  before_destroy :ensure_not_referenced_by_any_expense
 
   attr_accessible :company_id, :email, :manager_id, :name, :user_type_id
 
@@ -50,7 +53,17 @@ class User < ActiveRecord::Base
       if users.empty?
         return true
       else
-        errors.add(:base, 'There users referencing this user as a manager')
+        errors.add(:base, 'There are users referencing this user as a manager')
+        return false
+      end
+    end
+
+    # ensure that there are no expenses referencing this user
+    def ensure_not_referenced_by_any_expense
+      if expenses.empty?
+        return true
+      else
+        errors.add(:base, 'There are expenses referencing this user')
         return false
       end
     end

@@ -43,7 +43,7 @@ class Company < ActiveRecord::Base
       if expense_types.empty?
         return true
       else
-        errors.add(:base, 'There expense types referencing this company')
+        errors.add(:base, 'There are expense types referencing this company')
         return false
       end
     end

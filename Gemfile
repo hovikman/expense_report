@@ -36,3 +36,6 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+# ActiveRecord plugin that allows to specify default values for attributes
+gem 'attribute-defaults'

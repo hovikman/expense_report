@@ -33,7 +33,7 @@ class UserType < ActiveRecord::Base
       if users.empty?
         return true
       else
-        errors.add(:base, 'There users referencing this user_type')
+        errors.add(:base, 'There are users referencing this user_type')
         return false
       end
     end
