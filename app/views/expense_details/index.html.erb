@@ -1,0 +1,35 @@
+<h1>Listing expense_details</h1>
+
+<table>
+  <tr>
+    <th>Expense</th>
+    <th>Expense type</th>
+    <th>Date</th>
+    <th>Currency</th>
+    <th>Amount</th>
+    <th>Exchange rate</th>
+    <th>Comments</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @expense_details.each do |expense_detail| %>
+  <tr>
+    <td><%= expense_detail.expense.purpose %></td>
+    <td><%= expense_detail.expense_type.name %></td>
+    <td><%= expense_detail.date %></td>
+    <td><%= expense_detail.currency.code %></td>
+    <td><%= expense_detail.amount %></td>
+    <td><%= expense_detail.exchange_rate %></td>
+    <td><%= expense_detail.comments %></td>
+    <td><%= link_to 'Show', expense_detail %></td>
+    <td><%= link_to 'Edit', edit_expense_detail_path(expense_detail) %></td>
+    <td><%= link_to 'Destroy', expense_detail, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Expense detail', new_expense_detail_path %>

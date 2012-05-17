@@ -4,6 +4,7 @@ require 'attribute-defaults'
 class ExpensesControllerTest < ActionController::TestCase
   setup do
     @expense = expenses(:one)
+    @expense2 = expenses(:two)
   end
 
   test "should get index" do
@@ -42,7 +43,7 @@ class ExpensesControllerTest < ActionController::TestCase
 
   test "should destroy expense" do
     assert_difference('Expense.count', -1) do
-      delete :destroy, id: @expense
+      delete :destroy, id: @expense2
     end
 
     assert_redirected_to expenses_path

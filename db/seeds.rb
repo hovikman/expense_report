@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+ExpenseDetail.delete_all
 Expense.delete_all
 User.delete_all
 ExpenseType.delete_all
@@ -148,3 +149,31 @@ Expense.create(:user_id => User.find_by_name("Sam Ruby").id,
                :advance_pay => 0.00,
                :expense_status_id => ExpenseStatus.not_approved_id
               )
+
+#ExpenseDetail
+ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("David Hansson").id).id,
+                     :expense_type_id => ExpenseType.find_by_name('Meal').id,
+                     :date => Time.now,
+                     :amount => 40.00,
+                     :exchange_rate => 1.00,
+                     :comments => 'New York is very expensive city'
+                    )
+ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("Leon Breedt").id).id,
+                     :expense_type_id => ExpenseType.find_by_name('Entertainment').id,
+                     :date => Time.now,
+                     :amount => 240.00,
+                     :exchange_rate => 1.00,
+                     :comments => 'I had a great time'
+                    )
+ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("Sam Ruby").id).id,
+                     :expense_type_id => ExpenseType.find_by_name('Airfare').id,
+                     :date => Time.now,
+                     :amount => 1040.00,
+                     :exchange_rate => 1.00,
+                     :comments => 'I used United Airlines'
+                    )
+ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("David Hansson").id).id,
+                     :expense_type_id => ExpenseType.find_by_name('Office Supply').id,
+                     :amount => 30.00,
+                     :comments => 'I needed some pens'
+                    )

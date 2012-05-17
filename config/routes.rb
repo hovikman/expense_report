@@ -1,4 +1,6 @@
 ExpenseReport::Application.routes.draw do
+  resources :expense_details
+
   resources :expenses
 
   resources :expense_types

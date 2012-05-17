@@ -3,6 +3,7 @@ require 'test_helper'
 class ExpenseTypesControllerTest < ActionController::TestCase
   setup do
     @expense_type = expense_types(:one)
+    @expense_type2 = expense_types(:two)
     @update = {
       :name => 'New Expense Type',
       :company_id => :one
@@ -45,7 +46,7 @@ class ExpenseTypesControllerTest < ActionController::TestCase
 
   test "should destroy expense_type" do
     assert_difference('ExpenseType.count', -1) do
-      delete :destroy, id: @expense_type
+      delete :destroy, id: @expense_type2
     end
 
     assert_redirected_to expense_types_path

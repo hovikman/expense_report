@@ -1,0 +1,2 @@
+module ExpenseDetailsHelper
+end
