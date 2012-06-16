@@ -16,10 +16,6 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :tag %><br />
-    <%= f.text_field :tag %>
-  </div>
-  <div class="field">
     <%= f.label :currency_id %><br />
     <%= f.collection_select(:currency_id, Currency.all, :id, :name) %>
   </div>

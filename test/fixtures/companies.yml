@@ -2,7 +2,6 @@
 
 one:
   name: MyString
-  tag: MyString
   currency: one
   contact_person: MyString
   contact_title: MyString
@@ -11,7 +10,6 @@ one:
 
 two:
   name: MyString
-  tag: MyString
   currency: one
   contact_person: MyString
   contact_title: MyString

@@ -3,7 +3,6 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>Tag</th>
     <th>Currency</th>
     <th>Contact person</th>
     <th>Contact title</th>
@@ -17,7 +16,6 @@
 <% @companies.each do |company| %>
   <tr>
     <td><%= company.name %></td>
-    <td><%= company.tag %></td>
     <td><%= company.currency.code %></td>
     <td><%= company.contact_person %></td>
     <td><%= company.contact_title %></td>

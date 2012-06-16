@@ -42,7 +42,6 @@ UserType.create(:name => UserType::VENDOR_ADMIN_STR)
 
 #Company
 Company.create(:name => Company::VENDOR_NAME_STR,
-               :tag => Company::VENDOR_TAG_STR,
                :currency_id => Currency.find_by_code("USD").id,
                :contact_person => 'Hovik Manvelyan',
                :contact_title => 'Programmer',
@@ -50,7 +49,6 @@ Company.create(:name => Company::VENDOR_NAME_STR,
                :contact_email => 'hovikman@gmail.com'
               )
 Company.create(:name => 'Company A',
-               :tag => 'company_a',
                :currency_id => Currency.find_by_code("USD").id,
                :contact_person => 'Sam Ruby',
                :contact_title => 'Admin',
@@ -58,7 +56,6 @@ Company.create(:name => 'Company A',
                :contact_email => 'sam.ruby@companya.com'
               )
 Company.create(:name => 'Company B',
-               :tag => 'company_b',
                :currency_id => Currency.find_by_code("GBP").id,
                :contact_person => 'Dave Thomas',
                :contact_title => 'Admin',

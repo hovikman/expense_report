@@ -6,7 +6,6 @@ class CompaniesControllerTest < ActionController::TestCase
     @company2 = companies(:two)
     @update = {
       :name => 'New Company',
-      :tag => 'new company',
       :currency_id => :one,
       :contact_person => 'person',
       :contact_title => 'title',
