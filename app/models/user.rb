@@ -1,11 +1,17 @@
 class User < ActiveRecord::Base
+  attr_accessible :company_id, :email, :manager_id, :name,
+                  :user_type_id, :password, :password_confirmation
+  has_secure_password
+
   default_scope :order => 'name'
 
   validates :company_id, :presence => true
   validates :name, :presence => true
-  validates :email, :presence => true
+  validates :email, :presence => true, uniqueness: { case_sensitive: false }
   validates :user_type_id, :presence => true
   validates_uniqueness_of :name, :scope => :company_id
+  validates :password, presence: true, length: { minimum: 6 }
+  validates :password_confirmation, presence: true
 
   belongs_to :company
   belongs_to :manager, :class_name => "User", :foreign_key => "manager_id"
@@ -14,10 +20,10 @@ class User < ActiveRecord::Base
   has_many :users, :foreign_key => "manager_id"
   has_many :expenses
 
+  before_save { self.email.downcase! }
+
   before_destroy :ensure_not_referenced_by_any_user
   before_destroy :ensure_not_referenced_by_any_expense
-
-  attr_accessible :company_id, :email, :manager_id, :name, :user_type_id
 
   after_destroy :ensure_an_admin_remains
  
