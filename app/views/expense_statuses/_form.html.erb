@@ -1,15 +1,5 @@
 <%= form_for(@expense_status) do |f| %>
-  <% if @expense_status.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@expense_status.errors.count, "error") %> prohibited this expense_status from being saved:</h2>
-
-      <ul>
-      <% @expense_status.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/error_messages', object: f.object %>
 
   <div class="field">
     <%= f.label :name %><br />
