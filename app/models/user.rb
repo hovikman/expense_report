@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :expenses
 
   before_save { self.email.downcase! }
+  before_save :create_remember_token
 
   before_destroy :ensure_not_referenced_by_any_user
   before_destroy :ensure_not_referenced_by_any_expense
@@ -72,6 +73,10 @@ class User < ActiveRecord::Base
         errors.add(:base, 'There are expenses referencing this user')
         return false
       end
+    end
+
+    def create_remember_token
+      self.remember_token = SecureRandom.urlsafe_base64
     end
 
 end
