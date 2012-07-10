@@ -1,9 +1,9 @@
 class CurrenciesController < ApplicationController
+  load_and_authorize_resource
+
   # GET /currencies
   # GET /currencies.json
   def index
-    @currencies = Currency.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @currencies }
@@ -13,8 +13,6 @@ class CurrenciesController < ApplicationController
   # GET /currencies/1
   # GET /currencies/1.json
   def show
-    @currency = Currency.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @currency }
@@ -24,8 +22,6 @@ class CurrenciesController < ApplicationController
   # GET /currencies/new
   # GET /currencies/new.json
   def new
-    @currency = Currency.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @currency }
@@ -34,14 +30,11 @@ class CurrenciesController < ApplicationController
 
   # GET /currencies/1/edit
   def edit
-    @currency = Currency.find(params[:id])
   end
 
   # POST /currencies
   # POST /currencies.json
   def create
-    @currency = Currency.new(params[:currency])
-
     respond_to do |format|
       if @currency.save
         format.html { redirect_to @currency, notice: 'Currency was successfully created.' }
@@ -56,8 +49,6 @@ class CurrenciesController < ApplicationController
   # PUT /currencies/1
   # PUT /currencies/1.json
   def update
-    @currency = Currency.find(params[:id])
-
     respond_to do |format|
       if @currency.update_attributes(params[:currency])
         format.html { redirect_to @currency, notice: 'Currency was successfully updated.' }
@@ -72,7 +63,6 @@ class CurrenciesController < ApplicationController
   # DELETE /currencies/1
   # DELETE /currencies/1.json
   def destroy
-    @currency = Currency.find(params[:id])
     @currency.destroy
 
     respond_to do |format|

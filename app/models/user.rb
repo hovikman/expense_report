@@ -27,6 +27,26 @@ class User < ActiveRecord::Base
   before_destroy :ensure_not_referenced_by_any_expense
 
   after_destroy :ensure_an_admin_remains
+
+  def vendor_admin?
+    user_type_id == UserType.vendor_admin_id
+  end
+
+  def regular_user?
+    user_type_id == UserType.regular_user_id
+  end
+
+  def company_admin?
+    user_type_id == UserType.admin_id
+  end
+
+  def admin?
+    vendor_admin? || company_admin?
+  end
+
+  def guest?
+    !regular_user? && !admin?
+  end
  
   def manager_name
     if (manager.nil?)
@@ -35,7 +55,6 @@ class User < ActiveRecord::Base
       return manager.name
     end
   end
-
 
   def ensure_an_admin_remains
     if user_type_id == UserType::admin_id

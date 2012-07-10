@@ -5,9 +5,8 @@
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "Help", help_path %></li>
           <% if signed_in? %>
-            <li><%= link_to "Users", '#' %></li>
+ 
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account <b class="caret"></b>
@@ -21,12 +20,49 @@
                 </li>
               </ul>
             </li>
+            
+            <% if current_user().admin? %>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Admin <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+              <% if can? :manage, :company %>
+                <li><%= link_to "Companies", companies_path %></li>
+              <% end %>
+              <% if can? :manage, :currency %>
+                <li><%= link_to "Currencies", currencies_path %></li>
+              <% end %>
+              <% if can? :manage, :expense_status %>
+                <li><%= link_to "Expense Statuses", expense_statuses_path %></li>
+              <% end %>
+              <li><%= link_to "Expense Types", expense_types_path %></li>
+              <li><%= link_to "Users", users_path %></li>
+              <% if can? :manage, :UserType %>
+                <li><%= link_to "Users Types", user_types_path %></li>
+              <% end %>
+              </ul>
+            </li>
+            <% end %>
+
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Expenses <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "New Expense", current_user %></li>
+                <li><%= link_to "Submitted Expenses", '#' %></li>
+                <li><%= link_to "Expenses To Approve", current_user %></li>
+                <li><%= link_to "Pending Expenses", '#' %></li>
+              </ul>
+            </li>
+
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% end %>
+          <li><%= link_to "Help", help_path %></li>
         </ul>
       </nav>
     </div>
   </div>
 </header>
-
