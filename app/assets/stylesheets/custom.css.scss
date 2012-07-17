@@ -32,6 +32,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 3em;
+  margin-top: 15px;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -118,4 +119,20 @@ $grayMediumLight: #eaeaea;
 .field_with_errors {
   @extend .control-group;
   @extend .error;
+}
+
+
+/* override some bootstrap settings for dataTables */
+
+div.dataTables_wrapper div.fg-toolbar label> {
+  input, textarea, select {
+    display: inline;
+  }
+  select {
+    width: 60px;
+  }
+}
+
+.fg-toolbar, .dataTables_length, .dataTables_filter  {
+    height: 28px;
 }

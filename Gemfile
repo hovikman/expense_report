@@ -26,6 +26,7 @@ group :assets do
   gem 'jquery-ui-rails'
 end
 
+gem 'jquery-ui-themes'
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
