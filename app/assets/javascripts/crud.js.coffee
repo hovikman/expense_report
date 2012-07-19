@@ -20,8 +20,8 @@ class window.crud
           window.location.href = sURL
         if sAction == 'D'
           sURL = '/' + sResource + '/' + sId
-          sCode = TableTools.fnGetInstance(sResource).fnGetSelectedData()[0][nColumnIndex]
-          @delete_row(sURL, sCode)
+          sItemName = TableTools.fnGetInstance(sResource).fnGetSelectedData()[0][nColumnIndex]
+          @delete_row(sURL, sItemName)
 
   @selected_id: (sResource) ->
     aData = TableTools.fnGetInstance(sResource).fnGetSelectedData()

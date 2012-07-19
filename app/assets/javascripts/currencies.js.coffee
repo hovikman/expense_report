@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 #= require crud
 
-class currencies extends crud
+class currencies
 
   @action: () ->
     jQuery ->
