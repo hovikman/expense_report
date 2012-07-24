@@ -1,15 +1,7 @@
-<p id="notice"><%= notice %></p>
+<h1>Viewing Currency</h1>
 
-<p>
-  <b>Name:</b>
-  <%= @currency.name %>
-</p>
-
-<p>
-  <b>Code:</b>
-  <%= @currency.code %>
-</p>
+<%= render partial: 'form', locals: { read_only: true } %>
 
 
-<%= link_to 'Edit', edit_currency_path(@currency) %> |
-<%= link_to 'Back', currencies_path %>
+<%= link_to 'Edit', edit_currency_path(@currency) %>
+<%= link_to_function 'Back', "history.back()" %>

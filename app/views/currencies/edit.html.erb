@@ -1,6 +1,7 @@
-<h1>Editing currency</h1>
+<h1>Editing Currency</h1>
 
-<%= render 'form' %>
+<%= render partial: 'form', locals: { read_only: false } %>
 
-<%= link_to 'Show', @currency %> |
-<%= link_to 'Back', currencies_path %>
+<%= link_to 'View', @currency %> |
+<%= link_to_function 'Back', "history.back()" %>
+

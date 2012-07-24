@@ -1,28 +1,23 @@
-<h1>Listing currencies</h1>
+<h1>Listing Currencies</h1>
 
 <table id="currencies" class="display">
-  <thead>
-    <tr>      
-      <th>ID</th>
-      <th>Code</th>
-      <th>Name</th>
-    </tr>
-  <thead>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Code</th>
+			<th>Name</th>
+		</tr>
+	</thead>
 
-  <tbody>
-  <% @currencies.each do |currency| %>
-    <tr>
-      <td><%= currency.id %></td>     
-      <td><%= currency.code %></td>
-      <td><%= currency.name %></td>
-    </tr>
-  <% end %>
-  </tbody>
+	<tbody>
+		<% @currencies.each do |currency| %>
+		<tr>
+			<td><%= currency.id %></td>
+			<td><%= currency.code %></td>
+			<td><%= currency.name %></td>
+		</tr>
+		<% end %>
+	</tbody>
 </table>
 
 <br />
-
-<%#= link_to 'New Currency', new_currency_path %>
-<%#= link_to 'Show', currency %>
-<%#= link_to 'Edit', edit_currency_path(currency) %>
-<%#= link_to 'Destroy', currency, confirm: 'Are you sure?', method: :delete %>

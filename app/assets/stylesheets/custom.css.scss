@@ -108,6 +108,8 @@ $grayMediumLight: #eaeaea;
 
 /* forms */
 
+/* Rails scaffold style compatibility */
+
 #error_explanation {
   color: #f00;
   ul {
@@ -116,9 +118,29 @@ $grayMediumLight: #eaeaea;
   }
 }
 
+
 .field_with_errors {
   @extend .control-group;
   @extend .error;
+  display: inline;
+}
+
+.form_background {
+  padding-bottom: 10px;
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-top: 60px;
+  margin-bottom: 30px;
+  background-color: whiteSmoke;
+  border-radius: 6px;
+}
+
+.upper_case {
+  text-transform: uppercase;
+}
+
+.lower_case {
+  text-transform: lowercase;
 }
 
 

@@ -37,7 +37,7 @@ class CurrenciesController < ApplicationController
   def create
     respond_to do |format|
       if @currency.save
-        format.html { redirect_to @currency, notice: 'Currency was successfully created.' }
+        format.html { redirect_to currencies_path, notice: "Currency #{@currency.code} was successfully created." }
         format.json { render json: @currency, status: :created, location: @currency }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class CurrenciesController < ApplicationController
   def update
     respond_to do |format|
       if @currency.update_attributes(params[:currency])
-        format.html { redirect_to @currency, notice: 'Currency was successfully updated.' }
+        format.html { redirect_to currencies_path, notice: "Currency #{@currency.code} was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -66,7 +66,7 @@ class CurrenciesController < ApplicationController
     @currency.destroy
 
     respond_to do |format|
-      format.html { redirect_to currencies_url }
+      format.html { redirect_to currencies_path, notice: "Currency #{@currency.code} was successfully deleted." }
       format.json { head :no_content }
     end
   end

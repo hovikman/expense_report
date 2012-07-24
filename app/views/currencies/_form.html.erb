@@ -1,17 +1,26 @@
-<%= form_for(@currency) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :code %>
-    <%= f.text_field :code %>
-  </div>
-  <br />
-  <br />
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<div class="row form_background">
+	<div class="span6 offset2">
+		<%= form_for(@currency, :html => { :class => "form-horizontal"}) do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+		<div class="field control-group">
+			<%= f.label :name, "Name:", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :name, maxlength: 30, class: "input-large", readonly: read_only %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :code, "Code:", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :code, maxlength: 3, class: "input-mini upper_case", readonly: read_only %>
+			</div>
+		</div>
+		<br />
+		<br />
+		<% if !read_only %>
+		<div class="form-actions">
+			<%= f.submit class: "btn btn-primary" %>
+		</div>
+		<% end %>
+		<% end %>
+	</div>
+</div>

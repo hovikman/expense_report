@@ -9,14 +9,16 @@ class currencies
     jQuery ->
       $('#currencies').dataTable
         sPaginationType: "full_numbers"
-        bStateSave: false
+        bStateSave: true
         bJQueryUI: true
         iDisplayLength: 20
         aLengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]]
         aoColumns: [
-          {bVisible: false}
-           null
-           null
+          {
+            bVisible: false
+          }
+          null
+          null
         ]
         sDom: '<"H"lfr>t<"F"ip>T'
         oTableTools: {
