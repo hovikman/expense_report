@@ -42,3 +42,39 @@ class window.crud
     $('body').append(href)
     $('#delete_button').click()
     $('#delete_button').remove()
+   
+  @construct_buttons: (sResource) ->
+    aColumns = [
+      # New
+      {
+        sExtends:    "text"
+        sButtonText: "New"
+        fnClick: () ->
+          crud.crud_action(sResource, 'C')
+      }
+
+      # View
+      {
+        sExtends:    "text"
+        sButtonText: "View"
+        fnClick: () ->
+          crud.crud_action(sResource, 'R')
+      }
+
+      # Edit
+      {
+        sExtends:    "text"
+        sButtonText: "Edit"
+        fnClick: () ->
+          crud.crud_action(sResource, 'U')
+      }
+
+      # Delete
+      {
+        sExtends:    "text"
+        sButtonText: "Delete"
+        fnClick: () ->
+          crud.crud_action(sResource, 'D', 2)
+      }
+     ]
+     return aColumns

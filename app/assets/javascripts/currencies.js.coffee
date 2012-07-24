@@ -23,39 +23,8 @@ class currencies
         sDom: '<"H"lfr>t<"F"ip>T'
         oTableTools: {
           sRowSelect: "single"     
-          aButtons : [
-            # New
-            {
-              sExtends:    "text"
-              sButtonText: "New"
-              fnClick: () ->
-                crud.crud_action('currencies', 'C')
-            }
-
-            # View
-            {
-              sExtends:    "text"
-              sButtonText: "View"
-              fnClick: () ->
-                crud.crud_action('currencies', 'R')
-            }
-
-            # Edit
-            {
-              sExtends:    "text"
-              sButtonText: "Edit"
-              fnClick: () ->
-                crud.crud_action('currencies', 'U')
-            }
-
-            # Delete
-            {
-              sExtends:    "text"
-              sButtonText: "Delete"
-              fnClick: () ->
-                crud.crud_action('currencies', 'D', 2)
-            }
-          ]
+          aButtons : 
+            crud.construct_buttons('currencies')
         }
 
 currencies.action()
