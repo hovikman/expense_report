@@ -108,8 +108,6 @@ $grayMediumLight: #eaeaea;
 
 /* forms */
 
-/* Rails scaffold style compatibility */
-
 #error_explanation {
   color: #f00;
   ul {
@@ -141,6 +139,10 @@ $grayMediumLight: #eaeaea;
 
 .lower_case {
   text-transform: lowercase;
+}
+
+.form-horizontal .form-actions {
+    padding-left: 0px;
 }
 
 
