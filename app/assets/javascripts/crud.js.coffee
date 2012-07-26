@@ -43,7 +43,7 @@ class window.crud
     $('#delete_button').click()
     $('#delete_button').remove()
    
-  @construct_buttons: (sResource) ->
+  @construct_buttons: (sResource, nColumnIndex = 1) ->
     aColumns = [
       # New
       {
@@ -74,7 +74,7 @@ class window.crud
         sExtends:    "text"
         sButtonText: "Delete"
         fnClick: () ->
-          crud.crud_action(sResource, 'D', 2)
+          crud.crud_action(sResource, 'D', nColumnIndex)
       }
      ]
      return aColumns

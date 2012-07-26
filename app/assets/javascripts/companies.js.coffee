@@ -3,11 +3,11 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 #= require crud
 
-class currencies
+class companies
 
   @action: () ->
     jQuery ->
-      $('#currencies').dataTable
+      $('#companies').dataTable
         sPaginationType: "full_numbers"
         bStateSave: true
         bJQueryUI: true
@@ -19,12 +19,14 @@ class currencies
           }
           null
           null
+          null
+          null
         ]
         sDom: '<"H"lfr>t<"F"ip>T'
         oTableTools: {
           sRowSelect: "single"     
           aButtons : 
-            crud.construct_buttons('currencies', 2)
+            crud.construct_buttons('companies')
         }
 
-currencies.action()
+companies.action()

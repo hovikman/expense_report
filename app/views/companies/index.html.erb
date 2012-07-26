@@ -1,33 +1,27 @@
-<h1>Listing companies</h1>
+<h1>Listing Companies</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Currency</th>
-    <th>Contact person</th>
-    <th>Contact title</th>
-    <th>Contact phone</th>
-    <th>Contact email</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table id="companies" class="display">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Contact Person</th>
+			<th>Contact Title</th>
+			<th>Contact Phone</th>
+		</tr>
+	</thead>
 
-<% @companies.each do |company| %>
-  <tr>
-    <td><%= company.name %></td>
-    <td><%= company.currency.code %></td>
-    <td><%= company.contact_person %></td>
-    <td><%= company.contact_title %></td>
-    <td><%= company.contact_phone %></td>
-    <td><%= company.contact_email %></td>
-    <td><%= link_to 'Show', company %></td>
-    <td><%= link_to 'Edit', edit_company_path(company) %></td>
-    <td><%= link_to 'Destroy', company, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+	<tbody>
+
+		<% @companies.each do |company| %>
+		<tr>
+			<td><%= company.id %></td>
+			<td><%= company.name %></td>
+			<td><%= company.contact_person %></td>
+			<td><%= company.contact_title %></td>
+			<td><%= number_to_phone(company.contact_phone, :area_code => true) %></td>
+		</tr>
+		<% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Company', new_company_path %>

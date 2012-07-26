@@ -1,31 +1,50 @@
-<%= form_for(@company) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :currency_id %><br />
-    <%= f.collection_select(:currency_id, Currency.all, :id, :name) %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_person %><br />
-    <%= f.text_field :contact_person %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_title %><br />
-    <%= f.text_field :contact_title %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_phone %><br />
-    <%= f.phone_field :contact_phone %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_email %><br />
-    <%= f.email_field :contact_email, :size => 40 %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<div class="row form_background">
+	<div class="span6 offset2">
+		<%= form_for(@company, html: { class: "form-horizontal"}) do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+		<div class="field control-group">
+			<%= f.label :name, "Name:", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :name, maxlength: 30, class: "input-large", readonly: read_only %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :currency_id, "Currency:", class: "control-label" %>
+			<div class="controls">
+				<%= f.collection_select(:currency_id, Currency.all, :id, :name, {prompt: true}, readonly: read_only) %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :contact_person, "Contact Person:", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :contact_person, maxlength: 30, class: "input-large", readonly: read_only %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :contact_title, "Contact Title:", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :contact_title, maxlength: 20, class: "input-large", readonly: read_only %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :contact_phone, "Contact Phone:", class: "control-label" %>
+			<div class="controls">
+				<%= f.phone_field :contact_phone, maxlength: 20, class: "input-large", readonly: read_only %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :contact_email, "Contact Email:", class: "control-label" %>
+			<div class="controls">
+				<%= f.email_field :contact_email, maxlength: 40, class: "input-large", readonly: read_only %>
+			</div>
+		</div>
+		<br />
+		<br />
+		<% if !read_only %>
+		<div class="form-actions center">
+			<%= f.submit class: "btn btn-primary" %>
+		</div>
+		<% end %>
+		<% end %>
+	</div>
+</div>
