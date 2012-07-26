@@ -1,15 +1,6 @@
-<p id="notice"><%= notice %></p>
+<h1>Viewing Expense Type</h1>
 
-<p>
-  <b>Name:</b>
-  <%= @expense_type.name %>
-</p>
-
-<p>
-  <b>Company:</b>
-  <%= @expense_type.company_id %>
-</p>
-
+<%= render partial: 'form', locals: { read_only: true } %>
 
 <%= link_to 'Edit', edit_expense_type_path(@expense_type) %> |
-<%= link_to 'Back', expense_types_path %>
+<%= link_to_function 'Back', "history.back()" %>

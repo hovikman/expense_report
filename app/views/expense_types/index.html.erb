@@ -1,25 +1,22 @@
-<h1>Listing expense_types</h1>
+<h1>Listing Expense Types</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Company</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table id="expense_types" class="display">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Company</th>
+		</tr>
+	</thead>
 
-<% @expense_types.each do |expense_type| %>
-  <tr>
-    <td><%= expense_type.name %></td>
-    <td><%= expense_type.company_id %></td>
-    <td><%= link_to 'Show', expense_type %></td>
-    <td><%= link_to 'Edit', edit_expense_type_path(expense_type) %></td>
-    <td><%= link_to 'Destroy', expense_type, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+	<tbody>
+		<% @expense_types.each do |expense_type| %>
+		<tr>
+			<td><%= expense_type.id %></td>
+			<td><%= expense_type.name %></td>
+			<td><%= expense_type.company.name %></td>
+		</tr>
+		<% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Expense type', new_expense_type_path %>

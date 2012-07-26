@@ -36,7 +36,8 @@ private
     # no permission on ExpenseStatus
 
     # ExpenseType
-    can :read, ExpenseType
+    can :read, ExpenseType, :company_id => user.company_id
+    can :read, ExpenseType, :company_id => Company::vendor_id
 
     # User
     can [:read, :update], User, :id => user.id

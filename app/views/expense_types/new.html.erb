@@ -1,5 +1,6 @@
-<h1>New expense_type</h1>
+<h1>New Expense Type</h1>
 
-<%= render 'form' %>
+<% @expense_type.company_id = current_user().company_id %>
+<%= render partial: 'form', locals: { read_only: false } %>
 
-<%= link_to 'Back', expense_types_path %>
+<%= link_to_function 'Back', "history.back()" %>
