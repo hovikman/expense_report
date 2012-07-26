@@ -37,7 +37,7 @@ class ExpenseStatusesController < ApplicationController
   def create
     respond_to do |format|
       if @expense_status.save
-        format.html { redirect_to @expense_status, notice: 'Expense status was successfully created.' }
+        format.html { redirect_to expense_statuses_path, notice: "Expense status #{@expense_status.name} was successfully created." }
         format.json { render json: @expense_status, status: :created, location: @expense_status }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class ExpenseStatusesController < ApplicationController
   def update
     respond_to do |format|
       if @expense_status.update_attributes(params[:expense_status])
-        format.html { redirect_to @expense_status, notice: 'Expense status was successfully updated.' }
+        format.html { redirect_to expense_statuses_path, notice: "Expense status #{@expense_status.name} was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -66,7 +66,7 @@ class ExpenseStatusesController < ApplicationController
     @expense_status.destroy
 
     respond_to do |format|
-      format.html { redirect_to expense_statuses_url }
+      format.html { redirect_to expense_statuses_path, notice: "Expense status #{@expense_status.name} was successfully deleted." }
       format.json { head :no_content }
     end
   end
