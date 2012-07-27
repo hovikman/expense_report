@@ -3,7 +3,7 @@
 		<%= form_for(@user, html: { class: "form-horizontal"}) do |f| %>
 		<%= render 'shared/error_messages', object: f.object %>
 		<div class="field control-group">
-			<%= f.label :company_id, "Company Id:", class: "control-label" %>
+			<%= f.label :company_id, "Company:", class: "control-label" %>
 			<div class="controls">
 				<%= f.collection_select(:company_id, Company.all, :id, :name, {prompt: true}, readonly: read_only) %>
 			</div>
@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<div class="field control-group">
-			<%= f.label :manager_id , "Manager Id:", class: "control-label" %>
+			<%= f.label :manager_id , "Manager:", class: "control-label" %>
 			<div class="controls">
 				<%= f.collection_select(:manager_id, User.all, :id, :name, {prompt: true}, readonly: read_only) %>
 			</div>
