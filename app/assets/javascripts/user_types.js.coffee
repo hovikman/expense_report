@@ -3,10 +3,11 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 #= require crud
 
-class expense_statuses
+class user_types
+
   @action: () ->
     jQuery ->
-      $('#expense_statuses').dataTable
+      $('#user_types').dataTable
         sPaginationType: "full_numbers"
         bStateSave: true
         bJQueryUI: true
@@ -22,7 +23,7 @@ class expense_statuses
         oTableTools: {
           sRowSelect: "single"     
           aButtons : 
-            crud.construct_buttons('expense_statuses')
+            crud.construct_buttons('user_types')
         }
 
-expense_statuses.action()
+user_types.action()

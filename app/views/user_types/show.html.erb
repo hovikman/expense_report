@@ -1,10 +1,6 @@
-<p id="notice"><%= notice %></p>
+<h1>Viewing User Types</h1>
 
-<p>
-  <b>Name:</b>
-  <%= @user_type.name %>
-</p>
-
+<%= render partial: 'form', locals: { read_only: true } %>
 
 <%= link_to 'Edit', edit_user_type_path(@user_type) %> |
-<%= link_to 'Back', user_types_path %>
+<%= link_to_function 'Back', "history.back()" %>

@@ -1,6 +1,6 @@
-<h1>Editing user_type</h1>
+<h1>Editing User Type</h1>
 
-<%= render 'form' %>
+<%= render partial: 'form', locals: { read_only: false } %>
 
-<%= link_to 'Show', @user_type %> |
-<%= link_to 'Back', user_types_path %>
+<%= link_to 'View', @user_type %> |
+<%= link_to_function 'Back', "history.back()" %>

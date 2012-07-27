@@ -1,23 +1,21 @@
-<h1>Listing user_types</h1>
+<h1>Listing User Types</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table id="user_types" class="display">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+		</tr>
+	</thead>
 
-<% @user_types.each do |user_type| %>
-  <tr>
-    <td><%= user_type.name %></td>
-    <td><%= link_to 'Show', user_type %></td>
-    <td><%= link_to 'Edit', edit_user_type_path(user_type) %></td>
-    <td><%= link_to 'Destroy', user_type, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+	<tbody>
+		<% @user_types.each do |user_type| %>
+		<tr>
+			<td><%= user_type.id %></td>
+			<td><%= user_type.name %></td>
+		</tr>
+		<% end %>
+	</tbody>
 </table>
 
 <br />
-
-<%= link_to 'New User type', new_user_type_path %>
