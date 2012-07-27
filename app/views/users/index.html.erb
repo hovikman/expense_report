@@ -1,31 +1,25 @@
 <h1>Listing users</h1>
 
-<table>
-  <tr>
-    <th>Company</th>
-    <th>Name</th>
-    <th>Manager</th>
-    <th>Email</th>
-    <th>User type</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table id="users" class="display">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Company</th>
+			<th>User type</th>
+		</tr>
+	</thead>
 
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.company.name %></td>
-    <td><%= user.name %></td>
-    <td><%= user.manager_name %></td>
-    <td><%= user.email %></td>
-    <td><%= user.user_type.name %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+	<tbody>
+		<% @users.each do |user| %>
+		<tr>
+			<td><%= user.id %></td>
+			<td><%= user.name %></td>
+			<td><%= user.company.name %></td>
+			<td><%= user.user_type.name %></td>
+		</tr>
+		<% end %>
+	</tbody>
 </table>
 
 <br />
-
-<%= link_to 'New User', new_user_path %>
