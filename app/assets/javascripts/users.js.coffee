@@ -35,6 +35,7 @@ jQuery ->
   first_line = "<option value=\"\">Please select</option>"
   options = first_line + $(managers).filter("optgroup[label='#{company}']").html()
   $("#user_manager_id").html(options)
+  
   $('#user_company_id').change ->
     company = $("#user_company_id :selected").text()
     first_line = "<option value=\"\">Please select</option>"

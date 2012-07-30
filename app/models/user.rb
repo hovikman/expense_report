@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 
   default_scope :order => 'name'
 
+
   validates :company_id, :presence => true
   validates :name, :presence => true
   validates :email, :presence => true, uniqueness: { case_sensitive: false }
@@ -12,6 +13,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :company_id
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+  validate :validate_user_type
 
   belongs_to :company
   belongs_to :manager, :class_name => "User", :foreign_key => "manager_id"
@@ -53,6 +55,14 @@ class User < ActiveRecord::Base
       return ""
     else
       return manager.name
+    end
+  end
+  
+  def validate_user_type
+    if company_id != Company::vendor_id
+      if user_type_id == UserType::vendor_admin_id
+        errors.add(:user_type_id, "can be 'Vendor Administrator' only for vendor company")
+      end
     end
   end
 

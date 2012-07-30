@@ -33,7 +33,11 @@
 		<div class="field control-group">
 			<%= f.label :user_type_id, "User Type:", class: "control-label" %>
 			<div class="controls">
-				<%= f.collection_select(:user_type_id, UserType.all, :id, :name, {prompt: true}, readonly: read_only) %>
+				<% if current_user.vendor_admin? %>
+				  <%= f.collection_select(:user_type_id, UserType.all, :id, :name, {prompt: true}, readonly: read_only) %>
+				<% else %>
+				  <%= f.collection_select(:user_type_id, UserType.where("id != #{UserType.vendor_admin_id}"), :id, :name, {prompt: true}, readonly: read_only) %>
+				<% end %>
 			</div>
 		</div>
 		<div class="field control-group">
