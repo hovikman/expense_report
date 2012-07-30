@@ -17,7 +17,7 @@
 		<div class="field control-group">
 			<%= f.label :manager_id , "Manager:", class: "control-label" %>
 			<div class="controls">
-				<%= f.collection_select(:manager_id, User.all, :id, :name, {prompt: true}, readonly: read_only) %>
+				<%= f.grouped_collection_select(:manager_id, Company.all, :users, :name, :id, :name, {prompt: true}, readonly: read_only) %>
 			</div>
 		</div>
 		<div class="field control-group">
