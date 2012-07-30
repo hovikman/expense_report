@@ -5,7 +5,11 @@
 		<div class="field control-group">
 			<%= f.label :company_id, "Company:", class: "control-label" %>
 			<div class="controls">
-				<%= f.collection_select(:company_id, Company.all, :id, :name, {prompt: true}, readonly: read_only) %>
+				<% company_read_only = read_only %>
+				<% if !current_user.vendor_admin? %>
+				  <% company_read_only = true %>
+				<% end %>
+				<%= f.collection_select(:company_id, Company.all, :id, :name, {prompt: true}, readonly: company_read_only) %>
 			</div>
 		</div>
 		<div class="field control-group">
