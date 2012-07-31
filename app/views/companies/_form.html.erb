@@ -11,7 +11,12 @@
 		<div class="field control-group">
 			<%= f.label :currency_id, "Currency:", class: "control-label" %>
 			<div class="controls">
-				<%= f.collection_select(:currency_id, Currency.all, :id, :name, {prompt: true}, readonly: read_only) %>
+				<% if read_only %>
+					<% currency_name = Currency.find(f.object.currency_id).name %>
+					<%= text_field_tag :currency_id, currency_name, class: "input-large", readonly: true %>
+				<% else %>
+					<%= f.collection_select(:currency_id, Currency.all, :id, :name, {prompt: true}, readonly: read_only) %>
+				<% end %>
 			</div>
 		</div>
 		<div class="field control-group">
