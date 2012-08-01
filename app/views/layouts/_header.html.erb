@@ -33,6 +33,7 @@
               <% if can? :manage, :currency %>
                 <li><%= link_to "Currencies", currencies_path %></li>
               <% end %>
+              <li><%= link_to "Expenses", '#' %></li>
               <% if can? :manage, :expense_status %>
                 <li><%= link_to "Expense Statuses", expense_statuses_path %></li>
               <% end %>
@@ -50,10 +51,12 @@
                 Expenses <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to "New Expense", current_user %></li>
-                <li><%= link_to "Submitted Expenses", '#' %></li>
-                <li><%= link_to "Expenses To Approve", current_user %></li>
-                <li><%= link_to "Pending Expenses", '#' %></li>
+                <li><%= link_to "New Expense", '#' %></li>
+                                <li class="divider"></li>
+                <li><%= link_to "Approved Expenses", '#' %></li>
+                <li><%= link_to "Not Approved Expenses", '#' %></li>
+                                <li class="divider"></li>
+                <li><%= link_to "Expenses To Approve", '#' %></li>
               </ul>
             </li>
 

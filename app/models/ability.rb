@@ -11,7 +11,7 @@ class Ability
       regular_user_permission(user)
     when user.company_admin?
       regular_user_permission(user)
-      admin_permission(user)
+      company_admin_permission(user)
     end
   end
 
@@ -46,7 +46,7 @@ private
     # no permission on UserType
   end
 
-  def admin_permission(user)
+  def company_admin_permission(user)
     # ExpenseType
     can :create, ExpenseType
     can [:update, :destroy], ExpenseType, :company_id => user.company_id
@@ -54,6 +54,12 @@ private
     # User
     can :create, User
     can [:read, :update, :destroy], User, :company_id => user.company_id
+
+    # Expense
+    can [:read, :update, :destroy], Expense, :company_id => user.company_id
+    
+    # ExpenseDetail
+    can [:read, :update, :destroy], ExpenseDetail, :company_id => user.company_id
   end
 
 end
