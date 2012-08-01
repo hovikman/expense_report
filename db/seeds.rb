@@ -178,9 +178,10 @@ Currency.create(:code => 'ZMK', :name => 'Zambia Kwacha')
 Currency.create(:code => 'ZWD', :name => 'Zimbabwe Dollar')
 
 #ExpenseStatus
-ExpenseStatus.create(:name => ExpenseStatus::NOT_APPROVED_STR)
+ExpenseStatus.create(:name => ExpenseStatus::NEW_STR)
+ExpenseStatus.create(:name => ExpenseStatus::ASSIGNED_TO_MANAGER_STR)
+ExpenseStatus.create(:name => ExpenseStatus::ASSIGNED_TO_ACCOUNTING_STR)
 ExpenseStatus.create(:name => ExpenseStatus::APPROVED_STR)
-ExpenseStatus.create(:name => ExpenseStatus::DECLINED_STR)
 
 #UserType
 UserType.create(:name => UserType::ADMIN_STR)
@@ -314,31 +315,31 @@ Expense.create(:user_id => User.find_by_name("David Hansson").id,
                :purpose => "Expenses for my trip to Paris",
                :submit_date => Time.now,
                :advance_pay => 500.00,
-               :expense_status_id => ExpenseStatus.not_approved_id
+               :expense_status_id => ExpenseStatus.new_id
               ) 
 Expense.create(:user_id => User.find_by_name("Leon Breedt").id,
                :purpose => "Expenses for my trip to New York",
                :submit_date => Time.now,
                :advance_pay => 0.00,
-               :expense_status_id => ExpenseStatus.not_approved_id
+               :expense_status_id => ExpenseStatus.assigned_to_manager_id
               ) 
 Expense.create(:user_id => User.find_by_name("Sam Ruby").id,
                :purpose => "Expenses for my trip to Tokio",
                :submit_date => Time.now,
                :advance_pay => 0.00,
-               :expense_status_id => ExpenseStatus.not_approved_id
+               :expense_status_id => ExpenseStatus.approved_id
               )
 Expense.create(:user_id => User.find_by_name("admin").id,
                :purpose => "Expenses for my trip to Tokio",
                :submit_date => Time.now,
                :advance_pay => 10.00,
-               :expense_status_id => ExpenseStatus.not_approved_id
+               :expense_status_id => ExpenseStatus.assigned_to_accounting
               )
 Expense.create(:user_id => User.find_by_name("regular user").id,
                :purpose => "Expenses for my trip to Tokio",
                :submit_date => Time.now,
                :advance_pay => 10.00,
-               :expense_status_id => ExpenseStatus.not_approved_id
+               :expense_status_id => ExpenseStatus.assigned_to_manager_id
               )
 
 #ExpenseDetail

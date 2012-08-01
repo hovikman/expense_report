@@ -10,20 +10,25 @@ class ExpenseStatus < ActiveRecord::Base
   attr_accessible :name
 
   # constants for predefined expense status values
-  NOT_APPROVED_STR = "Not Approved"
+  NEW_STR = "New"
+  ASSIGNED_TO_MANAGER_STR = "Assigned to manager"
+  ASSIGNED_TO_ACCOUNTING_STR = "Assigned to accounting"
   APPROVED_STR     = "Approved"
-  DECLINED_STR     = "Declined"
 
-  def self.not_approved_id
-    find_by_name(NOT_APPROVED_STR).id
+  def self.new_id
+    find_by_name(NEW_STR).id
+  end
+  
+  def self.assigned_to_manager_id
+    find_by_name(ASSIGNED_TO_MANAGER_STR).id
+  end
+  
+  def self.assigned_to_accounting
+    find_by_name(ASSIGNED_TO_ACCOUNTING_STR).id
   end
 
   def self.approved_id
     find_by_name(APPROVED_STR).id
-  end
-
-  def self.declined_id
-    find_by_name(DECLINED_STR).id
   end
 
   private
