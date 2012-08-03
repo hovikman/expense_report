@@ -57,6 +57,10 @@ class User < ActiveRecord::Base
       return manager.name
     end
   end
+
+  def name_with_company
+     "#{name}, #{company.name}"
+  end
   
   def validate_user_type
     if company_id != Company::vendor_id

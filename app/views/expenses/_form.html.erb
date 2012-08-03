@@ -1,27 +1,58 @@
-<%= form_for(@expense) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.collection_select(:user_id, User.all, :id, :name) %>
-  </div>
-  <div class="field">
-    <%= f.label :submit_date %><br />
-    <%= f.date_select :submit_date %>
-  </div>
-  <div class="field">
-    <%= f.label :purpose %><br />
-    <%= f.text_area :purpose, :rows => 6 %>
-  </div>
-  <div class="field">
-    <%= f.label :expense_status_id %><br />
-    <%= f.collection_select(:expense_status_id, ExpenseStatus.all, :id, :name) %>
-  </div>
-  <div class="field">
-    <%= f.label :advance_pay %><br />
-    <%= f.text_field :advance_pay %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<div class="row form_background">
+	<div class="span6 offset2">
+		<%= form_for(@expense, html: { class: "form-horizontal"}) do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+		<div class="field control-group">
+			<%= f.label :user_id, "User:", class: "control-label" %>
+			<div class="controls">
+				<% if read_only %>
+				<% user_name = User.find(f.object.user_id).name %>
+				<%= text_field_tag :user_id, user_name, class: "input-large", readonly: true %>
+				<% else %>
+				<% if current_user.vendor_admin? %>
+				<%= f.collection_select(:user_id, User.all, :id, :name_with_company, {prompt: true}, readonly: false) %>
+				<% else %>
+				<%= f.collection_select(:user_id, User.where("company_id == #{current_user.company_id}"), :id, :name, {prompt: true}, readonly: false) %>
+				<% end %>
+				<% end %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :submit_date, "Submit Date:", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :submit_date, class: "input-large", readonly: read_only %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :purpose, "Purpose:", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :purpose, maxlength: 30, class: "input-large", readonly: read_only %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :expense_status_id, "Expense Status:", class: "control-label" %>
+			<div class="controls">
+				<% if read_only %>
+				<% expense_name = ExpenseStatus.find(f.object.expense_status_id).name %>
+				<%= text_field_tag :expense_status_id, expense_name, class: "input-large", readonly: true %>
+				<% else %>
+				<%= f.collection_select(:expense_status_id, ExpenseStatus.all, :id, :name, {prompt: true}, readonly: false) %>
+				<% end %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :advance_pay, "Advance Pay:", class: "control-label" %>
+			<div class="controls">
+				<%= f.number_field :advance_pay, class: "input-large", readonly: read_only %>
+			</div>
+		</div>
+		<br />
+		<br />
+		<% if !read_only %>
+		<div class="form-actions center">
+			<%= f.submit class: "btn btn-primary" %>
+		</div>
+		<% end %>
+		<% end %>
+	</div>
+</div>

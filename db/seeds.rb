@@ -313,31 +313,26 @@ User.create(:name => 'regular user',
 #Expense
 Expense.create(:user_id => User.find_by_name("David Hansson").id,
                :purpose => "Expenses for my trip to Paris",
-               :submit_date => Time.now,
                :advance_pay => 500.00,
                :expense_status_id => ExpenseStatus.new_id
               ) 
 Expense.create(:user_id => User.find_by_name("Leon Breedt").id,
                :purpose => "Expenses for my trip to New York",
-               :submit_date => Time.now,
                :advance_pay => 0.00,
                :expense_status_id => ExpenseStatus.assigned_to_manager_id
               ) 
 Expense.create(:user_id => User.find_by_name("Sam Ruby").id,
                :purpose => "Expenses for my trip to Tokio",
-               :submit_date => Time.now,
                :advance_pay => 0.00,
                :expense_status_id => ExpenseStatus.approved_id
               )
 Expense.create(:user_id => User.find_by_name("admin").id,
                :purpose => "Expenses for my trip to Tokio",
-               :submit_date => Time.now,
                :advance_pay => 10.00,
                :expense_status_id => ExpenseStatus.assigned_to_accounting
               )
 Expense.create(:user_id => User.find_by_name("regular user").id,
                :purpose => "Expenses for my trip to Tokio",
-               :submit_date => Time.now,
                :advance_pay => 10.00,
                :expense_status_id => ExpenseStatus.assigned_to_manager_id
               )

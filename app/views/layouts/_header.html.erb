@@ -33,7 +33,7 @@
               <% if can? :manage, :currency %>
                 <li><%= link_to "Currencies", currencies_path %></li>
               <% end %>
-              <li><%= link_to "Expenses", '#' %></li>
+              <li><%= link_to "Expenses", expenses_path %></li>
               <% if can? :manage, :expense_status %>
                 <li><%= link_to "Expense Statuses", expense_statuses_path %></li>
               <% end %>

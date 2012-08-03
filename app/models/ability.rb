@@ -56,10 +56,10 @@ private
     can [:read, :update, :destroy], User, :company_id => user.company_id
 
     # Expense
-    can [:read, :update, :destroy], Expense, :company_id => user.company_id
+    can [:read, :update, :destroy], Expense, :user => { :company_id => user.company_id }
     
     # ExpenseDetail
-    can [:read, :update, :destroy], ExpenseDetail, :company_id => user.company_id
+    can [:read, :update, :destroy], ExpenseDetail, :expense => { :user => { :company_id => user.company_id } }
   end
 
 end

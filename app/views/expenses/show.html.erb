@@ -1,30 +1,6 @@
-<p id="notice"><%= notice %></p>
+<h1>Viewing Expenses</h1>
 
-<p>
-  <b>User:</b>
-  <%= @expense.user.name %>
-</p>
-
-<p>
-  <b>Submit date:</b>
-  <%= @expense.submit_date %>
-</p>
-
-<p>
-  <b>Purpose:</b>
-  <%= @expense.purpose %>
-</p>
-
-<p>
-  <b>Expense status:</b>
-  <%= @expense.expense_status.name %>
-</p>
-
-<p>
-  <b>Advance pay:</b>
-  <%= @expense.advance_pay %>
-</p>
-
+<%= render partial: 'form', locals: { read_only: true } %>
 
 <%= link_to 'Edit', edit_expense_path(@expense) %> |
-<%= link_to 'Back', expenses_path %>
+<%= link_to_function 'Back', "history.back()" %>
