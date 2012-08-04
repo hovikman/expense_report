@@ -66,7 +66,7 @@ class ExpenseDetailsController < ApplicationController
     @expense_detail.destroy
 
     respond_to do |format|
-      format.html { redirect_to expense_details_path, notice: "Expense detail '#{@expense_detail.name}' was successfully deleted." } }
+      format.html { redirect_to expense_details_path, notice: "Expense detail '#{@expense_detail.name}' was successfully deleted." }
       format.json { head :no_content }
     end
   end
