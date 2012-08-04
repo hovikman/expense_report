@@ -37,7 +37,7 @@ class UserTypesController < ApplicationController
   def create
     respond_to do |format|
       if @user_type.save
-        format.html { redirect_to user_types_path, notice: "User type #{@user_type.name} was successfully created." }
+        format.html { redirect_to user_types_path, notice: "User type '#{@user_type.name}' was successfully created." }
         format.json { render json: @user_type, status: :created, location: @user_type }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class UserTypesController < ApplicationController
   def update
     respond_to do |format|
       if @user_type.update_attributes(params[:user_type])
-        format.html { redirect_to user_types_path, notice: "User type #{@user_type.name} was successfully updated." }
+        format.html { redirect_to user_types_path, notice: "User type '#{@user_type.name}' was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -66,7 +66,7 @@ class UserTypesController < ApplicationController
     @user_type.destroy
 
     respond_to do |format|
-        format.html { redirect_to user_types_path, notice: "User type #{@user_type.name} was successfully deleted." }
+        format.html { redirect_to user_types_path, notice: "User type '#{@user_type.name}' was successfully deleted." }
       format.json { head :no_content }
     end
   end
