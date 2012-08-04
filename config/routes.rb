@@ -1,13 +1,15 @@
 ExpenseReport::Application.routes.draw do
-  resources :expense_details
-  resources :expenses
-  resources :expense_types
-  resources :users
   resources :companies
   resources :currencies
+  resources :expenses do
+    resources :expense_details do
+    end
+  end
   resources :expense_statuses
-  resources :user_types
+  resources :expense_types
   resources :sessions, only: [:new, :create, :destroy]
+  resources :user_types
+  resources :users
 
   root to: 'static_pages#home'
   match '/help',    to: 'static_pages#help'
@@ -15,6 +17,7 @@ ExpenseReport::Application.routes.draw do
   match '/contact', to: 'static_pages#contact'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

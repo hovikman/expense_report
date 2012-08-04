@@ -4,8 +4,11 @@ class ExpenseDetailsController < ApplicationController
   # GET /expense_details
   # GET /expense_details.json
   def index
+    expense = Expense.find(params[:expense_id])
+    @expense_details = expense.expense_details
+    
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render template: 'expense_details/index', locals: { purpose: expense.purpose } }
       format.json { render json: @expense_details }
     end
   end
