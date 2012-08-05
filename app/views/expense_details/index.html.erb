@@ -1,4 +1,4 @@
-<h1> <%= purpose %> </h1>
+<h1> <%= expense.purpose %> </h1>
 
 <table>
   <tr>
@@ -23,8 +23,8 @@
     <td><%= expense_detail.amount %></td>
     <td><%= expense_detail.exchange_rate %></td>
     <td><%= expense_detail.comments %></td>
-    <td><%= link_to 'Show', expense_detail %></td>
-    <td><%= link_to 'Edit', edit_expense_detail_path(expense_detail) %></td>
+    <td><%= link_to 'Show', expense_expense_detail_path(expense.id, expense_detail) %></td>
+    <td><%= link_to 'Edit', edit_expense_expense_detail_path(expense.id, expense_detail) %></td>
     <td><%= link_to 'Destroy', expense_detail, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
@@ -32,4 +32,4 @@
 
 <br />
 
-<%= link_to 'New Expense detail', new_expense_detail_path %>
+<%= link_to 'New Expense detail', new_expense_expense_detail_path %>

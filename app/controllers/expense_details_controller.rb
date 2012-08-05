@@ -8,7 +8,7 @@ class ExpenseDetailsController < ApplicationController
     @expense_details = expense.expense_details
     
     respond_to do |format|
-      format.html { render template: 'expense_details/index', locals: { purpose: expense.purpose } }
+      format.html { render template: 'expense_details/index', locals: { expense: expense } }
       format.json { render json: @expense_details }
     end
   end
