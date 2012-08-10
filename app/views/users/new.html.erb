@@ -4,5 +4,3 @@
   <% @user.company_id = current_user().company_id %>
 <% end %>
 <%= render partial: 'form', locals: { read_only: false } %>
-
-<%= link_to_function 'Back', "history.back()" %>
