@@ -26,7 +26,7 @@ class users
           sRowSelect: "single"     
           aButtons : 
             crud.construct_buttons('users')
-          }
+        }
 
 # To do: this code fragment repeats. Refactor the fragment to a function
 jQuery ->

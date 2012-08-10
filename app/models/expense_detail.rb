@@ -2,18 +2,16 @@ class ExpenseDetail < ActiveRecord::Base
   default_scope :order => 'expense_id'
   default_scope :order => 'date'
 
-  validates :amount, :presence => true
+  validates :amount, :presence => true, :numericality => { :greater_than => 0.00 }
   validates :currency_id, :presence => true
   validates :date, :presence => true
-  validates :exchange_rate, :presence => true
+  validates :exchange_rate, :presence => true, :numericality => { :greater_than => 0.00 }
   validates :expense_id, :presence => true
   validates :expense_type_id, :presence => true
 
   attr_defaults :amount => 0.0
-  # attr_defaults :currency_id => lambda { Company.find(User.find(Expense.find(expense_id).user_id).company_id).currency_id }
-  attr_defaults :date => lambda { Time.now }
+  attr_defaults :date => lambda { DateTime.now.to_date }
   attr_defaults :exchange_rate => 1.00
-  # attr_defaults :expense_id => ?
 
   belongs_to :currency
   belongs_to :expense

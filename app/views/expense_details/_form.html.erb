@@ -1,35 +1,75 @@
-<%= form_for(@expense_detail) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-
-  <div class="field">
-    <%= f.label :expense_id %><br />
-    <%= f.collection_select(:expense_id, Expense.all, :id, :purpose) %>
-  </div>
-  <div class="field">
-    <%= f.label :expense_type_id %><br />
-    <%= f.collection_select(:expense_type_id, ExpenseType.all, :id, :name) %>
-  </div>
-  <div class="field">
-    <%= f.label :date %><br />
-    <%= f.date_select :date %>
-  </div>
-  <div class="field">
-    <%= f.label :currency_id %><br />
-    <%= f.collection_select(:currency_id, Currency.all, :id, :code) %>
-  </div>
-  <div class="field">
-    <%= f.label :amount %><br />
-    <%= f.text_field :amount %>
-  </div>
-  <div class="field">
-    <%= f.label :exchange_rate %><br />
-    <%= f.text_field :exchange_rate %>
-  </div>
-  <div class="field">
-    <%= f.label :comments %><br />
-    <%= f.text_area :comments, :rows => 6 %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<div class="row form_background">
+	<div class="span6 offset2">
+		<% if action_name == "new" || action_name == "create" %>
+			<% url = expense_expense_details_path(@expense.id) %>
+			<% html = {method: :post, class: "form-horizontal"} %>
+		<% else %>
+			<% url = expense_detail_path(@expense_detail.id) %>
+			<% html = {method: :put, class: "form-horizontal"} %>
+		<% end %>
+		<%= form_for(@expense_detail, url: url, html: html) do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+		<div class="field control-group">
+			<%= f.label :expense_id, "Expense:", class: "control-label" %>
+			<div class="controls">
+				<%= text_field_tag :expense_id, @expense.purpose, class: "input-large", readonly: true %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :expense_type_id, "Expense Type:", class: "control-label" %>
+			<div class="controls">
+				<% if read_only %>
+					<% expense_type_name = ExpenseType.find(f.object.expense_type_id).name %>
+					<%= text_field_tag :expense_type_id, expense_type_name, class: "input-large", readonly: true %>
+				<% else %>
+					<% company_id = User.find(@expense.user_id).company_id %>
+					<% vendor_id  = Company.vendor_id %>
+					<%= f.collection_select(:expense_type_id, ExpenseType.where("company_id IN (#{vendor_id}, #{company_id})"), :id, :name, {prompt: true}, readonly: false) %>
+				<% end %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :date, "Date:", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :date, class: "input-large", readonly: read_only %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :currency_id, "Currency:", class: "control-label" %>
+			<div class="controls">
+				<% if read_only %>
+					<% currency_name = Currency.find(f.object.currency_id).name %>
+					<%= text_field_tag :currency_id, currency_name, class: "input-large", readonly: true %>
+				<% else %>
+					<%= f.collection_select(:currency_id, Currency.all, :id, :name, {prompt: true}, readonly: false) %>
+				<% end %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :amount, "Amount:", class: "control-label" %>
+			<div class="controls">
+				<%= f.number_field :amount, class: "input-large", readonly: read_only %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :exchange_rate, "Exchange Rate:", class: "control-label" %>
+			<div class="controls">
+				<%= f.number_field :exchange_rate, class: "input-large", readonly: read_only %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :comments, "Comments:", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_area :comments, :rows => 4, class: "input-large", readonly: read_only  %>
+  			</div>
+  		</div>
+		<br />
+		<br />
+		<% if !read_only %>
+			<div class="form-actions center">
+				<%= f.submit class: "btn btn-primary" %>
+			</div>
+		<% end %>
+		<% end %>
+	</div>
+</div>

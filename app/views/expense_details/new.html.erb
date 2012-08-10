@@ -1,5 +1,3 @@
-<h1>New expense_detail</h1>
+<h1>New Expense Detail</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', expense_details_path %>
+<%= render partial: 'form', locals: { read_only: false } %>

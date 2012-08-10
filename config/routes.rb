@@ -1,15 +1,14 @@
 ExpenseReport::Application.routes.draw do
   resources :companies
   resources :currencies
-  resources :expenses do
-    resources :expense_details do
-    end
+  resources :expenses, shallow: true do
+    resources :expense_details
   end
   resources :expense_statuses
   resources :expense_types
   resources :sessions, only: [:new, :create, :destroy]
-  resources :user_types
   resources :users
+  resources :user_types
 
   root to: 'static_pages#home'
   match '/help',    to: 'static_pages#help'

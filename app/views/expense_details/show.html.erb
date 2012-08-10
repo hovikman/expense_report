@@ -1,40 +1,5 @@
-<p id="notice"><%= notice %></p>
+<h1>Viewing Expense Detail</h1>
 
-<p>
-  <b>Expense:</b>
-  <%= @expense_detail.expense.purpose %>
-</p>
+<%= render partial: 'form', locals: { read_only: true } %>
 
-<p>
-  <b>Expense type:</b>
-  <%= @expense_detail.expense_type.name %>
-</p>
-
-<p>
-  <b>Date:</b>
-  <%= @expense_detail.date %>
-</p>
-
-<p>
-  <b>Currency:</b>
-  <%= @expense_detail.currency.code %>
-</p>
-
-<p>
-  <b>Amount:</b>
-  <%= @expense_detail.amount %>
-</p>
-
-<p>
-  <b>Exchange rate:</b>
-  <%= @expense_detail.exchange_rate %>
-</p>
-
-<p>
-  <b>Comments:</b>
-  <%= @expense_detail.comments %>
-</p>
-
-
-<%= link_to 'Edit', edit_expense_detail_path(@expense_detail) %> |
-<%= link_to 'Back', expense_details_path %>
+<%= link_to 'Edit', edit_expense_detail_path(@expense_detail) %>

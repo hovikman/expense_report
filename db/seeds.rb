@@ -242,7 +242,18 @@ ExpenseType.create(:name => 'Office Supply',
 ExpenseType.create(:name => 'Postage and Shipping',
                    :company_id => Company::vendor_id
                   )
-             
+ExpenseType.create(:name => 'Company A1',
+                   :company_id => Company.find_by_name('Company A').id
+                  )
+ExpenseType.create(:name => 'Company A2',
+                   :company_id => Company.find_by_name('Company A').id
+                  )
+ExpenseType.create(:name => 'Company B1',
+                   :company_id => Company.find_by_name('Company B').id
+                  )
+ExpenseType.create(:name => 'Company B2',
+                   :company_id => Company.find_by_name('Company B').id
+                  )                               
 #User
 User.create(:name => 'Hovik Manvelyan',
             :company_id => Company::vendor_id,
@@ -340,7 +351,6 @@ Expense.create(:user_id => User.find_by_name("regular user").id,
 #ExpenseDetail
 ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("David Hansson").id).id,
                      :expense_type_id => ExpenseType.find_by_name('Meal').id,
-                     :date => Time.now,
                      :amount => 40.00,
                      :currency_id => Currency.find_by_code("USD").id,
                      :exchange_rate => 1.00,
@@ -348,7 +358,6 @@ ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("D
                     )
 ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("Leon Breedt").id).id,
                      :expense_type_id => ExpenseType.find_by_name('Entertainment').id,
-                     :date => Time.now,
                      :amount => 240.00,
                      :currency_id => Currency.find_by_code("USD").id,
                      :exchange_rate => 1.00,
@@ -356,7 +365,6 @@ ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("L
                     )
 ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("Sam Ruby").id).id,
                      :expense_type_id => ExpenseType.find_by_name('Airfare').id,
-                     :date => Time.now,
                      :amount => 1040.00,
                      :currency_id => Currency.find_by_code("USD").id,
                      :exchange_rate => 1.00,
@@ -364,7 +372,6 @@ ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("S
                     )
 ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("David Hansson").id).id,
                      :expense_type_id => ExpenseType.find_by_name('Office Supply').id,
-                     :date => Time.now,
                      :amount => 30.00,
                      :currency_id => Currency.find_by_code("USD").id,
                      :exchange_rate => 1.00,
@@ -372,7 +379,6 @@ ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("D
                     )
 ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("admin").id).id,
                      :expense_type_id => ExpenseType.find_by_name('Office Supply').id,
-                     :date => Time.now,
                      :amount => 30.00,
                      :currency_id => Currency.find_by_code("JPY").id,
                      :exchange_rate => 1.00,
@@ -380,7 +386,6 @@ ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("a
                     )
 ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("regular user").id).id,
                      :expense_type_id => ExpenseType.find_by_name('Office Supply').id,
-                     :date => Time.now,
                      :amount => 30.00,
                      :currency_id => Currency.find_by_code("RUB").id,
                      :exchange_rate => 1.00,

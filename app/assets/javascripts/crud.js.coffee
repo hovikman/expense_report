@@ -4,9 +4,13 @@
 
 class window.crud
 
-  @crud_action: (sResource, sAction, nColumnIndex = 1) ->
+  @crud_action: (sResource, sAction, nColumnIndex = 1, bNested = false, sParentResource = '', nParentId = 0, sChildResource = '') ->
     if sAction == 'C'
-       window.location.href = '/' + sResource + '/new'
+      if bNested
+        sURL = '/' + sParentResource + '/' + nParentId + '/' + sResource + '/new'
+      else
+        sURL = '/' + sResource + '/new'
+      window.location.href = sURL
     else
       sId = @selected_id(sResource)
       if sId == null
@@ -22,6 +26,9 @@ class window.crud
           sURL = '/' + sResource + '/' + sId
           sItemName = TableTools.fnGetInstance(sResource).fnGetSelectedData()[0][nColumnIndex]
           @delete_row(sURL, sItemName)
+        if sAction ==  'L'
+          sURL = '/' + sResource + '/' + sId + '/' + sChildResource
+          window.location.href = sURL
 
   @selected_id: (sResource) ->
     aData = TableTools.fnGetInstance(sResource).fnGetSelectedData()
@@ -43,14 +50,14 @@ class window.crud
     $('#delete_button').click()
     $('#delete_button').remove()
    
-  @construct_buttons: (sResource, nColumnIndex = 1) ->
+  @construct_buttons: (sResource, nColumnIndex = 1, bHasDetails = false, sChildResource = '', bNested = false, sParentResource = '', nParentId = 0) ->
     aColumns = [
       # New
       {
         sExtends:    "text"
         sButtonText: "New"
         fnClick: () ->
-          crud.crud_action(sResource, 'C')
+          crud.crud_action(sResource, 'C', nColumnIndex, bNested, sParentResource, nParentId)
       }
 
       # View
@@ -77,4 +84,14 @@ class window.crud
           crud.crud_action(sResource, 'D', nColumnIndex)
       }
      ]
+     
+     if bHasDetails
+       oDetails = {
+         sExtends:    "text"
+         sButtonText: "Details"
+         fnClick: () ->
+           crud.crud_action(sResource, 'L', nColumnIndex, false, '', 0, sChildResource)
+       }
+       aColumns.push(oDetails)
+       
      return aColumns
