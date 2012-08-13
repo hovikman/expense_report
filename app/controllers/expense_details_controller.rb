@@ -68,11 +68,15 @@ class ExpenseDetailsController < ApplicationController
   end
 
   def destroy
-    @expense_detail = ExpenseDetail.find(params[:id])
-    @expense_detail.destroy
+    begin
+      @expense_detail.destroy
+      notification = "Expense detail '#{@expense_detail.expense_type.name}' was successfully deleted."
+    rescue Exception => e
+      notification = e.message
+    end
 
     respond_to do |format|
-      format.html { redirect_to expense_expense_details_path(@expense_detail.expense_id), notice: "Expense detail '#{@expense_detail.expense_type.name}' was successfully deleted." }
+      format.html { redirect_to expense_expense_details_path(@expense_detail.expense_id), notice: "#{notification}" }
       format.json { head :no_content }
     end
   end

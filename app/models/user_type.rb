@@ -30,12 +30,7 @@ class UserType < ActiveRecord::Base
 
     # ensure that there are no users referencing this user_type
     def ensure_not_referenced_by_any_user
-      if users.empty?
-        return true
-      else
-        errors.add(:base, 'There are users referencing this user_type')
-        return false
-      end
+      raise 'There are users referencing this user_type' unless users.empty?
     end
 
 end

@@ -335,19 +335,23 @@ Expense.create(:user_id => User.find_by_name("Leon Breedt").id,
 Expense.create(:user_id => User.find_by_name("Sam Ruby").id,
                :purpose => "Expenses for my trip to Tokio",
                :advance_pay => 0.00,
-               :expense_status_id => ExpenseStatus.approved_id
+               :expense_status_id => ExpenseStatus.assigned_to_manager_id
               )
 Expense.create(:user_id => User.find_by_name("admin").id,
                :purpose => "Expenses for my trip to Tokio",
                :advance_pay => 10.00,
-               :expense_status_id => ExpenseStatus.assigned_to_accounting
+               :expense_status_id => ExpenseStatus.assigned_to_accounting_id
               )
 Expense.create(:user_id => User.find_by_name("regular user").id,
                :purpose => "Expenses for my trip to Tokio",
                :advance_pay => 10.00,
                :expense_status_id => ExpenseStatus.assigned_to_manager_id
               )
-
+Expense.create(:user_id => User.find_by_name("Leon Breedt").id,
+               :purpose => "Expenses for my trip to Paris",
+               :advance_pay => 0.00,
+               :expense_status_id => ExpenseStatus.assigned_to_manager_id
+              )
 #ExpenseDetail
 ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("David Hansson").id).id,
                      :expense_type_id => ExpenseType.find_by_name('Meal').id,

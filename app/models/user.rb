@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
 
   default_scope :order => 'name'
 
-
   validates :company_id, :presence => true
   validates :name, :presence => true
   validates :email, :presence => true, uniqueness: { case_sensitive: false }
@@ -29,6 +28,7 @@ class User < ActiveRecord::Base
   before_destroy :ensure_not_referenced_by_any_expense
 
   after_destroy :ensure_an_admin_remains
+  after_update  :ensure_an_admin_remains
 
   def vendor_admin?
     user_type_id == UserType.vendor_admin_id
@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
     if user_type_id == UserType::admin_id
       if User.where("user_type_id = :admin_id and company_id = :company_id",
        { :admin_id => UserType::admin_id, :company_id => company_id }).count.zero?
-        raise "Can't delete last admin"
+         raise "Can't delete last admin"
       end
     else
       if user_type_id == UserType::vendor_admin_id
@@ -90,22 +90,12 @@ class User < ActiveRecord::Base
 
     # ensure that there are no users referencing this user as a manager
     def ensure_not_referenced_by_any_user
-      if users.empty?
-        return true
-      else
-        errors.add(:base, 'There are users referencing this user as a manager')
-        return false
-      end
+      raise 'There are users referencing this user as a manager' unless users.empty?
     end
 
     # ensure that there are no expenses referencing this user
     def ensure_not_referenced_by_any_expense
-      if expenses.empty?
-        return true
-      else
-        errors.add(:base, 'There are expenses referencing this user')
-        return false
-      end
+      raise 'There are expenses referencing this user' unless expenses.empty?
     end
 
     def create_remember_token

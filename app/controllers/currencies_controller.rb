@@ -63,10 +63,15 @@ class CurrenciesController < ApplicationController
   # DELETE /currencies/1
   # DELETE /currencies/1.json
   def destroy
-    @currency.destroy
+    begin
+       @currency.destroy
+       notification = "Currency '#{@currency.code}' was successfully deleted."
+    rescue Exception => e
+      notification = e.message
+    end
 
     respond_to do |format|
-      format.html { redirect_to currencies_path, notice: "Currency '#{@currency.code}' was successfully deleted." }
+      format.html { redirect_to currencies_path, notice: "#{notification}" }
       format.json { head :no_content }
     end
   end

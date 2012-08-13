@@ -1,0 +1,26 @@
+<h1>Listing Expenses to Approve</h1>
+
+<table id="expenses_to_approve" class="display">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>User</th>
+			<th>Submit date</th>
+			<th>Purpose</th>
+			<th>Expense status</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @expenses.each do |expense| %>
+		<tr>
+			<td><%= expense.id %></td>
+			<td><%= expense.user.name %></td>
+			<td><%= expense.submit_date %></td>
+			<td><%= expense.purpose %></td>
+			<td><%= expense.expense_status.name %></td>
+		</tr>
+		<% end %>
+</table>
+
+<br />

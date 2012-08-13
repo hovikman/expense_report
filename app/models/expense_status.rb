@@ -23,7 +23,7 @@ class ExpenseStatus < ActiveRecord::Base
     find_by_name(ASSIGNED_TO_MANAGER_STR).id
   end
   
-  def self.assigned_to_accounting
+  def self.assigned_to_accounting_id
     find_by_name(ASSIGNED_TO_ACCOUNTING_STR).id
   end
 
@@ -34,12 +34,7 @@ class ExpenseStatus < ActiveRecord::Base
   private
     # ensure that there are no expenses referencing this user
     def ensure_not_referenced_by_any_expense
-      if expenses.empty?
-        return true
-      else
-        errors.add(:base, 'There are expenses referencing this expense status')
-        return false
-      end
+      raise 'There are expenses referencing this expense status' unless expenses.empty?
     end
 
 end

@@ -17,12 +17,7 @@ class ExpenseType < ActiveRecord::Base
 
     # ensure that there are no expense_details referencing this expense_type
     def ensure_not_referenced_by_any_expense_detail
-      if expense_details.empty?
-        return true
-      else
-        errors.add(:base, 'There are expense_details referencing this expense_type')
-        return false
-      end
+      raise 'There are expense details referencing this expense type' unless expense_details.empty?
     end
 
 end

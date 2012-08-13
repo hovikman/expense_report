@@ -26,12 +26,12 @@ private
 
     # Expense
     can [:read, :update, :destroy], Expense, :user_id => user.id
-    can :create, Expense
+    can [:create, :to_approve_index], Expense
 
     # ExpenseDetail
     can [:read, :update, :destroy], ExpenseDetail, :expense => { :user_id => user.id }
     can :create, ExpenseDetail
-
+    
     # ExpenseStatus
     # no permission on ExpenseStatus
 
@@ -40,7 +40,8 @@ private
     can :read, ExpenseType, :company_id => Company::vendor_id
 
     # User
-    can [:read, :update], User, :id => user.id
+    can [:update], User, :id => user.id
+    can [:read], User, :company_id => user.company_id
 
     # UserType
     # no permission on UserType

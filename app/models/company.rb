@@ -28,22 +28,12 @@ class Company < ActiveRecord::Base
 
     # ensure that there are no users referencing this company
     def ensure_not_referenced_by_any_user
-      if users.empty?
-        return true
-      else
-        errors.add(:base, 'There are users referencing this company')
-        return false
-      end
+      raise 'There are users referencing this company' unless users.empty?
     end
 
     # ensure that there are no expense types referencing this company
     def ensure_not_referenced_by_any_expense_type
-      if expense_types.empty?
-        return true
-      else
-        errors.add(:base, 'There are expense types referencing this company')
-        return false
-      end
+      raise 'There are expense types referencing this company' unless expense_types.empty?
     end
 
 end

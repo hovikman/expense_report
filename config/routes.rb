@@ -3,6 +3,7 @@ ExpenseReport::Application.routes.draw do
   resources :currencies
   resources :expenses, shallow: true do
     resources :expense_details
+    get 'to_approve_index', :on => :collection
   end
   resources :expense_statuses
   resources :expense_types

@@ -63,10 +63,15 @@ class CompaniesController < ApplicationController
   # DELETE /companies/1
   # DELETE /companies/1.json
   def destroy
-    @company.destroy
+    begin
+      @company.destroy
+      notification = "Company '#{@company.name}' was successfully deleted."
+    rescue Exception => e
+      notification = e.message
+    end
 
     respond_to do |format|
-      format.html { redirect_to companies_path, notice: "Company '#{@company.name}' was successfully deleted." }
+      format.html { redirect_to companies_path, notice: "#{notification}" }
       format.json { head :no_content }
     end
   end

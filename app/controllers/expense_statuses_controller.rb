@@ -63,10 +63,15 @@ class ExpenseStatusesController < ApplicationController
   # DELETE /expense_statuses/1
   # DELETE /expense_statuses/1.json
   def destroy
-    @expense_status.destroy
+    begin
+      @expense_status.destroy
+      notification = "Expense status '#{@expense_status.name}' was successfully deleted."
+    rescue Exception => e
+      notification = e.message
+    end
 
     respond_to do |format|
-      format.html { redirect_to expense_statuses_path, notice: "Expense status '#{@expense_status.name}' was successfully deleted." }
+      format.html { redirect_to expense_statuses_path, notice: "#{notification}" }
       format.json { head :no_content }
     end
   end

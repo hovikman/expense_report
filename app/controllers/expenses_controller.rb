@@ -10,6 +10,17 @@ class ExpensesController < ApplicationController
     end
   end
 
+  def to_approve_index
+    users = User.where("manager_id = #{current_user.id}").map {|user| user.id }
+    user_ids = '(' + users.join(', ') +')'
+    @expenses = Expense.where("(expense_status_id = #{ExpenseStatus.assigned_to_manager_id}) and (user_id IN #{user_ids})")
+    
+    respond_to do |format|
+      format.html # to_approve_index.html.erb
+      format.json { render json: @expenses }
+    end
+  end
+  
   # GET /expenses/1
   # GET /expenses/1.json
   def show
@@ -63,10 +74,14 @@ class ExpensesController < ApplicationController
   # DELETE /expenses/1
   # DELETE /expenses/1.json
   def destroy
-    @expense.destroy
-
+    begin
+      @expense.destroy
+      notification = "User '#{@expense.name}' was successfully deleted."
+    rescue Exception => e
+      notification = e.message
+    end
     respond_to do |format|
-      format.html { redirect_to expenses_path, notice: "Expense '#{@expense.purpose}' was successfully deleted." }
+      format.html { redirect_to expenses_path, notice: "#{notification}" }
       format.json { head :no_content }
     end
   end

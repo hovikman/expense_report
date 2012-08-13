@@ -18,22 +18,12 @@ class Currency < ActiveRecord::Base
 
     # ensure that there are no companies referencing this currency
     def ensure_not_referenced_by_any_company
-      if companies.empty?
-        return true
-      else
-        errors.add(:base, 'There are companies referencing this currency')
-        return false
-      end
+      raise 'There are companies referencing this currency' unless companies.empty?
     end
 
     # ensure that there are no expense_details referencing this currency
     def ensure_not_referenced_by_any_expense_detail
-      if expense_details.empty?
-        return true
-      else
-        errors.add(:base, 'There are expense_details referencing this currency')
-        return false
-      end
+      raise 'There are expense_details referencing this currency' unless expense_details.empty?
     end
 
 end

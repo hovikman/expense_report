@@ -63,10 +63,15 @@ class UserTypesController < ApplicationController
   # DELETE /user_types/1
   # DELETE /user_types/1.json
   def destroy
-    @user_type.destroy
+    begin
+      @user_type.destroy
+      notification = "User type '#{@user_type.name}' was successfully deleted."
+    rescue Exception => e
+      notification = e.message
+    end
 
     respond_to do |format|
-        format.html { redirect_to user_types_path, notice: "User type '#{@user_type.name}' was successfully deleted." }
+        format.html { redirect_to user_types_path, notice: "#{notification}" }
       format.json { head :no_content }
     end
   end
