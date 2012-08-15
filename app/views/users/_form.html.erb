@@ -10,7 +10,7 @@
 					<% company_read_only = true %>
 				<% end %>
 				<% if company_read_only %>
-					<% company_name = Company.find(f.object.company_id).name %>
+					<% company_name = f.object.company.name %>
 					<%= text_field_tag :company_id, company_name, class: "input-large", readonly: true %>
 				<% else %>
 					<%= f.collection_select(:company_id, Company.all, :id, :name, {prompt: true}, readonly: false) %>
@@ -27,11 +27,7 @@
 			<%= f.label :manager_id , "Manager:", class: "control-label" %>
 			<div class="controls">
 				<% if read_only %>
-					<% if f.object.manager_id? %>
-						<% manager_name = User.find(f.object.manager_id).name %>
-					<% else %>
-						<% manager_name = '' %>
-					<% end %>
+					<% manager_name = f.object.manager_id ? f.object.manager.name : '' %>
 					<%= text_field_tag :manager_id, manager_name, class: "input-large", readonly: true %>
 				<% else %>
 					<%= f.grouped_collection_select(:manager_id, Company.all, :users, :name, :id, :name, {prompt: true}, readonly: false) %>
@@ -48,7 +44,7 @@
 			<%= f.label :user_type_id, "User Type:", class: "control-label" %>
 			<div class="controls">
 				<% if read_only %>
-					<% user_type_name = UserType.find(f.object.user_type_id).name %>
+					<% user_type_name = f.object.user_type.name %>
 					<%= text_field_tag :user_type_id, user_type_name, class: "input-large", readonly: true %>
 				<% else %>
 					<% if current_user.vendor_admin? %>

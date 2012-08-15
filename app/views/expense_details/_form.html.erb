@@ -19,10 +19,10 @@
 			<%= f.label :expense_type_id, "Expense Type:", class: "control-label" %>
 			<div class="controls">
 				<% if read_only %>
-					<% expense_type_name = ExpenseType.find(f.object.expense_type_id).name %>
+					<% expense_type_name = f.object.expense_type.name %>
 					<%= text_field_tag :expense_type_id, expense_type_name, class: "input-large", readonly: true %>
 				<% else %>
-					<% company_id = User.find(@expense.user_id).company_id %>
+					<% company_id = f.object.user.company_id %>
 					<% vendor_id  = Company.vendor_id %>
 					<%= f.collection_select(:expense_type_id, ExpenseType.where("company_id IN (#{vendor_id}, #{company_id})"), :id, :name, {prompt: true}, readonly: false) %>
 				<% end %>
@@ -38,7 +38,7 @@
 			<%= f.label :currency_id, "Currency:", class: "control-label" %>
 			<div class="controls">
 				<% if read_only %>
-					<% currency_name = Currency.find(f.object.currency_id).name %>
+					<% currency_name = f.object.currency.name %>
 					<%= text_field_tag :currency_id, currency_name, class: "input-large", readonly: true %>
 				<% else %>
 					<%= f.collection_select(:currency_id, Currency.all, :id, :name, {prompt: true}, readonly: false) %>

@@ -6,7 +6,7 @@
 			<%= f.label :user_id, "User:", class: "control-label" %>
 			<div class="controls">
 				<% if read_only %>
-				<% user_name = User.find(f.object.user_id).name %>
+				<% user_name = f.object.user.name %>
 				<%= text_field_tag :user_id, user_name, class: "input-large", readonly: true %>
 				<% else %>
 				<% if current_user.vendor_admin? %>
@@ -33,7 +33,7 @@
 			<%= f.label :expense_status_id, "Expense Status:", class: "control-label" %>
 			<div class="controls">
 				<% if read_only %>
-				<% expense_name = ExpenseStatus.find(f.object.expense_status_id).name %>
+				<% expense_name = f.object.expense_status.name %>
 				<%= text_field_tag :expense_status_id, expense_name, class: "input-large", readonly: true %>
 				<% else %>
 				<%= f.collection_select(:expense_status_id, ExpenseStatus.all, :id, :name, {prompt: true}, readonly: false) %>
