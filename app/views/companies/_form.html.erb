@@ -12,7 +12,7 @@
 			<%= f.label :currency_id, "Currency:", class: "control-label" %>
 			<div class="controls">
 				<% if read_only %>
-					<% currency_name = Currency.find(f.object.currency_id).name %>
+					<% currency_name = f.object.currency.name %>
 					<%= text_field_tag :currency_id, currency_name, class: "input-large", readonly: true %>
 				<% else %>
 					<%= f.collection_select(:currency_id, Currency.all, :id, :name, {prompt: true}, readonly: read_only) %>
@@ -43,6 +43,17 @@
 				<%= f.email_field :contact_email, maxlength: 40, class: "input-large", readonly: read_only %>
 			</div>
 		</div>
+		<div class="field control-group">
+			<%= f.label :accountant_id, "Accountant:", class: "control-label" %>
+			<div class="controls">
+				<% if read_only %>
+					<% accountant_name = f.object.accountant_id ? f.object.accountant.name : '' %>
+					<%= text_field_tag :accountant_id, accountant_name, class: "input-large", readonly: true %>
+				<% else %>
+					<%= f.collection_select(:accountant_id, f.object.users, :id, :name, {prompt: true}, readonly: read_only) %>
+				<% end %>
+			</div>
+		</div>		
 		<br />
 		<br />
 		<% if !read_only %>

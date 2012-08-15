@@ -8,14 +8,15 @@ class Company < ActiveRecord::Base
   validates :contact_phone, :presence => true
   validates :contact_email, :presence => true
 
-  belongs_to :currency
   has_many :users
   has_many :expense_types
+  belongs_to :currency
+  belongs_to :accountant, :class_name => "User", :foreign_key => "accountant_id"
 
   before_destroy :ensure_not_referenced_by_any_user
   before_destroy :ensure_not_referenced_by_any_expense_type
 
-  attr_accessible :contact_email, :contact_person, :contact_phone, :contact_title, :currency_id, :name
+  attr_accessible :contact_email, :contact_person, :contact_phone, :contact_title, :currency_id, :name, :accountant_id
 
   # constant for name of the vendor
   VENDOR_NAME_STR = "Vendor"
