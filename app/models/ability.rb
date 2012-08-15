@@ -26,7 +26,7 @@ private
 
     # Expense
     can [:read, :update, :destroy], Expense, :user_id => user.id
-    can [:create, :to_approve_index], Expense
+    can [:create, :to_approve_index, :transition, :change_state], Expense
 
     # ExpenseDetail
     can [:read, :update, :destroy], ExpenseDetail, :expense => { :user_id => user.id }

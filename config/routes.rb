@@ -3,6 +3,8 @@ ExpenseReport::Application.routes.draw do
   resources :currencies
   resources :expenses, shallow: true do
     resources :expense_details
+    put 'change_state', :on => :member
+    get 'transition', :on => :member
     get 'to_approve_index', :on => :collection
   end
   resources :expense_statuses

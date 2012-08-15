@@ -2,11 +2,11 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-class expenses_to_approve
+class expense_transition
 
   @action: () ->
     jQuery ->
-      $('#expenses_to_approve').dataTable
+      $('#expense_transition').dataTable
         sPaginationType: "full_numbers"
         bStateSave: false
         bJQueryUI: true
@@ -19,7 +19,6 @@ class expenses_to_approve
           null
           null
           null
-          null
         ]
         sDom: '<"H"lfr>t<"F"ip>T'
         oTableTools: {
@@ -29,23 +28,13 @@ class expenses_to_approve
               sExtends:    "text"
               sButtonText: "View"
               fnClick: () ->
-                aData = TableTools.fnGetInstance('expenses_to_approve').fnGetSelectedData()
+                aData = TableTools.fnGetInstance('expense_transition').fnGetSelectedData()
                 if aData.length == 0
                   alert('No row is selected!')
                 else
-                  window.location.href = '/expenses/' + aData[0][0]
+                  window.location.href = '/expense_details/' + aData[0][0]
             },
-            {
-              sExtends:    "text"
-              sButtonText: "Details"
-              fnClick: () ->
-                aData = TableTools.fnGetInstance('expenses_to_approve').fnGetSelectedData()
-                if aData.length == 0
-                  alert('No row is selected!')
-                else
-                  window.location.href = '/expenses/' + aData[0][0] + '/transition' 
-            } 
           ]
         }
         
-expenses_to_approve.action()
+expense_transition.action()

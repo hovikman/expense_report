@@ -1,0 +1,41 @@
+<h1> <%= @expense.purpose %> </h1>
+<h1> <%= @expense.expense_status.name %> </h1>
+
+<table id="expense_transition" class="display">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Date</th>
+			<th>Expense Type</th>
+			<th>Amount</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @expense.expense_details.each do |expense_detail| %>
+		<tr>
+			<td><%= expense_detail.id %></td>
+			<td><%= expense_detail.date %></td>
+			<td><%= expense_detail.expense_type.name %></td>
+			<td><%= expense_detail.amount %></td>
+		</tr>
+		<% end %>
+</table>
+
+<br />
+
+<%= form_for(@expense, url: change_state_expense_path, html: { class: "form-horizontal"}) do |f| %>
+	<div class="form-actions center">
+		<% if @expense.expense_status_id == ExpenseStatus.new_id %>
+			<%= f.submit 'Send for approval', name: 'send_for_approval_from_new_button', class: "btn btn-primary" %>
+	    <% elsif @expense.expense_status_id == ExpenseStatus.assigned_to_manager_id %>
+			<%= f.submit 'Reject', name: 'reject_from_assigned_to_manager_button', class: "btn btn-danger" %>
+			<%= f.submit 'Approve', name: 'approve_from_assigned_to_manager_button', class: "btn btn-success" %>
+		<% elsif @expense.expense_status_id == ExpenseStatus.assigned_to_accounting_id%>
+			<%= f.submit 'Reject', name: 'reject_from_assigned_to_accounting_button', class: "btn btn-danger" %>		
+			<%= f.submit 'Approve', name: 'approve_from_assigned_to_accounting_button', class: "btn btn-success" %>
+		<% end %>
+	</div>
+<% end %>
+
+<br />

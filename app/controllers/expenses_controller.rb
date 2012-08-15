@@ -57,6 +57,47 @@ class ExpensesController < ApplicationController
     end
   end
 
+  def change_state
+    if params[:send_for_approval_from_new_button]
+      if @expense.user.manager_id
+        @expense.expense_status_id = ExpenseStatus.assigned_to_manager_id
+        transition_name = "sent to manager"
+      else
+        @expense.expense_status_id = ExpenseStatus.assigned_to_accounting_id  
+        transition_name = "sent to accounting"
+      end                
+    elsif params[:reject_from_assigned_to_manager_button]
+      @expense.expense_status_id = ExpenseStatus.new_id
+      transition_name = "rejected"
+    elsif params[:approve_from_assigned_to_manager_button]
+      @expense.expense_status_id = ExpenseStatus.assigned_to_accounting_id
+      transition_name = "approved"
+    elsif params[:reject_from_assigned_to_accounting_button]
+      @expense.expense_status_id = ExpenseStatus.new_id
+      transition_name = "rejected"
+    elsif params[:approve_from_assigned_to_accounting_button]
+      @expense.expense_status_id = ExpenseStatus.approved_id
+      transition_name = "approved"
+    end
+    
+    respond_to do |format|
+      if @expense.update_attributes(params[:expense])
+        format.html { redirect_to expenses_path, notice: "Expense '#{@expense.purpose}' was successfully #{transition_name}." }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @expense.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def transition
+    respond_to do |format|
+      format.html # transition.html.erb
+      format.json { render json: @expense }
+    end
+  end
+  
   # PUT /expenses/1
   # PUT /expenses/1.json
   def update
