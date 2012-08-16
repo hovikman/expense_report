@@ -5,7 +5,8 @@ ExpenseReport::Application.routes.draw do
     resources :expense_details
     put 'change_state', :on => :member
     get 'transition', :on => :member
-    get 'to_approve_index', :on => :collection
+    get 'owned', :on => :collection
+    get 'submitted', :on => :collection
   end
   resources :expense_statuses
   resources :expense_types

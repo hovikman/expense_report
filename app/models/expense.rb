@@ -17,5 +17,17 @@ class Expense < ActiveRecord::Base
   belongs_to :expense_status
   
   attr_accessible :advance_pay, :expense_status_id, :purpose, :submit_date, :user_id
+  
+  def owner_id
+    if expense_status_id == ExpenseStatus.new_id
+      user_id
+    elsif expense_status_id == ExpenseStatus.assigned_to_manager_id
+      user.manager_id
+    elsif expense_status_id == ExpenseStatus.assigned_to_accounting_id
+      user.company.accountant_id
+    else
+      nil
+    end
+  end
 
 end

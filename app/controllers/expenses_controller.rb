@@ -10,17 +10,39 @@ class ExpensesController < ApplicationController
     end
   end
 
-  def to_approve_index
-    users = User.where("manager_id = #{current_user.id}").map {|user| user.id }
-    user_ids = '(' + users.join(', ') +')'
-    @expenses = Expense.where("(expense_status_id = #{ExpenseStatus.assigned_to_manager_id}) and (user_id IN #{user_ids})")
-    
+  def owned
+#    @expenses = Expense.where(":owner_id = :current_user_id", {:owner_id => owner_id(), :current_user_id => current_user().id })
+#    @expenses = Expense.where(
+#      "(expense_status_id = :new_status and user_id = :current_user_id) or          " +
+#      "(expense_status_id = :assinged_to_manager and user_id = :current_user_id) or " +
+#      "(expense_status_id = :assigned_to_accountant and user_id = :current_user_id) "
+#      ,
+#      { :current_user_id        => current_user.id,
+#        :new_status             => ExpenseStatus.new_id,
+#        :assinged_to_manager    => ExpenseStatus.assigned_to_manager_id,
+#        :assigned_to_accountant => ExpenseStatus.assigned_to_accountant_id })
+  
+    # TO DO - this code is not accepable, needs to be fixed 
+    @expenses = []
+    Expense.all.each do |expense|
+      if expense.owner_id == current_user.id
+        @expenses.append(expense)
+      end
+    end
+
     respond_to do |format|
-      format.html # to_approve_index.html.erb
+      format.html # owned_expenses.html.erb
       format.json { render json: @expenses }
     end
   end
   
+  def submitted
+    respond_to do |format|
+      format.html # submitted_expenses.html.erb
+      format.json { render json: @expenses }
+    end
+  end  
+
   # GET /expenses/1
   # GET /expenses/1.json
   def show
@@ -82,7 +104,7 @@ class ExpensesController < ApplicationController
     
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
-        format.html { redirect_to expenses_path, notice: "Expense '#{@expense.purpose}' was successfully #{transition_name}." }
+        format.html { redirect_to  owned_expenses_path, notice: "Expense '#{@expense.purpose}' was successfully #{transition_name}." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

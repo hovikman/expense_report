@@ -194,21 +194,21 @@ Company.create(:name => Company::VENDOR_NAME_STR,
                :contact_person => 'Hovik Manvelyan',
                :contact_title => 'Programmer',
                :contact_phone => '5105730246',
-               :contact_email => 'hovikman@gmail.com'
+               :contact_email => 'hovikman@gmail.com',
               )
 Company.create(:name => 'Company A',
                :currency_id => Currency.find_by_code("USD").id,
                :contact_person => 'Sam Ruby',
                :contact_title => 'Admin',
                :contact_phone => '4805790277',
-               :contact_email => 'sam.ruby@companya.com'
+               :contact_email => 'sam.ruby@companya.com',
               )
 Company.create(:name => 'Company B',
                :currency_id => Currency.find_by_code("GBP").id,
                :contact_person => 'Dave Thomas',
                :contact_title => 'Admin',
                :contact_phone => '9105790943',
-               :contact_email => 'dave.thomas@companyb.com'
+               :contact_email => 'dave.thomas@companyb.com',
               )
 
 #ExpenseType
@@ -320,7 +320,6 @@ User.create(:name => 'regular user',
             :password_confirmation => 'foobar'
             )
 
-
 #Expense
 Expense.create(:user_id => User.find_by_name("David Hansson").id,
                :purpose => "Expenses for my trip to Paris",
@@ -338,20 +337,21 @@ Expense.create(:user_id => User.find_by_name("Sam Ruby").id,
                :expense_status_id => ExpenseStatus.assigned_to_manager_id
               )
 Expense.create(:user_id => User.find_by_name("admin").id,
-               :purpose => "Expenses for my trip to Tokio",
+               :purpose => "Expenses for my trip to London",
                :advance_pay => 10.00,
                :expense_status_id => ExpenseStatus.assigned_to_accounting_id
               )
 Expense.create(:user_id => User.find_by_name("regular user").id,
-               :purpose => "Expenses for my trip to Tokio",
+               :purpose => "Expenses for my trip to Moscow",
                :advance_pay => 10.00,
                :expense_status_id => ExpenseStatus.assigned_to_manager_id
               )
 Expense.create(:user_id => User.find_by_name("Leon Breedt").id,
-               :purpose => "Expenses for my trip to Paris",
+               :purpose => "Expenses for my trip",
                :advance_pay => 0.00,
                :expense_status_id => ExpenseStatus.assigned_to_manager_id
               )
+              
 #ExpenseDetail
 ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("David Hansson").id).id,
                      :expense_type_id => ExpenseType.find_by_name('Meal').id,
@@ -395,3 +395,15 @@ ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("r
                      :exchange_rate => 1.00,
                      :comments => 'I needed some pens'
                     )
+                    
+company = Company.find_by_name(Company::VENDOR_NAME_STR)
+company.accountant_id = User.find_by_name("admin").id
+company.save
+
+company = Company.find_by_name('Company A')
+company.accountant_id = User.find_by_name("Sam Ruby").id
+company.save
+
+company = Company.find_by_name('Company B')
+company.accountant_id = User.find_by_name("David Hansson").id
+company.save

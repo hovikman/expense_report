@@ -26,8 +26,30 @@ private
 
     # Expense
     can [:read, :update, :destroy], Expense, :user_id => user.id
-    can [:create, :to_approve_index, :transition, :change_state], Expense
+    can [:create], Expense
+    can [:transition, :submitted], Expense, :user_id => user.id 
 
+    # if the owner of expense, can't figure out how to make it work
+    can [:transition, :owned, :change_state], Expense
+    
+=begin
+    can [:transition, :owned, :change_state], Expense do |expense|
+      expense.user_id == expense.user_id
+      if expense.expense_status_id == ExpenseStatus.new_id
+        user_id == user.id
+      elsif expense.expense_status_id == ExpenseStatus.assigned_to_manager_id
+        expense.user.manager_id == user.id
+      elsif expense.expense_status_id == ExpenseStatus.assigned_to_accounting_id
+        expense.user.company.accountant_id == user.id
+      end
+    end
+
+    can [:transition, :owned, :change_state], Expense do |expense|
+      true
+    end
+=end
+      
+        
     # ExpenseDetail
     can [:read, :update, :destroy], ExpenseDetail, :expense => { :user_id => user.id }
     can :create, ExpenseDetail
