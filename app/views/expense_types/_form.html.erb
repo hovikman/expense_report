@@ -11,8 +11,7 @@
 		<div class="field control-group">
 			<%= f.label :company_id, "Company:", class: "control-label" %>
 			<div class="controls">
-				<% company_name = f.object.company.name %>
-				<%= text_field_tag :company_id, company_name, class: "input-large", readonly: true %>
+				<%= f.collection_select(:company_id, Company.all, :id, :name, {}, {disabled: true}) %>
 			</div>
 		</div>
 		<% if !read_only %>
