@@ -9,12 +9,7 @@
 				<% if !current_user.vendor_admin? %>
 					<% company_read_only = true %>
 				<% end %>
-				<% if company_read_only %>
-					<% company_name = f.object.company.name %>
-					<%= text_field_tag :company_id, company_name, class: "input-large", readonly: true %>
-				<% else %>
-					<%= f.collection_select(:company_id, Company.all, :id, :name, {prompt: true}, readonly: false) %>
-				<% end %>
+				<%= f.collection_select(:company_id, Company.all, :id, :name, {prompt: true}, {disabled: company_read_only}) %>
 			</div>
 		</div>
 		<div class="field control-group">
@@ -26,12 +21,7 @@
 		<div class="field control-group">
 			<%= f.label :manager_id , "Manager:", class: "control-label" %>
 			<div class="controls">
-				<% if read_only %>
-					<% manager_name = f.object.manager_id ? f.object.manager.name : '' %>
-					<%= text_field_tag :manager_id, manager_name, class: "input-large", readonly: true %>
-				<% else %>
-					<%= f.grouped_collection_select(:manager_id, Company.all, :users, :name, :id, :name, {prompt: true}, readonly: false) %>
-				<% end %>
+					<%= f.grouped_collection_select(:manager_id, Company.all, :users, :name, :id, :name, {prompt: true}, {disabled: read_only} ) %>
 			</div>
 		</div>
 		<div class="field control-group">
@@ -43,15 +33,10 @@
 		<div class="field control-group">
 			<%= f.label :user_type_id, "User Type:", class: "control-label" %>
 			<div class="controls">
-				<% if read_only %>
-					<% user_type_name = f.object.user_type.name %>
-					<%= text_field_tag :user_type_id, user_type_name, class: "input-large", readonly: true %>
+				<% if current_user.vendor_admin? %>
+					<%= f.collection_select(:user_type_id, UserType.all, :id, :name, {prompt: true}, {disabled: read_only}) %>
 				<% else %>
-					<% if current_user.vendor_admin? %>
-						<%= f.collection_select(:user_type_id, UserType.all, :id, :name, {prompt: true}, readonly: false) %>
-					<% else %>
-				  		<%= f.collection_select(:user_type_id, UserType.where("id != #{UserType.vendor_admin_id}"), :id, :name, {prompt: true}, readonly: false) %>
-					<% end %>
+					<%= f.collection_select(:user_type_id, UserType.where("id != #{UserType.vendor_admin_id}"), :id, :name, {prompt: true}, {disabled: read_only}) %>
 				<% end %>
 			</div>
 		</div>

@@ -5,15 +5,10 @@
 		<div class="field control-group">
 			<%= f.label :user_id, "User:", class: "control-label" %>
 			<div class="controls">
-				<% if read_only %>
-				<% user_name = f.object.user.name %>
-				<%= text_field_tag :user_id, user_name, class: "input-large", readonly: true %>
-				<% else %>
 				<% if current_user.vendor_admin? %>
-				<%= f.collection_select(:user_id, User.all, :id, :name_with_company, {prompt: true}, readonly: false) %>
+				<%= f.collection_select(:user_id, User.all, :id, :name_with_company, {prompt: true}, {disabled: read_only}) %>
 				<% else %>
-				<%= f.collection_select(:user_id, User.where("company_id == #{current_user.company_id}"), :id, :name, {prompt: true}, readonly: false) %>
-				<% end %>
+				<%= f.collection_select(:user_id, User.where("company_id == #{current_user.company_id}"), :id, :name, {prompt: true}, {disabled: read_only}) %>
 				<% end %>
 			</div>
 		</div>
@@ -32,12 +27,7 @@
 		<div class="field control-group">
 			<%= f.label :expense_status_id, "Expense Status:", class: "control-label" %>
 			<div class="controls">
-				<% if read_only %>
-				<% expense_name = f.object.expense_status.name %>
-				<%= text_field_tag :expense_status_id, expense_name, class: "input-large", readonly: true %>
-				<% else %>
-				<%= f.collection_select(:expense_status_id, ExpenseStatus.all, :id, :name, {prompt: true}, readonly: false) %>
-				<% end %>
+				<%= f.collection_select(:expense_status_id, ExpenseStatus.all, :id, :name, {prompt: true}, {disabled: read_only}) %>
 			</div>
 		</div>
 		<div class="field control-group">
