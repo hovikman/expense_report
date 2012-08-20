@@ -22,7 +22,7 @@
 					<% expense_type_name = f.object.expense_type.name %>
 					<%= text_field_tag :expense_type_id, expense_type_name, class: "input-large", readonly: true %>
 				<% else %>
-					<% company_id = f.object.user.company_id %>
+					<% company_id = f.object.expense.user.company_id %>
 					<% vendor_id  = Company.vendor_id %>
 					<%= f.collection_select(:expense_type_id, ExpenseType.where("company_id IN (#{vendor_id}, #{company_id})"), :id, :name, {prompt: true}, readonly: false) %>
 				<% end %>
