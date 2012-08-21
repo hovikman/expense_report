@@ -6,7 +6,7 @@ class Ability
 
     case
     when user.vendor_admin?
-      can :manage, :all
+      vendor_admin_permission(user)
     when user.regular_user?
       regular_user_permission(user)
     when user.company_admin?
@@ -16,7 +16,13 @@ class Ability
   end
 
 private
-  
+
+  def vendor_admin_permission(user)
+    can :manage, :all
+    cannot :submitted, Expense
+    can :submitted, Expense, :user_id => user.id 
+  end
+
   def regular_user_permission(user)
     # Company
     # no permission on Company
