@@ -30,7 +30,7 @@ class UserType < ActiveRecord::Base
 
     # ensure that there are no users referencing this user_type
     def ensure_not_referenced_by_any_user
-      raise 'There are users referencing this user_type' unless users.empty?
+      raise "Cannot delete user type '#{name}'. There are users referencing this user type." unless users.empty?
     end
 
 end

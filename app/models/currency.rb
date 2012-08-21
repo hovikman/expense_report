@@ -18,12 +18,12 @@ class Currency < ActiveRecord::Base
 
     # ensure that there are no companies referencing this currency
     def ensure_not_referenced_by_any_company
-      raise 'There are companies referencing this currency' unless companies.empty?
+      raise "Cannot delete currency '#{name}'. There are companies referencing this currency." unless companies.empty?
     end
 
     # ensure that there are no expense_details referencing this currency
     def ensure_not_referenced_by_any_expense_detail
-      raise 'There are expense_details referencing this currency' unless expense_details.empty?
+      raise "Cannot delete currency '#{name}'. There are expens details referencing this currency." unless expense_details.empty?
     end
 
 end

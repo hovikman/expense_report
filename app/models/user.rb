@@ -74,13 +74,13 @@ class User < ActiveRecord::Base
     if user_type_id == UserType::admin_id
       if User.where("user_type_id = :admin_id and company_id = :company_id",
        { :admin_id => UserType::admin_id, :company_id => company_id }).count.zero?
-         raise "Can't delete last admin"
+         raise "Cannot delete last admin."
       end
     else
       if user_type_id == UserType::vendor_admin_id
         if User.where("user_type_id = :vendor_admin_id and company_id = :company_id",
          { :vendor_admin_id => UserType::vendor_admin_id, :company_id => Company::vendor_id }).count.zero?
-          raise "Can't delete last vendor admin"
+          raise "Cannot delete last vendor admin."
         end
       end
     end
@@ -90,12 +90,12 @@ class User < ActiveRecord::Base
 
     # ensure that there are no users referencing this user as a manager
     def ensure_not_referenced_by_any_user
-      raise 'There are users referencing this user as a manager' unless users.empty?
+      raise "Cannot delete user '#{name}'. There are users referencing this user as manager." unless users.empty?
     end
 
     # ensure that there are no expenses referencing this user
     def ensure_not_referenced_by_any_expense
-      raise 'There are expenses referencing this user' unless expenses.empty?
+      raise "Cannot delete user '#{name}'. There are expenses referencing this user." unless expenses.empty?
     end
 
     def create_remember_token

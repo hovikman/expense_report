@@ -29,12 +29,12 @@ class Company < ActiveRecord::Base
 
     # ensure that there are no users referencing this company
     def ensure_not_referenced_by_any_user
-      raise 'There are users referencing this company' unless users.empty?
+      raise "Cannot delete company '#{name}'. There are users referencing this company." unless users.empty?
     end
 
     # ensure that there are no expense types referencing this company
     def ensure_not_referenced_by_any_expense_type
-      raise 'There are expense types referencing this company' unless expense_types.empty?
+      raise "Cannot delete company '#{name}'. There are expense types referencing this company." unless expense_types.empty?
     end
 
 end

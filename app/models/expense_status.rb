@@ -34,7 +34,7 @@ class ExpenseStatus < ActiveRecord::Base
   private
     # ensure that there are no expenses referencing this user
     def ensure_not_referenced_by_any_expense
-      raise 'There are expenses referencing this expense status' unless expenses.empty?
+      raise "Cannot delete expense status '#{name}'. There are expenses referencing this expense status." unless expenses.empty?
     end
 
 end
