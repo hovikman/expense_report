@@ -1,14 +1,14 @@
 class Currency < ActiveRecord::Base
   default_scope order: 'code'
 
-  validates :name, :presence => true, :uniqueness => true
-  validates :code, :presence => true, :uniqueness => true
+  validates :name, :presence => true, :uniqueness => { :case_sensitive => false }
+  validates :code, :presence => true, :uniqueness => { :case_sensitive => false }
+
+  before_save { self.code.upcase! }
 
   has_many :companies
   has_many :expense_details
 
-  before_save { self.code.upcase! }
-  
   before_destroy :ensure_not_referenced_by_any_company
   before_destroy :ensure_not_referenced_by_any_expense_detail
 
