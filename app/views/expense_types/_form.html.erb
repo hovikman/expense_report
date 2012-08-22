@@ -12,6 +12,11 @@
 			<%= f.label :company_id, "Company:", class: "control-label" %>
 			<div class="controls">
 				<%= f.collection_select(:company_id, Company.all, :id, :name, {}, {disabled: true}) %>
+
+				<%# This hidden field is necessary to pass the validation of company_id field.     %>
+				<%# Without this field, validation fails since collection_select field is disabled %>
+				<%# and disabled fields are ignored during validation.                             %>
+				<%= f.hidden_field :company_id %>
 			</div>
 		</div>
 		<% if !read_only %>
