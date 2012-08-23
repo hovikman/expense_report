@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
 
   has_many :users, :foreign_key => "manager_id"
   has_many :expenses
+  has_many :owned_expenses, :class_name => "Expense", :foreign_key => :owner_id
 
   before_save { self.email.downcase! }
   before_save :create_remember_token

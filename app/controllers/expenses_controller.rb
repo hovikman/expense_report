@@ -11,25 +11,6 @@ class ExpensesController < ApplicationController
   end
 
   def owned
-#    @expenses = Expense.where(":owner_id = :current_user_id", {:owner_id => owner_id(), :current_user_id => current_user().id })
-#    @expenses = Expense.where(
-#      "(expense_status_id = :new_status and user_id = :current_user_id) or          " +
-#      "(expense_status_id = :assinged_to_manager and user_id = :current_user_id) or " +
-#      "(expense_status_id = :assigned_to_accountant and user_id = :current_user_id) "
-#      ,
-#      { :current_user_id        => current_user.id,
-#        :new_status             => ExpenseStatus.new_id,
-#        :assinged_to_manager    => ExpenseStatus.assigned_to_manager_id,
-#        :assigned_to_accountant => ExpenseStatus.assigned_to_accountant_id })
-  
-    # TO DO - this code is not accepable, needs to be fixed 
-    @expenses = []
-    Expense.all.each do |expense|
-      if expense.owner_id == current_user.id
-        @expenses.append(expense)
-      end
-    end
-
     respond_to do |format|
       format.html # owned_expenses.html.erb
       format.json { render json: @expenses }
@@ -83,23 +64,29 @@ class ExpensesController < ApplicationController
     if params[:send_for_approval_from_new_button]
       if @expense.user.manager_id
         @expense.expense_status_id = ExpenseStatus.assigned_to_manager_id
-        transition_name = "sent to manager"
+        @expense.owner_id          = @expense.user.manager_id
+        transition_name            = "sent to manager"
       else
         @expense.expense_status_id = ExpenseStatus.assigned_to_accounting_id  
-        transition_name = "sent to accounting"
+        @expense.owner_id          = @expense.user.company.acountant_id
+        transition_name            = "sent to accounting"
       end                
     elsif params[:reject_from_assigned_to_manager_button]
       @expense.expense_status_id = ExpenseStatus.new_id
-      transition_name = "rejected"
+      @expense.owner_id          = @expense.user_id
+      transition_name            = "rejected"
     elsif params[:approve_from_assigned_to_manager_button]
       @expense.expense_status_id = ExpenseStatus.assigned_to_accounting_id
-      transition_name = "approved"
+      @expense.owner_id          = @expense.user.company.acountant_id
+      transition_name            = "approved"
     elsif params[:reject_from_assigned_to_accounting_button]
       @expense.expense_status_id = ExpenseStatus.new_id
-      transition_name = "rejected"
+      @expense.owner_id          = @expense.user_id
+      transition_name            = "rejected"
     elsif params[:approve_from_assigned_to_accounting_button]
       @expense.expense_status_id = ExpenseStatus.approved_id
-      transition_name = "approved"
+      @expense.owner_id          = nil
+      transition_name            = "approved"
     end
     
     respond_to do |format|

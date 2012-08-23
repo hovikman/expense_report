@@ -27,19 +27,19 @@
                 Admin <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-              <% if can? :manage, :company %>
+              <% if can? :manage, Company %>
                 <li><%= link_to "Companies", companies_path %></li>
               <% end %>
-              <% if can? :manage, :currency %>
+              <% if can? :manage, Currency %>
                 <li><%= link_to "Currencies", currencies_path %></li>
               <% end %>
               <li><%= link_to "Expenses", expenses_path %></li>
-              <% if can? :manage, :expense_status %>
+              <% if can? :manage, ExpenseStatus %>
                 <li><%= link_to "Expense Statuses", expense_statuses_path %></li>
               <% end %>
               <li><%= link_to "Expense Types", expense_types_path %></li>
               <li><%= link_to "Users", users_path %></li>
-              <% if can? :manage, :UserType %>
+              <% if can? :manage, UserType %>
                 <li><%= link_to "Users Types", user_types_path %></li>
               <% end %>
               </ul>
