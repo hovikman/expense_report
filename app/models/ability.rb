@@ -65,7 +65,7 @@ private
     can [:read, :update, :destroy], Expense, :user => { :company_id => user.company_id }
     
     # ExpenseDetail
-    can [:read, :update, :destroy], ExpenseDetail, :expense => { :user => { :company_id => user.company_id } }
+    can [:create, :read, :update, :destroy], ExpenseDetail, :expense => { :user => { :company_id => user.company_id } }
   end
 
   def vendor_admin_permission(user)
@@ -74,7 +74,7 @@ private
     
     can :manage, Currency
     can [:read, :update, :destroy], Expense
-    can [:read, :update, :destroy], ExpenseDetail
+    can [:create, :read, :update, :destroy], ExpenseDetail
     can :manage, ExpenseStatus
     can :manage, ExpenseType
     can :manage, User
