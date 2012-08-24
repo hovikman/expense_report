@@ -24,4 +24,9 @@ class ExpenseDetail < ActiveRecord::Base
                   :exchange_rate,
                   :expense_id,
                   :expense_type_id
+                  
+  def total_amount
+    exchange_rate * amount
+  end
+  
 end

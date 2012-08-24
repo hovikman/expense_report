@@ -22,4 +22,7 @@ class Expense < ActiveRecord::Base
   
   attr_accessible :advance_pay, :expense_status_id, :purpose, :submit_date, :user_id
   
+  def total_amount
+    expense_details.inject(0) {|sum, expense_detail| sum + expense_detail.total_amount()} - advance_pay
+  end
 end

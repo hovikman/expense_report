@@ -48,6 +48,13 @@
 			</div>
 		</div>
 		<div class="field control-group">
+			<%= f.label :total_amount, "Total amount:", class: "control-label" %>
+			<div class="controls">
+				<%= number_field_tag 'expense_detail_total_amount', @expense_detail.amount * @expense_detail.exchange_rate, readonly: true %>
+				<%#= f.number_field :total_amount, class: "input-large", readonly: true %>
+			</div>
+		</div>
+		<div class="field control-group">
 			<%= f.label :comments, "Comments:", class: "control-label" %>
 			<div class="controls">
 				<%= f.text_area :comments, :rows => 4, class: "input-large", readonly: read_only  %>

@@ -17,7 +17,7 @@
 			<td><%= expense_detail.id %></td>
 			<td><%= expense_detail.date %></td>
 			<td><%= expense_detail.expense_type.name %></td>
-			<td><%= expense_detail.amount %></td>
+			<td><%= expense_detail.total_amount() %></td>
 		</tr>
 		<% end %>
 </table>

@@ -28,6 +28,16 @@ class expense_details
           aButtons : 
               crud.construct_buttons('expense_details', 2, false, '', true, 'expenses', expense_id)
         }
+
+$ ->
+  $('#expense_detail_amount').change ->
+    total_amount = $('#expense_detail_amount').val() * $('#expense_detail_exchange_rate').val()
+    $('#expense_detail_total_amount').val(total_amount)
+
+$ ->
+  $('#expense_detail_exchange_rate').change ->
+    total_amount = $('#expense_detail_amount').val() * $('#expense_detail_exchange_rate').val()
+    $('#expense_detail_total_amount').val(total_amount)       
         
 $ ->
   $("#expense_detail_date").datepicker

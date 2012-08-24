@@ -7,7 +7,8 @@
 			<th>User</th>
 			<th>Submit date</th>
 			<th>Purpose</th>
-			<th>Expense status</th>
+			<th>Status</th>
+			<th>Total Amount</th>
 		</tr>
 	</thead>
 
@@ -19,6 +20,7 @@
 			<td><%= expense.submit_date %></td>
 			<td><%= expense.purpose %></td>
 			<td><%= expense.expense_status.name %></td>
+			<td><%= expense.total_amount() %></td>
 		</tr>
 		<% end %>
 </table>

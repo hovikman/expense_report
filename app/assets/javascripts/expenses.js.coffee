@@ -21,6 +21,7 @@ class expenses
           null
           null
           null
+          null
         ]
         sDom: '<"H"lfr>t<"F"ip>T'
         oTableTools: {
