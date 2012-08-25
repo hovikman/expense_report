@@ -4,7 +4,6 @@ ExpenseReport::Application.routes.draw do
   resources :expenses, shallow: true do
     resources :expense_details
     put 'change_state', :on => :member
-    get 'transition', :on => :member
     get 'owned', :on => :collection
     get 'submitted', :on => :collection
   end

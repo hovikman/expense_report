@@ -25,14 +25,15 @@ private
 
     # Expense
     can :create, Expense
-    can [:read, :transition, :submitted], Expense, :user_id => user.id 
-    can [:read, :transition], Expense, :owner_id => user.id 
+    can [:read, :submitted], Expense, :user_id => user.id 
+    can :read, Expense, :owner_id => user.id 
     can [:update, :destroy], Expense, :user_id => user.id, :owner_id => user.id
     can [:owned, :change_state], Expense, :owner_id => user.id
         
     # ExpenseDetail
     can [:create, :update, :destroy], ExpenseDetail, :expense => {:user_id => user.id, :owner_id => user.id}
     can :read, ExpenseDetail, :expense => { :user_id => user.id }
+    can :read, ExpenseDetail, :expense => { :owner_id => user.id }
     
     # ExpenseStatus
     # no permission on ExpenseStatus

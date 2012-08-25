@@ -5,21 +5,21 @@ class ExpensesController < ApplicationController
   # GET /expenses.json
   def index
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Expenses' } }
       format.json { render json: @expenses }
     end
   end
 
   def owned
     respond_to do |format|
-      format.html # owned_expenses.html.erb
+      format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Expenses Owned' } }
       format.json { render json: @expenses }
     end
   end
   
   def submitted
     respond_to do |format|
-      format.html # submitted_expenses.html.erb
+      format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Expenses Submitted' } }
       format.json { render json: @expenses }
     end
   end  
@@ -100,13 +100,6 @@ class ExpensesController < ApplicationController
     end
   end
 
-  def transition
-    respond_to do |format|
-      format.html # transition.html.erb
-      format.json { render json: @expense }
-    end
-  end
-  
   # PUT /expenses/1
   # PUT /expenses/1.json
   def update
