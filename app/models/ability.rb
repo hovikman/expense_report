@@ -31,7 +31,8 @@ private
     can [:owned, :change_state], Expense, :owner_id => user.id
         
     # ExpenseDetail
-    can [:create, :update, :destroy], ExpenseDetail, :expense => {:user_id => user.id, :owner_id => user.id}
+    can :create, ExpenseDetail
+    can [:update, :destroy], ExpenseDetail, :expense => {:user_id => user.id, :owner_id => user.id}
     can :read, ExpenseDetail, :expense => { :user_id => user.id }
     can :read, ExpenseDetail, :expense => { :owner_id => user.id }
     
@@ -72,7 +73,8 @@ private
   def vendor_admin_permission(user)
     # grant company admin permissions to vendor admin 
     company_admin_permission(user)
-    
+
+    can :manage, Company
     can :manage, Currency
     can [:read, :update, :destroy], Expense
     can [:create, :read, :update, :destroy], ExpenseDetail

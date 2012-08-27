@@ -12,14 +12,14 @@ class ExpensesController < ApplicationController
 
   def owned
     respond_to do |format|
-      format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Expenses Owned' } }
+      format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Owned Expenses' } }
       format.json { render json: @expenses }
     end
   end
   
   def submitted
     respond_to do |format|
-      format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Expenses Submitted' } }
+      format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Submitted Expenses' } }
       format.json { render json: @expenses }
     end
   end  
@@ -51,7 +51,7 @@ class ExpensesController < ApplicationController
   def create
     respond_to do |format|
       if @expense.save
-        format.html { redirect_to expenses_path, notice: "Expense '#{@expense.purpose}' was successfully created." }
+        format.html { redirect_to expense_expense_details_path(@expense.id), notice: "Expense '#{@expense.purpose}' was successfully created." }
         format.json { render json: @expense, status: :created, location: @expense }
       else
         format.html { render action: "new" }
@@ -91,6 +91,8 @@ class ExpensesController < ApplicationController
     
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
+        Notifier.became_owner(@expense).deliver
+        Notifier.status_changed(@expense).deliver unless @expense.owner_id == @expense.user_id
         format.html { redirect_to  owned_expenses_path, notice: "Expense '#{@expense.purpose}' was successfully #{transition_name}." }
         format.json { head :no_content }
       else

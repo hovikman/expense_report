@@ -210,6 +210,13 @@ Company.create(:name => 'Company B',
                :contact_phone => '9105790943',
                :contact_email => 'dave.thomas@companyb.com',
               )
+Company.create(:name => 'Manvelyan Soft',
+               :currency_id => Currency.find_by_code("USD").id,
+               :contact_person => 'Hovik Manvelyan',
+               :contact_title => 'Programmer',
+               :contact_phone => '5105730246',
+               :contact_email => 'hovikman@gmail.com',
+              )              
 
 #ExpenseType
 ExpenseType.create(:name => 'Airfare',
@@ -319,6 +326,32 @@ User.create(:name => 'regular user',
             :password => 'foobar',
             :password_confirmation => 'foobar'
             )
+User.create(:name => 'Hovik',
+            :company_id => Company.find_by_name("Manvelyan Soft").id,
+            :user_type_id => UserType::admin_id,
+            :manager_id => nil,
+            :email => 'hovik_manvelyan2002@yahoo.com',
+            :password => 'foobar',
+            :password_confirmation => 'foobar'
+            )
+User.create(:name => 'Hayk',
+            :company_id => Company.find_by_name("Manvelyan Soft").id,
+            :user_type_id => UserType::regular_user_id,
+            :manager_id => User.find_by_name("Hovik").id,
+            :email => 'haykm1993@yahoo.com',
+            :password => 'foobar',
+            :password_confirmation => 'foobar'
+            )
+User.create(:name => 'Melan',
+            :company_id => Company.find_by_name("Manvelyan Soft").id,
+            :user_type_id => UserType::regular_user_id,
+            :manager_id => User.find_by_name("Hovik").id,
+            :email => 'melanarm@yahoo.com',
+            :password => 'foobar',
+            :password_confirmation => 'foobar'
+            )
+
+
 
 #Expense
 Expense.create(:user_id => User.find_by_name("David Hansson").id,
@@ -342,7 +375,7 @@ Expense.create(:user_id => User.find_by_name("regular user").id,
                :advance_pay => 10.00,
               )
 Expense.create(:user_id => User.find_by_name("Leon Breedt").id,
-               :purpose => "Expenses for my trip",
+               :purpose => "Expenses for my trip Kiev",
                :advance_pay => 0.00,
               )
               
@@ -400,4 +433,8 @@ company.save
 
 company = Company.find_by_name('Company B')
 company.accountant_id = User.find_by_name("David Hansson").id
+company.save
+
+company = Company.find_by_name('Manvelyan Soft')
+company.accountant_id = User.find_by_name("Melan").id
 company.save
