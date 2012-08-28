@@ -1,0 +1,19 @@
+<h1>Expense Report Notification</h1>
+
+<div>
+	Hello <%= @expense.user.name %>,
+	<br />
+	<br />
+</div>
+
+<div>
+	The status of your expense has been changed.
+</div>
+
+<div>
+	You can see the details of this expense at the link below:
+</div>
+
+<div>
+	<%= link_to 'Expense Details', expense_expense_details_url(@expense.id) %>
+</div>

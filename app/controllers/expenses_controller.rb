@@ -68,7 +68,7 @@ class ExpensesController < ApplicationController
         transition_name            = "sent to manager"
       else
         @expense.expense_status_id = ExpenseStatus.assigned_to_accounting_id  
-        @expense.owner_id          = @expense.user.company.acountant_id
+        @expense.owner_id          = @expense.user.company.accountant_id
         transition_name            = "sent to accounting"
       end                
     elsif params[:reject_from_assigned_to_manager_button]
@@ -77,7 +77,7 @@ class ExpensesController < ApplicationController
       transition_name            = "rejected"
     elsif params[:approve_from_assigned_to_manager_button]
       @expense.expense_status_id = ExpenseStatus.assigned_to_accounting_id
-      @expense.owner_id          = @expense.user.company.acountant_id
+      @expense.owner_id          = @expense.user.company.accountant_id
       transition_name            = "approved"
     elsif params[:reject_from_assigned_to_accounting_button]
       @expense.expense_status_id = ExpenseStatus.new_id
@@ -91,7 +91,7 @@ class ExpensesController < ApplicationController
     
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
-        Notifier.became_owner(@expense).deliver
+        Notifier.became_owner(@expense).deliver if @expense.owner_id?
         Notifier.status_changed(@expense).deliver unless @expense.owner_id == @expense.user_id
         format.html { redirect_to  owned_expenses_path, notice: "Expense '#{@expense.purpose}' was successfully #{transition_name}." }
         format.json { head :no_content }

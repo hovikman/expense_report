@@ -1,0 +1,19 @@
+<h1>Expense Report Notification</h1>
+
+<div>
+	Hello <%= @expense.owner.name %>,
+	<br />
+	<br />
+</div>
+
+<div>
+	You became the owner of an expense.
+</div>
+
+<div>
+	You can see the details of this expense at the link below:
+</div>
+
+<div>
+	<%= link_to 'Expense Details', expense_expense_details_url(@expense.id) %>
+</div>
