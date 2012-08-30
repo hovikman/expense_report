@@ -25,7 +25,7 @@
 					</li>
 					<% if current_user().admin? %>
 					<li id="fat-menu" class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Admin <b class="caret"></b> </a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Resources <b class="caret"></b> </a>
 						<ul class="dropdown-menu">
 							<% if can? :manage, Company %>
 							<li>
@@ -58,6 +58,18 @@
 							<% end %>
 						</ul>
 					</li>
+					<% end %>
+					<% if current_user().admin? %>
+					<li id="fat-menu" class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Utilities <b class="caret"></b> </a>
+						<ul class="dropdown-menu">
+							<li>
+								<%= link_to "Replace Expense Owner", replace_owner_screen_expenses_path %>
+							</li>
+							<li>
+								<%= link_to "Replace User Manager", currencies_path %>
+							</li>
+						</ul>
 					<% end %>
 					<li id="fat-menu" class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Expenses <b class="caret"></b> </a>

@@ -6,6 +6,8 @@ ExpenseReport::Application.routes.draw do
     put 'change_state', :on => :member
     get 'owned', :on => :collection
     get 'submitted', :on => :collection
+    get 'replace_owner_screen', :on => :collection
+    get 'replace_owner', :on => :collection
   end
   resources :expense_statuses
   resources :expense_types
