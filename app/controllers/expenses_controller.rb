@@ -151,10 +151,18 @@ class ExpensesController < ApplicationController
       end
     end
     
-    if failure_num == 0
-      notification = "#{success_num} expense(s) have been succesfully updated."
-    else
-      notification = "#{success_num} expense(s) have been succesfully updated, but #{failure_num} have failed."
+    if success_num > 0
+      if failure_num == 0
+        notification = "#{success_num} expense(s) have been succesfully updated."
+      else
+        notification = "#{success_num} expense(s) have been succesfully updated, but #{failure_num} have failed."
+      end
+    elsif
+      if failure_num == 0
+        notification = "No expenses have been updated."
+      else
+        notification = "#{failure_num} expense(s) have failed."
+      end
     end
  
     respond_to do |format|
