@@ -74,5 +74,36 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def replace_manager_screen
+    respond_to do |format|
+      format.html # replace_manager_screen.html.erb
+    end
+  end  
+
+  def replace_manager
+    from_user_id  = params[:replace_user_manager_from_user_id]
+    to_user_id    = params[:replace_user_manager_to_user_id]
+    
+    success_num = 0
+    failure_num = 0
+    User.where("manager_id = ?", from_user_id).each do |user|
+      if user.update_attribute(:manager_id, to_user_id)
+        success_num += 1
+      else
+        failure_num += 1
+      end
+    end
+    
+    if failure_num == 0
+      notification = "#{success_num} user(s) have been succesfully updated."
+    else
+      notification = "#{success_num} user(s) have been succesfully updated, but #{failure_num} have failed."
+    end
+ 
+    respond_to do |format|
+      format.html { redirect_to replace_manager_screen_users_path, notice: notification }
+    end
+  end
 
 end

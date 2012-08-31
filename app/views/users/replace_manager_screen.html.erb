@@ -1,0 +1,33 @@
+<h1>Replace User Manager</h1>
+
+<div class="row form_background">
+	<div class="span6 offset2">
+		<%= form_tag(replace_manager_users_path, method: :get, class: "form-horizontal") do %>
+		<div class="field control-group">
+			<%= label_tag :replace_user_manager_company_id, "Company:", class: "control-label" %>
+			<div class="controls">
+				<% if current_user.vendor_admin? %>
+					<%= select_tag("replace_user_manager_company_id", options_from_collection_for_select(Company.all, "id", "name"), prompt: 'Please select company ...') %>
+				<% else %>
+					<%= select_tag("replace_user_manager_company_id", options_from_collection_for_select(Company.where("id=?", current_user.company.id), "id", "name")) %>
+				<% end %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= label_tag :replace_user_manager_from_user_id, "From User:", class: "control-label" %>
+			<div class="controls">
+				<%= select_tag("replace_user_manager_from_user_id", option_groups_from_collection_for_select(Company.all, :users, :name, :id, :name), prompt: 'Please select from user ...') %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= label_tag :replace_user_manager_to_user_id, "To User:", class: "control-label" %>
+			<div class="controls">
+				<%= select_tag("replace_user_manager_to_user_id", option_groups_from_collection_for_select(Company.all, :users, :name, :id, :name), prompt: 'Please select to user ...') %>
+			</div>
+		</div>
+		<div class="form-actions center">
+			<%= submit_tag("Replace", class: "btn btn-primary") %>
+		</div>
+		<% end %>
+	</div>
+</div>

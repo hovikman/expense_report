@@ -12,7 +12,10 @@ ExpenseReport::Application.routes.draw do
   resources :expense_statuses
   resources :expense_types
   resources :sessions, only: [:new, :create, :destroy]
-  resources :users
+  resources :users do
+    get 'replace_manager_screen', :on => :collection
+    get 'replace_manager', :on => :collection    
+  end
   resources :user_types
 
   root to: 'static_pages#home'
