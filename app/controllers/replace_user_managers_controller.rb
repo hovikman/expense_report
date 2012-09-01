@@ -10,11 +10,18 @@ class ReplaceUserManagersController < ApplicationController
   def create
     @replace_user_manager = ReplaceUserManager.new(params[:replace_user_manager])
     if @replace_user_manager.valid?
-      manager_id     = @replace_user_manager.manager_id
+      company_id = @replace_user_manager.company_id
+      manager_id = @replace_user_manager.manager_id
+      if manager_id == ''
+        manager_id = nil
+      end
       new_manager_id = @replace_user_manager.new_manager_id
+      if new_manager_id == ''
+        new_manager_id = nil
+      end
       success_num = 0
       failure_num = 0
-      User.where("manager_id = ?", manager_id).each do |user|
+      User.where({company_id: company_id, manager_id: manager_id}).each do |user|
         if user.update_attribute(:manager_id, new_manager_id)
           success_num += 1
         else
