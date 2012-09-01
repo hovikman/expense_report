@@ -4,19 +4,19 @@
 
 # To do: this code fragment repeats. Refactor the fragment to a function
 jQuery ->
-  from_user            = $('#replace_user_manager_from_user_id').html()
-  to_user              = $('#replace_user_manager_to_user_id').html()
-  from_user_first_line = "<option value=\"\">Please select from user ...</option>"
-  to_user_first_line   = "<option value=\"\">Please select to user ...</option>"
-  company              = $("#replace_user_manager_company_id :selected").text()
-  from_user_options    = from_user_first_line + $(from_user).filter("optgroup[label='#{company}']").html()
-  to_user_options      = to_user_first_line + $(to_user).filter("optgroup[label='#{company}']").html()
-  $("#replace_user_manager_from_user_id").html(from_user_options)
-  $("#replace_user_manager_to_user_id").html(to_user_options)
+  manager                = $('#replace_user_manager_manager_id').html()
+  new_manager            = $('#replace_user_manager_new_manager_id').html()
+  manager_first_line     = "<option value=\"\">Please select</option>"
+  new_manager_first_line = "<option value=\"\">Please select</option>"
+  company                = $("#replace_user_manager_company_id :selected").text()
+  manager_options        = manager_first_line + $(manager).filter("optgroup[label='#{company}']").html()
+  new_manager_options    = new_manager_first_line + $(new_manager).filter("optgroup[label='#{company}']").html()
+  $("#replace_user_manager_manager_id").html(manager_options)
+  $("#replace_user_manager_new_manager_id").html(new_manager_options)
   
   $('#replace_user_manager_company_id').change ->
     company              = $("#replace_user_manager_company_id :selected").text()
-    from_user_options    = from_user_first_line + $(from_user).filter("optgroup[label='#{company}']").html()
-    to_user_options      = to_user_first_line + $(to_user).filter("optgroup[label='#{company}']").html()
-    $("#replace_user_manager_from_user_id").html(from_user_options)
-    $("#replace_user_manager_to_user_id").html(to_user_options)
+    manager_options      = manager_first_line + $(manager).filter("optgroup[label='#{company}']").html()
+    new_manager_options  = new_manager_first_line + $(new_manager).filter("optgroup[label='#{company}']").html()
+    $("#replace_user_manager_manager_id").html(manager_options)
+    $("#replace_user_manager_new_manager_id").html(new_manager_options)

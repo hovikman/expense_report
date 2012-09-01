@@ -1,0 +1,34 @@
+<h1>Replace User Manager</h1>
+
+<div class="row form_background">
+	<div class="span6 offset2">
+		<%= form_for(@replace_user_manager, html: { class: "form-horizontal"}) do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+		<div class="field control-group">
+			<%= f.label :company_id, "Company:", class: "control-label" %>
+			<div class="controls">
+				<% if current_user.vendor_admin? %>
+					<%= f.collection_select(:company_id, Company.all, :id, :name, {prompt: true}) %>
+				<% else %>
+					<%= f.collection_select(:company_id, Company.where("id=?", current_user.company.id), :id, :name, {prompt: true}) %>
+				<% end %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :manager_id , "Manager:", class: "control-label" %>
+			<div class="controls">
+				<%= f.grouped_collection_select(:manager_id, Company.all, :users, :name, :id, :name, {prompt: true} ) %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :new_manager_id , "New Manager:", class: "control-label" %>
+			<div class="controls">
+				<%= f.grouped_collection_select(:new_manager_id, Company.all, :users, :name, :id, :name, {prompt: true} ) %>
+			</div>
+		</div>
+		<div class="form-actions center">
+			<%= f.submit "Replace User Manager", class: "btn btn-primary" %>
+		</div>
+		<% end %>
+	</div>
+</div>

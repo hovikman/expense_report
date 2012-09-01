@@ -62,7 +62,6 @@ private
     # User
     can :create, User
     can [:read, :update, :destroy], User, :company_id => user.company_id
-    can [:replace_manager_screen, :replace_manager], User
 
     # Expense
     can [:read, :update, :destroy], Expense, :user => { :company_id => user.company_id }
@@ -72,6 +71,9 @@ private
     
     # ReplaceExpenseOwner
     can :create, ReplaceExpenseOwner
+    
+    # ReplaceUserManager
+    can :create, ReplaceUserManager
   end
 
   def vendor_admin_permission(user)
