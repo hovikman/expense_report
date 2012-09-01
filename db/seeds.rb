@@ -314,7 +314,7 @@ User.create(:name => 'vendor_admin',
             :company_id => Company.find_by_name(Company::VENDOR_NAME_STR).id,
             :user_type_id => UserType::vendor_admin_id,
             :manager_id => nil,
-            :email => 'vendor_admin@vendor_company.com',
+            :email => 'vendor_admin@vendorcompany.com',
             :password => 'foobar',
             :password_confirmation => 'foobar'
             )
