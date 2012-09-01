@@ -10,13 +10,13 @@ class ReplaceExpenseOwnersController < ApplicationController
   def create
     @replace_expense_owner = ReplaceExpenseOwner.new(params[:replace_expense_owner])
     if @replace_expense_owner.valid?
-      from_user_id  = @replace_expense_owner.from_user_id
-      to_user_id    = @replace_expense_owner.to_user_id
+      owner_id     = @replace_expense_owner.owner_id
+      new_owner_id = @replace_expense_owner.new_owner_id
 
       success_num = 0
       failure_num = 0
-      Expense.where("owner_id = ?", from_user_id).each do |expense|
-        if expense.update_attribute(:owner_id, to_user_id)
+      Expense.where("owner_id = ?", owner_id).each do |expense|
+        if expense.update_attribute(:owner_id, new_owner_id)
           success_num += 1
         else
           failure_num += 1
@@ -29,12 +29,10 @@ class ReplaceExpenseOwnersController < ApplicationController
         else
           notification = "#{success_num} expense(s) have been succesfully updated, but #{failure_num} have failed."
         end
+      elsif failure_num == 0
+        notification = "No expenses have been updated."
       else
-        if failure_num == 0
-          notification = "No expenses have been updated."
-        else
-          notification = "#{failure_num} expense(s) have failed."
-        end
+        notification = "#{failure_num} expense(s) have failed."
       end
       redirect_to new_replace_expense_owner_path, notice: notification
     else # not valid

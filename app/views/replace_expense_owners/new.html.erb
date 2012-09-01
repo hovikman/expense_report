@@ -15,15 +15,15 @@
 			</div>
 		</div>
 		<div class="field control-group">
-			<%= f.label :from_user_id , "From User:", class: "control-label" %>
+			<%= f.label :owner_id , "From User:", class: "control-label" %>
 			<div class="controls">
-				<%= f.grouped_collection_select(:from_user_id, Company.all, :users, :name, :id, :name, {prompt: true} ) %>
+				<%= f.grouped_collection_select(:owner_id, Company.all, :users, :name, :id, :name, {prompt: true} ) %>
 			</div>
 		</div>
 		<div class="field control-group">
-			<%= f.label :to_user_id , "To User:", class: "control-label" %>
+			<%= f.label :new_owner_id , "To User:", class: "control-label" %>
 			<div class="controls">
-				<%= f.grouped_collection_select(:to_user_id, Company.all, :users, :name, :id, :name, {prompt: true} ) %>
+				<%= f.grouped_collection_select(:new_owner_id, Company.all, :users, :name, :id, :name, {prompt: true} ) %>
 			</div>
 		</div>
 		<div class="form-actions center">

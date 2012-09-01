@@ -3,12 +3,12 @@ class ReplaceExpenseOwner
   include ActiveModel::Conversion
   extend ActiveModel::Naming
   
-  attr_accessor :company_id, :from_user_id, :to_user_id
+  attr_accessor :company_id, :owner_id, :new_owner_id
 
   validates :company_id, presence: true
-  validates :from_user_id, presence: true
-  validates :to_user_id, presence: true
-  validate :validate_user_ids
+  validates :owner_id, presence: true
+  validates :new_owner_id, presence: true
+  validate :validate_owner_ids
   
   def initialize(attributes = {})
     attributes.each do |name, value|
@@ -20,9 +20,9 @@ class ReplaceExpenseOwner
     false
   end
   
-  def validate_user_ids
-    if from_user_id != '' and (from_user_id == to_user_id)
-      errors.add :base, "From user and To user cannot be the same."
+  def validate_owner_ids
+    if owner_id != '' and (owner_id == new_owner_id)
+      errors.add :base, "The owner and new owner can't be the same."
     end
   end
 
