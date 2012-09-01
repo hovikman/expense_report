@@ -6,8 +6,8 @@
 jQuery ->
   from_user            = $('#replace_expense_owner_from_user_id').html()
   to_user              = $('#replace_expense_owner_to_user_id').html()
-  from_user_first_line = "<option value=\"\">Please select from user ...</option>"
-  to_user_first_line   = "<option value=\"\">Please select to user ...</option>"
+  from_user_first_line = "<option value=\"\">Please select</option>"
+  to_user_first_line   = "<option value=\"\">Please select</option>"
   company              = $("#replace_expense_owner_company_id :selected").text()
   from_user_options    = from_user_first_line + $(from_user).filter("optgroup[label='#{company}']").html()
   to_user_options      = to_user_first_line + $(to_user).filter("optgroup[label='#{company}']").html()

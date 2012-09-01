@@ -131,43 +131,4 @@ class ExpensesController < ApplicationController
     end
   end
   
-  def replace_owner_screen
-    respond_to do |format|
-      format.html # replace_owner_screen.html.erb
-    end
-  end
-  
-  def replace_owner
-    from_user_id  = params[:replace_expense_owner_from_user_id]
-    to_user_id    = params[:replace_expense_owner_to_user_id]
-    
-    success_num = 0
-    failure_num = 0
-    Expense.where("owner_id = ?", from_user_id).each do |expense|
-      if expense.update_attribute(:owner_id, to_user_id)
-        success_num += 1
-      else
-        failure_num += 1
-      end
-    end
-    
-    if success_num > 0
-      if failure_num == 0
-        notification = "#{success_num} expense(s) have been succesfully updated."
-      else
-        notification = "#{success_num} expense(s) have been succesfully updated, but #{failure_num} have failed."
-      end
-    elsif
-      if failure_num == 0
-        notification = "No expenses have been updated."
-      else
-        notification = "#{failure_num} expense(s) have failed."
-      end
-    end
- 
-    respond_to do |format|
-      format.html { redirect_to replace_owner_screen_expenses_path, notice: notification }
-    end
-  end
-  
 end
