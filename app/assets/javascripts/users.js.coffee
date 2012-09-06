@@ -28,18 +28,16 @@ class users
             crud.construct_buttons('users')
         }
 
-# To do: this code fragment repeats. Refactor the fragment to a function
-jQuery ->
-  managers = $('#user_manager_id').html()
+users_update_controls = (managers) ->
   company = $("#user_company_id :selected").text()
   first_line = "<option value=\"\">Please select</option>"
   options = first_line + $(managers).filter("optgroup[label='#{company}']").html()
   $("#user_manager_id").html(options)
-  
+
+jQuery ->
+  managers = $('#user_manager_id').html()
+  users_update_controls(managers)
   $('#user_company_id').change ->
-    company = $("#user_company_id :selected").text()
-    first_line = "<option value=\"\">Please select</option>"
-    options = first_line + $(managers).filter("optgroup[label='#{company}']").html()
-    $("#user_manager_id").html(options)
+    users_update_controls(managers)
 
 users.action()
