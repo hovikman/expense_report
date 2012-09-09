@@ -1,6 +1,7 @@
 ExpenseReport::Application.routes.draw do
   resources :companies
   resources :currencies
+  match '/currencies/:from_currency_id/get_exchange_rate/:to_currency_id', to: 'currencies#get_exchange_rate', :via => :get
   resources :expenses, shallow: true do
     resources :expense_details
     put 'change_state', :on => :member

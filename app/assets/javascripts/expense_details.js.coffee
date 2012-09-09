@@ -29,17 +29,49 @@ class expense_details
               crud.construct_buttons('expense_details', 2, false, '', true, 'expenses', expense_id)
         }
 
-$ ->
-  $('#expense_detail_amount').change ->
-    total_amount = $('#expense_detail_amount').val() * $('#expense_detail_exchange_rate').val()
-    $('#expense_detail_total_amount').val(total_amount)
+exchange_rate = (from_currency, to_currency) ->
+  $.get "/currencies/" + from_currency + "/get_exchange_rate/" + to_currency,
+  ((response) ->
+    if response > 0
+      $('#expense_detail_exchange_rate').val(response)
+      expense_details_update_total_amount()),
+  'text'
+    
+selected_currency_id = ->
+  $('#expense_detail_currency_id').val()           
 
+base_currency_id = ->
+  $('#expense_detail_base_currency_id').text()          
+    
+expense_details_update_total_amount = ->
+  total_amount = $('#expense_detail_amount').val() * $('#expense_detail_exchange_rate').val()
+  total_amount = total_amount.toFixed(2)
+  $('#expense_detail_total_amount').val(total_amount)
+  
+expense_details_update_controls = (refresh_exchange_rate) ->
+  if base_currency_id() == selected_currency_id()
+    $('#expense_detail_exchange_rate').val('1.00')
+    $('#expense_detail_exchange_rate').prop "readOnly", true
+    expense_details_update_total_amount()
+  else
+    if !$('#expense_detail_currency_id').is('[readonly]')
+      # we are in edit mode, not in view mode
+      if refresh_exchange_rate
+        exchange_rate(selected_currency_id(), base_currency_id())
+      $('#expense_detail_exchange_rate').prop "readOnly", false
+  
 $ ->
+  expense_details_update_controls(false)
+
+  $('#expense_detail_amount').change ->
+    expense_details_update_total_amount()
+
   $('#expense_detail_exchange_rate').change ->
-    total_amount = $('#expense_detail_amount').val() * $('#expense_detail_exchange_rate').val()
-    $('#expense_detail_total_amount').val(total_amount)       
-        
-$ ->
+    expense_details_update_total_amount()
+    
+  $('#expense_detail_currency_id').change ->
+    expense_details_update_controls(true)
+
   $("#expense_detail_date").datepicker
     showButtonPanel: true
     changeMonth: true

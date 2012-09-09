@@ -21,7 +21,7 @@ private
     # no permission on Company
 
     # Currency
-    # no permission on Currency
+    can :get_exchange_rate, Currency
 
     # Expense
     can :create, Expense

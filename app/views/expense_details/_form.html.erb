@@ -1,5 +1,6 @@
 <div class="row form_background">
 	<div class="span6 offset2">
+		<div id='expense_detail_base_currency_id' style="visibility: hidden"><%= @expense.user.company.currency_id %></div>
 		<% if action_name == "new" || action_name == "create" %>
 			<% url = expense_expense_details_path(@expense.id) %>
 			<% html = {method: :post, class: "form-horizontal"} %>
@@ -18,9 +19,9 @@
 		<div class="field control-group">
 			<%= f.label :expense_type_id, "Expense Type:", class: "control-label" %>
 			<div class="controls">
-					<% company_id = f.object.expense.user.company_id %>
-					<% vendor_id  = Company.vendor_id %>
-					<%= f.collection_select(:expense_type_id, ExpenseType.where("company_id IN (#{vendor_id}, #{company_id})"), :id, :name, {prompt: true}, {disabled: read_only}) %>
+				<% company_id = f.object.expense.user.company_id %>
+				<% vendor_id  = Company.vendor_id %>
+				<%= f.collection_select(:expense_type_id, ExpenseType.where("company_id IN (#{vendor_id}, #{company_id})"), :id, :name, {prompt: true}, {disabled: read_only}) %>
 			</div>
 		</div>
 		<div class="field control-group">
@@ -32,7 +33,7 @@
 		<div class="field control-group">
 			<%= f.label :currency_id, "Currency:", class: "control-label" %>
 			<div class="controls">
-					<%= f.collection_select(:currency_id, Currency.all, :id, :name, {prompt: true}, {disabled: read_only}) %>
+				<%= f.collection_select(:currency_id, Currency.all, :id, :name, {prompt: true}, {disabled: read_only}) %>
 			</div>
 		</div>
 		<div class="field control-group">
@@ -51,7 +52,6 @@
 			<%= f.label :total_amount, "Total amount:", class: "control-label" %>
 			<div class="controls">
 				<%= number_field_tag 'expense_detail_total_amount', @expense_detail.amount * @expense_detail.exchange_rate, readonly: true %>
-				<%#= f.number_field :total_amount, class: "input-large", readonly: true %>
 			</div>
 		</div>
 		<div class="field control-group">
