@@ -33,7 +33,7 @@
 		<div class="field control-group">
 			<%= f.label :currency_id, "Currency:", class: "control-label" %>
 			<div class="controls">
-				<%= f.collection_select(:currency_id, Currency.all, :id, :name, {prompt: true}, {disabled: read_only}) %>
+				<%= f.collection_select(:currency_id, Currency.all, :id, :code_and_name, {prompt: true}, {disabled: read_only}) %>
 			</div>
 		</div>
 		<div class="field control-group">
