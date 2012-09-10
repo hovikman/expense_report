@@ -34,7 +34,9 @@ exchange_rate = (from_currency, to_currency) ->
   ((response) ->
     if response > 0
       $('#expense_detail_exchange_rate').val(response)
-      expense_details_update_total_amount()),
+      expense_details_update_total_amount()
+    else
+      alert('Cannot acquire exchange rate, please enter it manually.')),
   'text'
     
 selected_currency_id = ->

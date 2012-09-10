@@ -87,15 +87,19 @@ class CurrenciesController < ApplicationController
     # in case of error from the web service, exchange_rate remains 0 
     exchange_rate = 0  
 
-     # Fetch a resource: an XML document with exchange rate.
-    xml = open("http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=#{from_currency_code}&ToCurrency=#{to_currency_code}").read
+    begin
+      # Fetch a resource: an XML document with exchange rate.
+      xml = open("http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=#{from_currency_code}&ToCurrency=#{to_currency_code}").read
   
-    # Parse the XML document into a data structure.
-    document = REXML::Document.new(xml)
+      # Parse the XML document into a data structure.
+      document = REXML::Document.new(xml)
   
-    # Use XPath to find the interesting part of the data structure.
-    REXML::XPath.each(document, '//double') do |rate|
-      exchange_rate = rate[0]
+      # Use XPath to find the interesting part of the data structure.
+      REXML::XPath.each(document, '//double') do |rate|
+        exchange_rate = rate[0]
+      end
+    rescue
+      # ignore error, and pass 0 as exchange_rate
     end       
  
     respond_to do |format|
