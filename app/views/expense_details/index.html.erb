@@ -1,4 +1,5 @@
-<h1>Expense Details</h1>
+<%= render partial: 'shared/title', locals: { title: 'Expense Details' } %>
+
 <div id='expense_id' style="visibility: hidden"><%= @expense.id %></div>
 
 <%= render partial: 'expenses/form', locals: { read_only: true } %>

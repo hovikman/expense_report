@@ -1,4 +1,4 @@
-<h1>New User</h1>
+<%= render partial: 'shared/title', locals: { title: 'New User' } %>
 
 <% if !@user.company_id? %>
   <% @user.company_id = current_user().company_id %>
