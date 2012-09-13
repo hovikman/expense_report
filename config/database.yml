@@ -13,11 +13,3 @@ test:
   pool: 5
   username: postgres
   password: hmhsr0
-
-production:
-  adapter: postgresql
-  encoding: unicode
-  database: expense_report_production
-  pool: 5
-  username: postgres
-  password: hmhsr0
