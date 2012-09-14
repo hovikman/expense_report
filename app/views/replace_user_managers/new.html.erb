@@ -10,7 +10,7 @@
 				<% if current_user.vendor_admin? %>
 					<%= f.collection_select(:company_id, Company.all, :id, :name, {prompt: true}) %>
 				<% else %>
-					<%= f.collection_select(:company_id, Company.where("id=?", current_user.company.id), :id, :name, {prompt: true}) %>
+					<%= f.collection_select(:company_id, Company.where({id: current_user.company.id}), :id, :name, {prompt: true}) %>
 				<% end %>
 			</div>
 		</div>

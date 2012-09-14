@@ -36,7 +36,7 @@
 				<% if current_user.vendor_admin? %>
 					<%= f.collection_select(:user_type_id, UserType.all, :id, :name, {prompt: true}, {disabled: read_only}) %>
 				<% elsif current_user.company_admin? %>
-					<%= f.collection_select(:user_type_id, UserType.where("id != #{UserType.vendor_admin_id}"), :id, :name, {prompt: true}, {disabled: read_only}) %>
+					<%= f.collection_select(:user_type_id, UserType.where("id != ?", UserType.vendor_admin_id), :id, :name, {prompt: true}, {disabled: read_only}) %>
 				<% else %>
 					<%= f.collection_select(:user_type_id, UserType.all, :id, :name, {prompt: true}, {disabled: true}) %>
 				<% end %>

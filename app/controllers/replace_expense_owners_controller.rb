@@ -15,7 +15,7 @@ class ReplaceExpenseOwnersController < ApplicationController
 
       success_num = 0
       failure_num = 0
-      Expense.where("owner_id = ?", owner_id).each do |expense|
+      Expense.where({owner_id: owner_id}).each do |expense|
         if expense.update_attribute(:owner_id, new_owner_id)
           Notifier.became_owner(expense).deliver
           success_num += 1

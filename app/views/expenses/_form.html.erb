@@ -8,7 +8,7 @@
 				<% if current_user.vendor_admin? %>
 				<%= f.collection_select(:user_id, User.all, :id, :name_with_company, {prompt: true}, {disabled: read_only}) %>
 				<% else %>
-				<%= f.collection_select(:user_id, User.where("company_id = #{current_user.company_id}"), :id, :name, {prompt: true}, {disabled: read_only}) %>
+				<%= f.collection_select(:user_id, User.where({company_id: current_user.company_id}), :id, :name, {prompt: true}, {disabled: read_only}) %>
 				<% end %>
 			</div>
 		</div>

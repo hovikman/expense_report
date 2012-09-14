@@ -73,14 +73,12 @@ class User < ActiveRecord::Base
 
   def ensure_an_admin_remains
     if user_type_id == UserType::admin_id
-      if User.where("user_type_id = :admin_id and company_id = :company_id",
-       { :admin_id => UserType::admin_id, :company_id => company_id }).count.zero?
+      if User.where({user_type_id: UserType::admin_id, company_id: company_id}).count.zero?
          raise "Cannot delete last admin."
       end
     else
       if user_type_id == UserType::vendor_admin_id
-        if User.where("user_type_id = :vendor_admin_id and company_id = :company_id",
-         { :vendor_admin_id => UserType::vendor_admin_id, :company_id => Company::vendor_id }).count.zero?
+        if User.where({user_type_id: UserType::vendor_admin_id, company_id: company_id}).count.zero?
           raise "Cannot delete last vendor admin."
         end
       end

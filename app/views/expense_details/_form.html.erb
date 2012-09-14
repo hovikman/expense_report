@@ -21,7 +21,7 @@
 			<div class="controls">
 				<% company_id = f.object.expense.user.company_id %>
 				<% vendor_id  = Company.vendor_id %>
-				<%= f.collection_select(:expense_type_id, ExpenseType.where("company_id IN (#{vendor_id}, #{company_id})"), :id, :name, {prompt: true}, {disabled: read_only}) %>
+				<%= f.collection_select(:expense_type_id, ExpenseType.where({company_id: [vendor_id, company_id]}), :id, :name, {prompt: true}, {disabled: read_only}) %>
 			</div>
 		</div>
 		<div class="field control-group">
