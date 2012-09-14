@@ -27,7 +27,7 @@ class expenses
         oTableTools: {
           sRowSelect: "single"     
           aButtons : 
-            crud.construct_buttons('expenses', 1, true, 'expense_details')
+            crud.construct_buttons('expenses', 3, true, 'expense_details')
         }
 
 $ ->

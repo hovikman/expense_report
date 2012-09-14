@@ -65,7 +65,7 @@ class ExpenseTypesController < ApplicationController
   def destroy
     begin
       @expense_type.destroy
-      notification = "Expense detail '#{@expense_type.name}' was successfully deleted."
+      notification = "Expense type '#{@expense_type.name}' was successfully deleted."
     rescue Exception => e
       notification = e.message
     end

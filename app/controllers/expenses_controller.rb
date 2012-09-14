@@ -124,7 +124,7 @@ class ExpensesController < ApplicationController
   def destroy
     begin
       @expense.destroy
-      notification = "User '#{@expense.name}' was successfully deleted."
+      notification = "Expense '#{@expense.purpose}' was successfully deleted."
     rescue Exception => e
       notification = e.message
     end
