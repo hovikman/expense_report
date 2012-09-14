@@ -3,13 +3,16 @@ class ReplaceUserManager
   include ActiveModel::Conversion
   extend ActiveModel::Naming
   
+  # Attributes
   attr_accessor :company_id,
                 :manager_id,
                 :new_manager_id
 
+  # Validations
   validates :company_id, presence: true
   validate :validate_manager_ids
   
+  # Methods
   def initialize(attributes = {})
     attributes.each do |name, value|
       send("#{name}=", value)

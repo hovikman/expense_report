@@ -3,15 +3,18 @@ class ReplaceExpenseOwner
   include ActiveModel::Conversion
   extend ActiveModel::Naming
   
+  # Attributes
   attr_accessor :company_id,
                 :owner_id,
                 :new_owner_id
 
+  # Validations
   validates :company_id, presence: true
   validates :owner_id, presence: true
   validates :new_owner_id, presence: true
   validate :validate_owner_ids
   
+  # Methods
   def initialize(attributes = {})
     attributes.each do |name, value|
       send("#{name}=", value)

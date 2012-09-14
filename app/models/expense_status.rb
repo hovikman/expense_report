@@ -1,20 +1,26 @@
 class ExpenseStatus < ActiveRecord::Base
+  # Attributes
+  attr_accessible :name
+  
+  # Scope
   default_scope :order => 'name'
 
-  validates :name, :presence => true, :uniqueness => true
-
+  # Associations
   has_many :expenses
 
+  # Validations
+  validates :name, :presence => true, :uniqueness => true
+
+  # Callbacks
   before_destroy :ensure_not_referenced_by_any_expense
 
-  attr_accessible :name
-
-  # constants for predefined expense status values
+  # Constants
   NEW_STR                    = "New"
   ASSIGNED_TO_MANAGER_STR    = "Assigned to manager"
   ASSIGNED_TO_ACCOUNTING_STR = "Assigned to accounting"
   APPROVED_STR               = "Approved"
 
+  # Methods
   def self.new_id
     find_by_name(NEW_STR).id
   end

@@ -1,19 +1,25 @@
 class UserType < ActiveRecord::Base
+  # Attributes
+  attr_accessible :name
+  
+  # Scope
   default_scope :order => 'name'
 
-  validates :name, :presence => true, :uniqueness => true
-
+  # Associations
   has_many :users
 
+  # Validations
+  validates :name, :presence => true, :uniqueness => true
+
+  # Callbacks
   before_destroy :ensure_not_referenced_by_any_user
 
-  attr_accessible :name
-
-  # constants for predefined user type values
+  # Constants
   ADMIN_STR        = "Administrator"
   REGULAR_USER_STR = "Regular User"
   VENDOR_ADMIN_STR = "Vendor Administrator"
 
+  # Methods
   def self.admin_id
     find_by_name(ADMIN_STR).id
   end

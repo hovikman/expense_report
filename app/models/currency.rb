@@ -1,19 +1,23 @@
 class Currency < ActiveRecord::Base
+  # Attributes
+  attr_accessible :code,
+                  :name
+                  
+  # Scope
   default_scope order: 'code'
 
-  validates :name, :presence => true, :uniqueness => { :case_sensitive => false }
-  validates :code, :presence => true, :uniqueness => { :case_sensitive => false }
-
-  before_save { self.code.upcase! }
-
+  # Associations
   has_many :companies
   has_many :expense_details
 
+  # Validations
+  validates :name, :presence => true, :uniqueness => { :case_sensitive => false }
+  validates :code, :presence => true, :uniqueness => { :case_sensitive => false }
+
+  # Callbacks
+  before_save { self.code.upcase! }
   before_destroy :ensure_not_referenced_by_any_company
   before_destroy :ensure_not_referenced_by_any_expense_detail
-
-  attr_accessible :code,
-                  :name
 
   private
 
