@@ -11,7 +11,8 @@ class ExpenseType < ActiveRecord::Base
 
   before_destroy :ensure_not_referenced_by_any_expense_detail
 
-  attr_accessible :company_id, :name
+  attr_accessible :company_id,
+                  :name
 
   private
 

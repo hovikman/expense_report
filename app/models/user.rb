@@ -1,9 +1,14 @@
 class User < ActiveRecord::Base
-  attr_accessible :company_id, :email, :manager_id, :name,
-                  :user_type_id, :password, :password_confirmation
   has_secure_password
-
   default_scope :order => 'name'
+
+  attr_accessible :company_id,
+                  :email,
+                  :manager_id,
+                  :name,
+                  :password,
+                  :password_confirmation,
+                  :user_type_id
 
   validates :company_id, :presence => true
   validates :name, :presence => true

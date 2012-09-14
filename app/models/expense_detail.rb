@@ -22,7 +22,6 @@ class ExpenseDetail < ActiveRecord::Base
                   :currency_id,
                   :date,
                   :exchange_rate,
-                  :expense_id,
                   :expense_type_id
                   
   def total_amount

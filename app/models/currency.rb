@@ -12,7 +12,8 @@ class Currency < ActiveRecord::Base
   before_destroy :ensure_not_referenced_by_any_company
   before_destroy :ensure_not_referenced_by_any_expense_detail
 
-  attr_accessible :code, :name
+  attr_accessible :code,
+                  :name
 
   private
 

@@ -3,7 +3,9 @@ class ReplaceExpenseOwner
   include ActiveModel::Conversion
   extend ActiveModel::Naming
   
-  attr_accessor :company_id, :owner_id, :new_owner_id
+  attr_accessor :company_id,
+                :owner_id,
+                :new_owner_id
 
   validates :company_id, presence: true
   validates :owner_id, presence: true

@@ -3,7 +3,9 @@ class ReplaceUserManager
   include ActiveModel::Conversion
   extend ActiveModel::Naming
   
-  attr_accessor :company_id, :manager_id, :new_manager_id
+  attr_accessor :company_id,
+                :manager_id,
+                :new_manager_id
 
   validates :company_id, presence: true
   validate :validate_manager_ids

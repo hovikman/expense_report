@@ -16,7 +16,13 @@ class Company < ActiveRecord::Base
   before_destroy :ensure_not_referenced_by_any_user
   before_destroy :ensure_not_referenced_by_any_expense_type
 
-  attr_accessible :contact_email, :contact_person, :contact_phone, :contact_title, :currency_id, :name, :accountant_id
+  attr_accessible :accountant_id,
+                  :contact_email,
+                  :contact_person,
+                  :contact_phone,
+                  :contact_title,
+                  :currency_id,
+                  :name 
 
   # constant for name of the vendor
   VENDOR_NAME_STR = "Vendor"
