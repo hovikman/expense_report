@@ -3,13 +3,13 @@ class UserType < ActiveRecord::Base
   attr_accessible :name
   
   # Scope
-  default_scope :order => 'name'
+  default_scope order: 'name'
 
   # Associations
   has_many :users
 
   # Validations
-  validates :name, :presence => true, :uniqueness => true
+  validates :name, presence: true, uniqueness: true
 
   # Callbacks
   before_destroy :ensure_not_referenced_by_any_user

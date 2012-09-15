@@ -37,7 +37,7 @@ class ReplaceExpenseOwnersController < ApplicationController
       end
       redirect_to new_replace_expense_owner_path, notice: notification
     else # not valid
-      render :action => 'new'
+      render action: 'new'
     end
   end
 

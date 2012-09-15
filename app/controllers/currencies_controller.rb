@@ -103,7 +103,7 @@ class CurrenciesController < ApplicationController
     end       
  
     respond_to do |format|
-      format.text { render :text => "#{exchange_rate}" }
+      format.text { render text: "#{exchange_rate}" }
     end
   end
 end

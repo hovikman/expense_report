@@ -11,22 +11,22 @@ class User < ActiveRecord::Base
                   :user_type_id
 
   # Scope
-  default_scope :order => 'name'
+  default_scope order: 'name'
 
   # Associations
-  has_many :users, :foreign_key => "manager_id"
+  has_many :users, foreign_key: "manager_id"
   has_many :expenses
-  has_many :owned_expenses, :class_name => "Expense", :foreign_key => :owner_id
+  has_many :owned_expenses, class_name: "Expense", foreign_key: :owner_id
   belongs_to :company
-  belongs_to :manager, :class_name => "User", :foreign_key => "manager_id"
+  belongs_to :manager, class_name: "User", foreign_key: "manager_id"
   belongs_to :user_type
 
   # Validations
-  validates :company_id, :presence => true
-  validates :name, :presence => true
-  validates :email, :presence => true, uniqueness: { case_sensitive: false }
-  validates :user_type_id, :presence => true
-  validates_uniqueness_of :name, :scope => :company_id
+  validates :company_id, presence: true
+  validates :name, presence: true
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :user_type_id, presence: true
+  validates_uniqueness_of :name, scope: :company_id
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
   validate :validate_user_type

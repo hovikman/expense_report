@@ -42,7 +42,7 @@ class ReplaceUserManagersController < ApplicationController
       end
       redirect_to new_replace_user_manager_path, notice: notification
     else # not valid
-      render :action => 'new'
+      render action: 'new'
     end
   end
 

@@ -4,16 +4,16 @@ class ExpenseType < ActiveRecord::Base
                   :name
                   
   # Scope
-  default_scope :order => 'name'
+  default_scope order: 'name'
 
   # Associations
   has_many :expense_details
   belongs_to :company
 
   # Validations
-  validates :company_id, :presence => true
-  validates :name, :presence => true
-  validates_uniqueness_of :name, :scope => :company_id
+  validates :company_id, presence: true
+  validates :name, presence: true
+  validates_uniqueness_of :name, scope: :company_id
 
   # Callbacks
   before_destroy :ensure_not_referenced_by_any_expense_detail

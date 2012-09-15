@@ -8,21 +8,21 @@ class Company < ActiveRecord::Base
                   :currency_id,
                   :name
   # Scope
-  default_scope :order => 'name'
+  default_scope order: 'name'
                    
   # Associations
   has_many :users
   has_many :expense_types
   belongs_to :currency
-  belongs_to :accountant, :class_name => "User", :foreign_key => "accountant_id"
+  belongs_to :accountant, class_name: "User", foreign_key: "accountant_id"
   
   # Validations
-  validates :name, :presence => true, :uniqueness => true
-  validates :currency_id, :presence => true
-  validates :contact_person, :presence => true
-  validates :contact_title, :presence => true
-  validates :contact_phone, :presence => true
-  validates :contact_email, :presence => true
+  validates :name, presence: true, uniqueness: true
+  validates :currency_id, presence: true
+  validates :contact_person, presence: true
+  validates :contact_title, presence: true
+  validates :contact_phone, presence: true
+  validates :contact_email, presence: true
 
   # Callbacks
   before_destroy :ensure_not_referenced_by_any_user
