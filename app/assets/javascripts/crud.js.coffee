@@ -40,7 +40,7 @@ class window.crud
   @delete_row: (sURL, sItemName) ->
     href = $('<a ' +
                'id="delete_button" href="' + sURL + '" ' + 
-               'data-confirm="Are you sure you want to delete ' + sItemName + ' ?" ' +
+               'data-confirm="Are you sure you want to delete \'' + sItemName + '\' ?" ' +
                'data-method="delete" ' +
                'rel="nofollow" ' +
                'hidden="true"' +
