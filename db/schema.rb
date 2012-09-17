@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120916032322) do
+ActiveRecord::Schema.define(:version => 20120917013846) do
 
   create_table "companies", :force => true do |t|
     t.string   "name",           :limit => 30, :null => false
@@ -67,13 +67,13 @@ ActiveRecord::Schema.define(:version => 20120916032322) do
   add_index "expense_types", ["company_id", "name"], :name => "index_expense_types_on_company_id_and_name", :unique => true
 
   create_table "expenses", :force => true do |t|
-    t.integer  "user_id",                                         :null => false
-    t.date     "submit_date",                                     :null => false
-    t.text     "purpose",                                         :null => false
-    t.integer  "expense_status_id",                               :null => false
-    t.decimal  "advance_pay",       :precision => 8, :scale => 2, :null => false
-    t.datetime "created_at",                                      :null => false
-    t.datetime "updated_at",                                      :null => false
+    t.integer  "user_id",                                                       :null => false
+    t.date     "submit_date",                                                   :null => false
+    t.string   "purpose",           :limit => 40,                               :null => false
+    t.integer  "expense_status_id",                                             :null => false
+    t.decimal  "advance_pay",                     :precision => 8, :scale => 2, :null => false
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
     t.integer  "owner_id"
   end
 
