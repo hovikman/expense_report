@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
                   :name,
                   :password,
                   :password_confirmation,
+                  :phone,
                   :user_type_id
 
   # Scope
