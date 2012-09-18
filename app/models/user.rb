@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
  
   def manager_name
     if (manager.nil?)
-      return ""
+      return ''
     else
       return manager.name
     end

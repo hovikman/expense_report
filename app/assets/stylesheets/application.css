@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require dataTables/src/demo_table_jui
+ *= require dataTables/jquery.dataTables
  *= require jquery-ui/overcast
  *= require TableTools
  *= require TableTools_JUI
