@@ -40,7 +40,7 @@ class CurrenciesController < ApplicationController
   def create
     respond_to do |format|
       if @currency.save
-        format.html { redirect_to currencies_path, notice: "Currency '#{@currency.code}' was successfully created." }
+        format.html { redirect_to currencies_path, flash: { success: "Currency '#{@currency.name}' was successfully created."} }
         format.json { render json: @currency, status: :created, location: @currency }
       else
         format.html { render action: "new" }
@@ -54,7 +54,7 @@ class CurrenciesController < ApplicationController
   def update
     respond_to do |format|
       if @currency.update_attributes(params[:currency])
-        format.html { redirect_to currencies_path, notice: "Currency '#{@currency.code}' was successfully updated." }
+        format.html { redirect_to currencies_path, flash: { success: "Currency '#{@currency.name}' was successfully updated."} }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -68,13 +68,15 @@ class CurrenciesController < ApplicationController
   def destroy
     begin
        @currency.destroy
-       notification = "Currency '#{@currency.code}' was successfully deleted."
+       notification = "Currency '#{@currency.name}' was successfully deleted."
+       flash_status = :success
     rescue Exception => e
       notification = e.message
+      flash_status = :error
     end
 
     respond_to do |format|
-      format.html { redirect_to currencies_path, notice: "#{notification}" }
+      format.html { redirect_to currencies_path, flash: { flash_status => notification } }
       format.json { head :no_content }
     end
   end

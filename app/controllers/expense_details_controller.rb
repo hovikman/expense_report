@@ -43,7 +43,9 @@ class ExpenseDetailsController < ApplicationController
     
     respond_to do |format|
       if @expense_detail.save
-        format.html { redirect_to expense_expense_details_path(@expense_detail.expense_id), notice: "Expense detail '#{@expense_detail.expense_type.name}' was successfully created." }
+        format.html { redirect_to expense_expense_details_path(@expense_detail.expense_id),
+                      flash: { success: "Expense detail '#{@expense_detail.expense_type.name}' was successfully created." }
+                    }
         format.json { render json: @expense_detail, status: :created, location: @expense_detail }
       else
         format.html { render action: "new" }
@@ -58,7 +60,9 @@ class ExpenseDetailsController < ApplicationController
     
     respond_to do |format|
       if @expense_detail.update_attributes(params[:expense_detail])
-        format.html { redirect_to expense_expense_details_path(@expense_detail.expense_id), notice: "Expense detail '#{@expense_detail.expense_type.name}' was successfully updated." }
+        format.html { redirect_to expense_expense_details_path(@expense_detail.expense_id),
+                      flash: { success: "Expense detail '#{@expense_detail.expense_type.name}' was successfully updated." }
+                    }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -71,12 +75,14 @@ class ExpenseDetailsController < ApplicationController
     begin
       @expense_detail.destroy
       notification = "Expense detail '#{@expense_detail.expense_type.name}' was successfully deleted."
+      flash_status = :success
     rescue Exception => e
       notification = e.message
+      flash_status = :error
     end
 
     respond_to do |format|
-      format.html { redirect_to expense_expense_details_path(@expense_detail.expense_id), notice: "#{notification}" }
+      format.html { redirect_to expense_expense_details_path(@expense_detail.expense_id), flash: { flash_status => notification } }
       format.json { head :no_content }
     end
   end

@@ -51,7 +51,7 @@ class ExpensesController < ApplicationController
   def create
     respond_to do |format|
       if @expense.save
-        format.html { redirect_to expense_expense_details_path(@expense.id), notice: "Expense '#{@expense.purpose}' was successfully created." }
+        format.html { redirect_to expense_expense_details_path(@expense.id), flash: { success: "Expense '#{@expense.purpose}' was successfully created." } }
         format.json { render json: @expense, status: :created, location: @expense }
       else
         format.html { render action: "new" }
@@ -93,7 +93,7 @@ class ExpensesController < ApplicationController
       if @expense.update_attributes(params[:expense])
         Notifier.became_owner(@expense).deliver if @expense.owner_id?
         Notifier.status_changed(@expense).deliver
-        format.html { redirect_to  owned_expenses_path, notice: "Expense '#{@expense.purpose}' was successfully #{transition_name}." }
+        format.html { redirect_to  owned_expenses_path, flash: { success: "Expense '#{@expense.purpose}' was successfully #{transition_name}." } }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -110,7 +110,7 @@ class ExpensesController < ApplicationController
         Notifier.became_owner(@expense).deliver if (@expense.owner_id_changed?) and (@expense.owner_id?)
         Notifier.status_changed(@expense).deliver if @expense.expense_status_id_changed?
                         
-        format.html { redirect_to expenses_path, notice: "Expense '#{@expense.purpose}' was successfully updated." }
+        format.html { redirect_to expenses_path, flash: { success: "Expense '#{@expense.purpose}' was successfully updated." } }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -125,11 +125,13 @@ class ExpensesController < ApplicationController
     begin
       @expense.destroy
       notification = "Expense '#{@expense.purpose}' was successfully deleted."
+      flash_status = :success
     rescue Exception => e
       notification = e.message
+      flash_status = :error
     end
     respond_to do |format|
-      format.html { redirect_to expenses_path, notice: "#{notification}" }
+      format.html { redirect_to expenses_path, flash: { flash_status => notification } }
       format.json { head :no_content }
     end
   end

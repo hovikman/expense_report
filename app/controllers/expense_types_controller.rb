@@ -37,7 +37,7 @@ class ExpenseTypesController < ApplicationController
   def create
     respond_to do |format|
       if @expense_type.save
-        format.html { redirect_to expense_types_path, notice: "Expense detail '#{@expense_type.name}' was successfully created." }
+        format.html { redirect_to expense_types_path, flash: { success: "Expense detail '#{@expense_type.name}' was successfully created." } }
         format.json { render json: @expense_type, status: :created, location: @expense_type }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class ExpenseTypesController < ApplicationController
   def update
     respond_to do |format|
       if @expense_type.update_attributes(params[:expense_type])
-        format.html { redirect_to expense_types_path, notice: "Expense detail '#{@expense_type.name}' was successfully updated." }
+        format.html { redirect_to expense_types_path, flash: { success: "Expense detail '#{@expense_type.name}' was successfully updated." } }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -66,12 +66,14 @@ class ExpenseTypesController < ApplicationController
     begin
       @expense_type.destroy
       notification = "Expense type '#{@expense_type.name}' was successfully deleted."
+      flash_status = :success
     rescue Exception => e
       notification = e.message
+      flash_status = :error
     end
 
     respond_to do |format|
-      format.html { redirect_to expense_types_path, notice: "#{notification}" }
+      format.html { redirect_to expense_types_path, flash: { flash_status => notification } }
       format.json { head :no_content }
     end
   end

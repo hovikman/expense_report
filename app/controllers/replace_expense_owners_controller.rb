@@ -27,15 +27,19 @@ class ReplaceExpenseOwnersController < ApplicationController
       if success_num > 0
         if failure_num == 0
           notification = "#{success_num} expense(s) have been succesfully updated."
+          flash_status = :success
         else
           notification = "#{success_num} expense(s) have been succesfully updated, but #{failure_num} have failed."
+          flash_status = :alert
         end
       elsif failure_num == 0
         notification = "No expenses have been updated."
+        flash_status = :alert
       else
         notification = "#{failure_num} expense(s) have failed."
+        flash_status = :error
       end
-      redirect_to new_replace_expense_owner_path, notice: notification
+      redirect_to new_replace_expense_owner_path, flash: { flash_status => notification }
     else # not valid
       render action: 'new'
     end

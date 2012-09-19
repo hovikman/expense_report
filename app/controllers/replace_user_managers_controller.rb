@@ -32,15 +32,19 @@ class ReplaceUserManagersController < ApplicationController
       if success_num > 0
         if failure_num == 0
           notification = "#{success_num} user(s) have been succesfully updated."
+          flash_status = :success
         else
           notification = "#{success_num} user(s) have been succesfully updated, but #{failure_num} have failed."
+          flash_status = :alert
         end
       elsif failure_num == 0
         notification = "No users have been updated."
+        flash_stastus = :alert
       else
         notification = "#{failure_num} user(s) have failed."
+        flash_status = :error
       end
-      redirect_to new_replace_user_manager_path, notice: notification
+      redirect_to new_replace_user_manager_path, flash: { flsh_status => notification }
     else # not valid
       render action: 'new'
     end
