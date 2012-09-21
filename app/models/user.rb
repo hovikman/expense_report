@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
 
   # Callbacks
   before_save { self.email.downcase! }
-  before_save :create_remember_token
+  before_create { generate_token(:remember_token) }
   before_destroy :ensure_not_referenced_by_any_user
   before_destroy :ensure_not_referenced_by_any_expense
   after_destroy :ensure_an_admin_remains
@@ -101,8 +101,10 @@ class User < ActiveRecord::Base
       raise "Cannot delete user '#{name}'. There are expenses referencing this user." unless expenses.empty?
     end
 
-    def create_remember_token
-      self.remember_token = SecureRandom.urlsafe_base64
+    def generate_token(column)
+      begin
+        self[column] = SecureRandom.urlsafe_base64
+      end while User.exists?(column => self[column])
     end
 
 end

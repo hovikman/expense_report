@@ -14,7 +14,12 @@
 				<%= f.password_field :password, class: "input-large" %>
 			</div>
 		</div>
-		<br />
+		<div class="field control-group">
+			<%= f.label :password, "Remember me:", class: "control-label" %>
+			<div class="controls">
+				<%= f.check_box :remember_me, class: "input-large" %>
+			</div>
+		</div>
 		<br />
 		<div class="form-actions center">
 			<%= f.submit "Sign in", class: "btn btn-primary" %>
