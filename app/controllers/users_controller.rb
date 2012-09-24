@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   def create
     respond_to do |format|
       if @user.save
-        Notifier.welcome(@user).deliver
+        Notifier.delay.welcome(@user)
         format.html { redirect_to users_path, flash: { success: "User '#{@user.name}' was successfully created." } }
         format.json { render json: @user, status: :created, location: @user }
       else
