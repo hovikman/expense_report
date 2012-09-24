@@ -8,8 +8,6 @@ class Notifier < ActionMailer::Base
   #
   def status_changed(expense)
     @expense = expense
-    @greeting = "Hi"
-
     mail to: @expense.user.email, subject: 'Expense Report Notification: The status of your expense has been changed'
   end
 
@@ -20,8 +18,17 @@ class Notifier < ActionMailer::Base
   #
   def became_owner(expense)
     @expense = expense
-    @greeting = "Hi"
-
     mail to: @expense.owner.email, subject: 'Expense Report Notification: You became the owner of an expense'
   end
+  
+  def password_reset(user)
+    @user = user
+    mail to: user.email, subject: "Expense Report Notification: Password Reset"
+  end
+  
+  def welcome(user)
+    @user = user
+    mail to: user.email, subject: "Expense Report Notification: Welcome!"
+  end
+
 end

@@ -1,0 +1,28 @@
+<h1>Expense Report Notification</h1>
+<br/>
+
+<div>
+Hi <%= @user.name %>,<br/>
+<br/>
+
+Welcome to Expense Report!<br/>
+<br/>
+
+Here is your credentials:<br/>
+Username: <%= link_to @user.email, "mailto:#{@user.email}" %><br/>
+Password: <%= @user.password %><br/>
+<br/>
+Click here to sign in:<br/>
+<%= link_to signin_url, signin_url %><br/>
+<br/>
+
+Please, click 'Reset your password' link in 'Sign in' page to change<br/>
+your password to something more secure and memorable.<br/>
+<br/>
+
+Thank you for using Expense Report.<br/>
+<br/>
+
+This is a post-only mailing.  Replies to this message are not monitored<br/>
+or answered.
+</div>

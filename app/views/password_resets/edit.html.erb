@@ -1,0 +1,24 @@
+<%= render partial: 'shared/title', locals: { title: 'Change Password' } %>
+<div class="row form_background">
+	<div class="span6 offset3">
+		<%= form_for(@user, url: password_reset_path(params[:id]), html: {class: "form-horizontal"}) do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+		<div class="field control-group">
+			<%= f.label :password, "Password:", class: "control-label" %>
+			<div class="controls">
+				<%= f.password_field :password %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :password_confirmation, "Password Confirmation:", class: "control-label" %>
+			<div class="controls">
+				<%= f.password_field :password_confirmation %>
+			</div>
+		</div>
+		<br />
+		<div class="form-actions center">
+			<%= f.submit "Change password", class: "btn btn-primary" %>
+		</div>
+		<% end %>
+	</div>
+</div>

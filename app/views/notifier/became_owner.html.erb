@@ -1,19 +1,19 @@
 <h1>Expense Report Notification</h1>
 
 <div>
-	Hello <%= @expense.owner.name %>,
-	<br />
-	<br />
-</div>
+Hi <%= @expense.owner.name %>,<br/>
+<br/>
 
-<div>
-	You became the owner of an expense.
-</div>
+You became the owner of an expense.<br/>
+You can see the details of this expense at the link below:<br/>
+<br/>
 
-<div>
-	You can see the details of this expense at the link below:
-</div>
+<%= link_to 'Expense Details', expense_expense_details_url(@expense.id) %><br/>
+<br/>
 
-<div>
-	<%= link_to 'Expense Details', expense_expense_details_url(@expense.id) %>
+Thank you for using Expense Report.<br/>
+<br/>
+
+This is a post-only mailing.  Replies to this message are not monitored<br/>
+or answered.
 </div>

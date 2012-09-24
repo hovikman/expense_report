@@ -8,6 +8,12 @@
 				<% company_read_only = read_only %>
 				<% if !current_user.vendor_admin? %>
 					<% company_read_only = true %>
+
+					<%# This hidden field is necessary to pass the validation of company_id field.     %>
+					<%# Without this field, validation fails since collection_select field is disabled %>
+					<%# and disabled fields are ignored during validation.                             %>
+					<%= f.hidden_field :company_id %>
+
 				<% end %>
 				<%= f.collection_select(:company_id, Company.all, :id, :name, {prompt: true}, {disabled: company_read_only}) %>
 			</div>
@@ -33,7 +39,7 @@
 		<div class="field control-group">
 			<%= f.label :email , "Email:", class: "control-label" %>
 			<div class="controls">
-				<%= f.email_field :email , maxlength: 40, class: "input-large", readonly: read_only %>
+				<%= f.email_field :email, maxlength: 40, class: "input-large", readonly: read_only %>
 			</div>
 		</div>
 		<div class="field control-group">
@@ -46,18 +52,6 @@
 				<% else %>
 					<%= f.collection_select(:user_type_id, UserType.all, :id, :name, {prompt: true}, {disabled: true}) %>
 				<% end %>
-			</div>
-		</div>
-		<div class="field control-group">
-			<%= f.label :password, "Password:", class: "control-label" %>
-			<div class="controls">
-				<%= f.password_field :password, readonly: read_only %>
-			</div>
-		</div>
-		<div class="field control-group">
-			<%= f.label :password_confirmation, "Password Confirmation:", class: "control-label" %>
-			<div class="controls">
-				<%= f.password_field :password_confirmation, readonly: read_only %>
 			</div>
 		</div>
 		<br />

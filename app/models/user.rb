@@ -28,8 +28,6 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :user_type_id, presence: true
   validates_uniqueness_of :name, scope: :company_id
-  validates :password, presence: true, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
   validate :validate_user_type
 
   # Callbacks
@@ -39,6 +37,12 @@ class User < ActiveRecord::Base
   before_destroy :ensure_not_referenced_by_any_expense
   after_destroy :ensure_an_admin_remains
   after_update  :ensure_an_admin_remains
+
+  after_initialize do
+    if self.new_record?
+      self.password = SecureRandom.hex(6)
+    end
+  end
 
   # Methods
   def vendor_admin?
@@ -61,6 +65,14 @@ class User < ActiveRecord::Base
     !regular_user? && !admin?
   end
  
+  def password_valid?(a_password)
+    valid = a_password.length >= 6
+    if !valid
+      errors.add(:password, "is too short (minimum is 6 characters)")
+    end
+    return valid
+  end
+  
   def manager_name
     if (manager.nil?)
       return ''
@@ -89,6 +101,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  def send_password_reset
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    save!
+    Notifier.password_reset(self).deliver
+  end
+  
   private
 
     # ensure that there are no users referencing this user as a manager
@@ -106,5 +125,5 @@ class User < ActiveRecord::Base
         self[column] = SecureRandom.urlsafe_base64
       end while User.exists?(column => self[column])
     end
-
+    
 end

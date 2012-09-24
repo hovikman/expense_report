@@ -10,6 +10,7 @@ ExpenseReport::Application.routes.draw do
   end
   resources :expense_statuses
   resources :expense_types
+  resources :password_resets, only: [:new, :create, :edit, :update]
   resources :replace_expense_owners, only: [:new, :create]
   resources :replace_user_managers, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]

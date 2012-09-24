@@ -1,0 +1,17 @@
+<%= render partial: 'shared/title', locals: { title: 'Password Reset' } %>
+<div class="row form_background">
+	<div class="span6 offset2">
+		<%= form_tag(password_resets_path, method: :post, class: "form-horizontal") do %>
+		<div class="field control-group">
+			<%= label_tag :email, "Email:", class: "control-label" %>
+			<div class="controls">
+				<%= text_field_tag :email, params[:email], class: "input-large" %>
+			</div>
+		</div>
+		<br/>
+		<div class="form-actions center">
+			<%= submit_tag "Reset Password", class: "btn btn-primary" %>
+		</div>
+		<% end %>
+	</div>
+</div>
