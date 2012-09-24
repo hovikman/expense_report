@@ -12,6 +12,7 @@ module SessionsHelper
   def sign_out
     current_user = nil
     cookies.delete(:remember_token)
+    session.delete(:return_to)
   end
 
   def signed_in?
@@ -31,7 +32,7 @@ module SessionsHelper
   end
 
   def redirect_back_or(default)
-    redirect_to(session[:return_to] || default)
+    redirect_to(session[:return_to] || default, notice: 'Signed in!')
     session.delete(:return_to)
   end
 
