@@ -23,6 +23,7 @@ ExpenseReport::Application.routes.draw do
   match '/contact', to: 'static_pages#contact'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  match '/delayed_job' => DelayedJobWeb, :anchor => false
 
 
   # The priority is based upon order of creation:

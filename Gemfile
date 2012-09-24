@@ -27,7 +27,9 @@ end
 
 gem 'jquery-ui-themes'
 gem 'jquery-rails'
+gem 'daemons'
 gem 'delayed_job_active_record'
+gem 'delayed_job_web'
 
 # Use unicorn as the app server
 # gem 'unicorn'
