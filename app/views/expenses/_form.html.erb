@@ -1,16 +1,18 @@
 <div class="row form_background">
 	<div class="span6 offset2">
+		<% if @expense.new_record? %>
+			<% @expense.user_id = current_user.id %>
+			<% @expense.owner_id = current_user.id %>
+			<% @expense.expense_status_id = ExpenseStatus.new_id %>
+		<% end %>
 		<%= form_for(@expense, html: { class: "form-horizontal"}) do |f| %>
 		<%= render 'shared/error_messages', object: f.object %>
 		<div class="field control-group">
 			<%= f.label :user_id, "User:", class: "control-label" %>
 			<div class="controls">
-				<% if current_user.vendor_admin? %>
-				<%= f.collection_select(:user_id, User.all, :id, :name_with_company, {prompt: true}, {disabled: read_only}) %>
-				<% else %>
-				<%= f.collection_select(:user_id, User.where({company_id: current_user.company_id}), :id, :name, {prompt: true}, {disabled: read_only}) %>
-				<% end %>
+				<%= f.collection_select(:user_id, User.where({id: current_user.id}), :id, :name, {}, {disabled: true}) %>
 			</div>
+			<%= f.hidden_field :user_id %>
 		</div>
 		<div class="field control-group">
 			<%= f.label :submit_date, "Submit Date:", class: "control-label" %>
@@ -25,16 +27,24 @@
 			</div>
 		</div>
 		<div class="field control-group">
-			<%= f.label :expense_status_id, "Expense Status:", class: "control-label" %>
-			<div class="controls">
-				<%= f.collection_select(:expense_status_id, ExpenseStatus.all, :id, :name, {prompt: true}, {disabled: read_only}) %>
-			</div>
-		</div>
-		<div class="field control-group">
 			<%= f.label :advance_pay, "Advance Pay:", class: "control-label" %>
 			<div class="controls">
 				<%= f.number_field :advance_pay, class: "input-large", readonly: read_only %>
 			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :expense_status_id, "Expense Status:", class: "control-label" %>
+			<div class="controls">
+				<%= f.collection_select(:expense_status_id, ExpenseStatus.all, :id, :name, {}, {disabled: true}) %>
+			</div>
+			<%= f.hidden_field :expense_status_id %>
+		</div>
+		<div class="field control-group">
+			<%= f.label :owner_id, "Owner:", class: "control-label" %>
+			<div class="controls">
+				<%= f.collection_select(:owner_id, User.where({id: current_user.id}), :id, :name, {}, {disabled: true}) %>
+			</div>
+			<%= f.hidden_field :owner_id %>
 		</div>
 		<br />
 		<% if !read_only %>

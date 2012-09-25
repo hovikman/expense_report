@@ -25,13 +25,8 @@ class Expense < ActiveRecord::Base
 
   # Default values
   attr_defaults advance_pay: 0.00
-  attr_defaults expense_status_id: lambda {ExpenseStatus.new_id}
   attr_defaults submit_date: lambda {DateTime.now.to_date}
 
-  # Callbacks
-  before_create { self.owner_id = self.user_id }
-  before_create { self.expense_status_id = ExpenseStatus.new_id }
-  
   # Methods
   def total_amount
     expense_details.inject(0) {|sum, expense_detail| sum + expense_detail.total_amount()} - advance_pay
