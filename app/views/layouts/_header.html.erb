@@ -45,7 +45,7 @@
 							<li>
 								<%= link_to "Expenses", expenses_path %>
 							</li>
-							<% if can? :manage, ExpenseStatus %>
+							<% if can? :read, ExpenseStatus %>
 							<li>
 								<%= link_to "Expense Statuses", expense_statuses_path %>
 							</li>

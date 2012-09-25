@@ -25,6 +25,8 @@ class Company < ActiveRecord::Base
   validates :contact_email, presence: true
 
   # Callbacks
+  before_destroy :ensure_cannot_delete_vendor
+  before_update  :ensure_vendor_name_not_changed
   before_destroy :ensure_not_referenced_by_any_user
   before_destroy :ensure_not_referenced_by_any_expense_type
 
@@ -38,14 +40,24 @@ class Company < ActiveRecord::Base
  
   private
 
-    # ensure that there are no users referencing this company
+
+    def ensure_cannot_delete_vendor
+      raise "Cannot delete the vendor company." if name == VENDOR_NAME_STR
+    end
+
+    def ensure_vendor_name_not_changed
+      if (name_was == VENDOR_NAME_STR) && name_changed?
+        errors.add(:name, "'Vendor' cannot be changed")
+        return false
+      end 
+    end
+    
     def ensure_not_referenced_by_any_user
       raise "Cannot delete company '#{name}'. There are users referencing this company." unless users.empty?
     end
 
-    # ensure that there are no expense types referencing this company
     def ensure_not_referenced_by_any_expense_type
       raise "Cannot delete company '#{name}'. There are expense types referencing this company." unless expense_types.empty?
     end
-
+    
 end

@@ -12,7 +12,6 @@
 	</thead>
 
 	<tbody>
-
 		<% @companies.each do |company| %>
 		<tr>
 			<td><%= company.id %></td>
@@ -22,6 +21,7 @@
 			<td><%= number_to_phone(company.contact_phone, area_code: true) %></td>
 		</tr>
 		<% end %>
+	</tbody>
 </table>
 
 <br />
