@@ -1,7 +1,6 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-#= require crud
 
 class expense_statuses
   @action: () ->
@@ -20,9 +19,7 @@ class expense_statuses
         ]
         sDom: '<"H"lfr>t<"F"ip>T'
         oTableTools: {
-          sRowSelect: "single"     
-          aButtons : 
-            crud.construct_buttons('expense_statuses')
+          aButtons: []
         }
 
 expense_statuses.action()

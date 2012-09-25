@@ -84,7 +84,7 @@ private
     can :manage, Currency
     can [:read, :update, :destroy], Expense
     can [:create, :read, :update, :destroy], ExpenseDetail
-    can :manage, ExpenseStatus
+    can :read, ExpenseStatus
     can :manage, ExpenseType
     can :manage, User
     can :manage, UserType
