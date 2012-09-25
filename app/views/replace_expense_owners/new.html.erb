@@ -26,6 +26,7 @@
 				<%= f.grouped_collection_select(:new_owner_id, Company.all, :users, :name, :id, :name, {prompt: true} ) %>
 			</div>
 		</div>
+		<br/>
 		<div class="form-actions center">
 			<%= f.submit "Replace Expense Owner", class: "btn btn-primary" %>
 		</div>
