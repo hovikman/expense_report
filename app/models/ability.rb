@@ -87,7 +87,7 @@ private
     can :read, ExpenseStatus
     can :manage, ExpenseType
     can :manage, User
-    can :manage, UserType
+    can :read, UserType
   end
 
 end

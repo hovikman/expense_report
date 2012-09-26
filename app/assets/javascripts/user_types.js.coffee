@@ -1,7 +1,6 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-#= require crud
 
 class user_types
 
@@ -22,8 +21,7 @@ class user_types
         sDom: '<"H"lfr>t<"F"ip>T'
         oTableTools: {
           sRowSelect: "single"     
-          aButtons : 
-            crud.construct_buttons('user_types')
+          aButtons: []
         }
 
 user_types.action()
