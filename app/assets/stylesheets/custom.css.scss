@@ -174,3 +174,10 @@ table.dataTable td.right_align {
 table.dataTable td.center_align {
   text-align: center;
 }
+
+.form_background, .form_alt {
+    padding: 40px 60px 10px;
+    margin-bottom: 30px;
+    background-color: whiteSmoke;
+    border-radius: 6px 6px 6px 6px;
+}
