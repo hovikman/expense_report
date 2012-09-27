@@ -18,9 +18,13 @@ class expense_details
           {
             bVisible: false
           }
+          {
+            sClass: "center_align"
+          }
           null
-          null
-          null
+          {
+            sClass: "right_align"
+          }
         ]
         sDom: '<"H"lfr>t<"F"ip>T'
         oTableTools: {

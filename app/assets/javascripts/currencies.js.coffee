@@ -17,7 +17,9 @@ class currencies
           {
             bVisible: false
           }
-          null
+          {
+            sClass: "center_align"
+          }
           null
         ]
         sDom: '<"H"lfr>t<"F"ip>T'

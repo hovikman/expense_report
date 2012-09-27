@@ -20,7 +20,7 @@
 			<td><%= expense_detail.id %></td>
 			<td><%= expense_detail.date %></td>
 			<td><%= expense_detail.expense_type.name %></td>
-			<td><%= expense_detail.total_amount() %></td>
+			<td><%= number_to_currency(expense_detail.total_amount(), precision: 2, delimiter: "", format: "%n") %></td>
 		</tr>
 		<% end %>
 	</tbody>

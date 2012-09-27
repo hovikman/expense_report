@@ -20,7 +20,9 @@ class companies
           null
           null
           null
-          null
+          {
+            sClass: "center_align"
+          }
         ]
         sDom: '<"H"lfr>t<"F"ip>T'
         oTableTools: {

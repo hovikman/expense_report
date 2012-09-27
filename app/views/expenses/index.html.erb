@@ -20,7 +20,7 @@
 			<td><%= expense.submit_date %></td>
 			<td><%= expense.purpose %></td>
 			<td><%= expense.expense_status.name %></td>
-			<td><%= expense.total_amount() %></td>
+			<td><%= number_to_currency(expense.total_amount(), precision: 2, delimiter: "", format: "%n") %></td>
 		</tr>
 		<% end %>
 	</tbody>

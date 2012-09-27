@@ -18,10 +18,14 @@ class expenses
             bVisible: false
           }
           null
+          {
+            sClass: "center_align"
+          }
           null
           null
-          null
-          null
+          {
+            sClass: "right_align"
+          }
         ]
         sDom: '<"H"lfr>t<"F"ip>T'
         oTableTools: {

@@ -165,3 +165,12 @@ div.dataTables_wrapper div.fg-toolbar label> {
   margin-left: 0px;
   *zoom: 1;
 }
+
+table.dataTable td.right_align {
+  text-align: right;
+  padding: 3px 18px;
+}
+
+table.dataTable td.center_align {
+  text-align: center;
+}
