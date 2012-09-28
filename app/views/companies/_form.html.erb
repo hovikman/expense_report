@@ -11,7 +11,12 @@
 		<div class="field control-group">
 			<%= f.label :currency_id, "Currency:", class: "control-label" %>
 			<div class="controls">
-					<%= f.collection_select(:currency_id, Currency.all, :id, :name, {prompt: true}, {disabled: read_only}) %> 
+				<% if read_only %>
+					<% currency_name = Currency.find(f.object.currency_id).code_and_name %>
+					<%= text_field_tag 'currency_name', currency_name, readonly: true %>
+				<% else %>
+					<%= f.collection_select(:currency_id, Currency.all, :id, :code_and_name, {prompt: true}) %>
+				<% end %> 
 			</div>
 		</div>
 		<div class="field control-group">
@@ -41,7 +46,15 @@
 		<div class="field control-group">
 			<%= f.label :accountant_id, "Accountant:", class: "control-label" %>
 			<div class="controls">
-					<%= f.collection_select(:accountant_id, f.object.users, :id, :name, {prompt: true}, {disabled: read_only}) %>
+				<% if read_only %>
+					<% accountant_name = '' %>
+					<% if f.object.accountant_id? %>
+						<% accountant_name = User.find(f.object.accountant_id).name %>
+					<% end %>
+					<%= text_field_tag 'accountant_name', accountant_name, readonly: true %>
+				<% else %>
+					<%= f.collection_select(:accountant_id, f.object.users, :id, :name, {prompt: true}) %>
+				<% end %> 
 			</div>
 		</div>		
 		<br />

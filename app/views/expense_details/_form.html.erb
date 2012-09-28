@@ -21,7 +21,12 @@
 			<div class="controls">
 				<% company_id = f.object.expense.user.company_id %>
 				<% vendor_id  = Company.vendor_id %>
-				<%= f.collection_select(:expense_type_id, ExpenseType.where({company_id: [vendor_id, company_id]}), :id, :name, {prompt: true}, {disabled: read_only}) %>
+				<% if read_only %>
+					<% expense_type_name = ExpenseType.find(f.object.expense_type_id).name %>
+					<%= text_field_tag 'expense_type_name', expense_type_name, readonly: true %>
+				<% else %>
+					<%= f.collection_select(:expense_type_id, ExpenseType.where({company_id: [vendor_id, company_id]}), :id, :name, {prompt: true}) %>
+				<% end %> 
 			</div>
 		</div>
 		<div class="field control-group">
@@ -33,7 +38,12 @@
 		<div class="field control-group">
 			<%= f.label :currency_id, "Currency:", class: "control-label" %>
 			<div class="controls">
-				<%= f.collection_select(:currency_id, Currency.all, :id, :code_and_name, {prompt: true}, {disabled: read_only}) %>
+				<% if read_only %>
+					<% currency_name = Currency.find(f.object.currency_id).code_and_name %>
+					<%= text_field_tag 'currency_name', currency_name, readonly: true %>
+				<% else %>
+					<%= f.collection_select(:currency_id, Currency.all, :id, :code_and_name, {prompt: true}) %>
+				<% end %> 
 			</div>
 		</div>
 		<div class="field control-group">
@@ -51,7 +61,7 @@
 		<div class="field control-group">
 			<%= f.label :total_amount, "Total amount:", class: "control-label" %>
 			<div class="controls">
-				<%= number_field_tag 'expense_detail_total_amount', @expense_detail.amount * @expense_detail.exchange_rate, readonly: true %>
+				<%= number_field_tag 'expense_detail_total_amount', f.object.amount * f.object.exchange_rate, readonly: true %>
 			</div>
 		</div>
 		<div class="field control-group">

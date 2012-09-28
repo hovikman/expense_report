@@ -63,7 +63,7 @@ expense_details_update_controls = (refresh_exchange_rate) ->
     $('#expense_detail_exchange_rate').prop "readOnly", true
     expense_details_update_total_amount()
   else
-    if !$('#expense_detail_currency_id').is('[readonly]')
+    if !$('#expense_detail_date').is('[readonly]')
       # we are in edit mode, not in view mode
       if refresh_exchange_rate
         exchange_rate(selected_currency_id(), base_currency_id(), selected_currency_code())

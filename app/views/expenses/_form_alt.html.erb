@@ -5,9 +5,10 @@
 		<div class="field control-group">
 			<%= f.label :user_id, "User:", class: "control-label" %>
 			<div class="controls">
-				<%= f.collection_select(:user_id, User.where({id: current_user.id}), :id, :name, {}, {disabled: true}) %>
+				<% user_name = User.find(f.object.user_id).name %>
+				<%= text_field_tag 'user_name', user_name, readonly: true %>
+				<%= f.hidden_field :user_id %>
 			</div>
-			<%= f.hidden_field :user_id %>
 		</div>
 		<div class="field control-group">
 			<%= f.label :submit_date, "Submit Date:", class: "control-label" %>
@@ -35,16 +36,21 @@
 		<div class="field control-group">
 			<%= f.label :expense_status_id, "Expense Status:", class: "control-label" %>
 			<div class="controls">
-				<%= f.collection_select(:expense_status_id, ExpenseStatus.all, :id, :name, {}, {disabled: true}) %>
+				<% expense_status_name = ExpenseStatus.find(f.object.expense_status_id).name %>
+				<%= text_field_tag 'expense_status_name', expense_status_name, readonly: true %>
+				<%= f.hidden_field :expense_status_id %>
 			</div>
-			<%= f.hidden_field :expense_status_id %>
 		</div>
 		<div class="field control-group">
 			<%= f.label :owner_id, "Owner:", class: "control-label" %>
 			<div class="controls">
-				<%= f.collection_select(:owner_id, User.where({id: current_user.id}), :id, :name, {}, {disabled: true}) %>
+				<% owner_name = '' %>
+				<% if f.object.owner_id? %>
+					<% owner_name = User.find(f.object.owner_id).name %>
+				<% end %>
+				<%= text_field_tag 'owner_name', owner_name, readonly: true %>
+				<%= f.hidden_field :owner_id %>
 			</div>
-			<%= f.hidden_field :owner_id %>
 		</div>
 		<% end %>
 	</div>

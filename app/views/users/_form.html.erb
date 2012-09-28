@@ -5,11 +5,16 @@
 		<div class="field control-group">
 			<%= f.label :company_id, "Company:", class: "control-label" %>
 			<div class="controls">
-				<% if current_user.vendor_admin? %>
-					<%= f.collection_select(:company_id, Company.all, :id, :name, {prompt: true}, {disabled: read_only}) %>
+				<% if read_only %>
+					<% company_name = Company.find(f.object.company_id).name %>
+					<%= text_field_tag 'company_name', company_name, readonly: true %>
 				<% else %>
-					<%= f.collection_select(:company_id, Company.where({id: current_user.company.id}), :id, :name, {prompt: true}, {disabled: read_only}) %>
-				<% end %>
+					<% if current_user.vendor_admin? %>
+						<%= f.collection_select(:company_id, Company.all, :id, :name, {prompt: true}) %>
+					<% else %>
+						<%= f.collection_select(:company_id, Company.where({id: current_user.company.id}), :id, :name, {prompt: true}) %>
+					<% end %>
+				<% end %> 
 			</div>
 		</div>
 		<div class="field control-group">
@@ -21,7 +26,15 @@
 		<div class="field control-group">
 			<%= f.label :manager_id , "Manager:", class: "control-label" %>
 			<div class="controls">
-					<%= f.grouped_collection_select(:manager_id, Company.all, :users, :name, :id, :name, {prompt: true}, {disabled: read_only} ) %>
+				<% if read_only %>
+					<% manager_name = '' %>
+					<% if f.object.manager_id? %>
+						<% manager_name = User.find(f.object.manager_id).name %>
+					<% end %>
+					<%= text_field_tag 'manager_name', manager_name, readonly: true %>
+				<% else %>
+					<%= f.grouped_collection_select(:manager_id, Company.all, :users, :name, :id, :name, {prompt: true}) %>
+				<% end %> 
 			</div>
 		</div>
 		<div class="field control-group">
@@ -39,12 +52,17 @@
 		<div class="field control-group">
 			<%= f.label :user_type_id, "User Type:", class: "control-label" %>
 			<div class="controls">
-				<% if current_user.vendor_admin? %>
-					<%= f.collection_select(:user_type_id, UserType.all, :id, :name, {prompt: true}, {disabled: read_only}) %>
-				<% elsif current_user.company_admin? %>
-					<%= f.collection_select(:user_type_id, UserType.where("id != ?", UserType.vendor_admin_id), :id, :name, {prompt: true}, {disabled: read_only}) %>
+				<% if read_only %>
+					<% user_type_name = UserType.find(f.object.user_type_id).name %>
+					<%= text_field_tag 'user_type_name', user_type_name, readonly: true %>
 				<% else %>
-					<%= f.collection_select(:user_type_id, UserType.all, :id, :name, {prompt: true}, {disabled: true}) %>
+					<% if current_user.vendor_admin? %>
+						<%= f.collection_select(:user_type_id, UserType.all, :id, :name, {prompt: true}) %>
+					<% elsif current_user.company_admin? %>
+						<%= f.collection_select(:user_type_id, UserType.where("id != ?", UserType.vendor_admin_id), :id, :name, {prompt: true}) %>
+					<% else %>
+						<%= f.collection_select(:user_type_id, UserType.where({id: UserType.regular_user_id}), :id, :name, {prompt: true}) %>
+					<% end %>
 				<% end %>
 			</div>
 		</div>
