@@ -4,101 +4,119 @@
 			<%= link_to "Expense Report", root_path, id: "logo" %>
 			<nav>
 				<ul class="nav pull-right">
+					
 					<li>
 						<%= link_to "Home", root_path %>
 					</li>
+					
 					<% if signed_in? %>
-					<li>
-						<% if current_user().vendor_admin? %>
-							<%= link_to "Delayed Jobs", delayed_job_url %>
-						<% end %>
-					</li>
-					<li id="fat-menu" class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Account <b class="caret"></b> </a>
-						<ul class="dropdown-menu">
-							<li>
-								<%= link_to "Profile", edit_user_path(current_user.id) %>
-							</li>
-							<li>
-								<%= link_to "Settings", '#' %>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<%= link_to "Sign out", signout_path, method: "delete" %>
-							</li>
-						</ul>
-					</li>
+					<ul class="nav pull-left">
+						<li id="fat-menu" class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Account <b class="caret"></b> </a>
+							<ul class="dropdown-menu">
+								<li>
+									<%= link_to "Profile", edit_user_path(current_user.id) %>
+								</li>
+								<li>
+									<%= link_to "Settings", '#' %>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<%= link_to "Sign out", signout_path, method: "delete" %>
+								</li>
+							</ul>
+						</li>
+					</ul>
+
 					<% if current_user().admin? %>
-					<li id="fat-menu" class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Resources <b class="caret"></b> </a>
-						<ul class="dropdown-menu">
-							<% if can? :manage, Company %>
-							<li>
-								<%= link_to "Companies", companies_path %>
-							</li>
-							<% end %>
-							<% if can? :manage, Currency %>
-							<li>
-								<%= link_to "Currencies", currencies_path %>
-							</li>
-							<% end %>
-							<li>
-								<%= link_to "Expenses", expenses_path %>
-							</li>
-							<% if can? :read, ExpenseStatus %>
-							<li>
-								<%= link_to "Expense Statuses", expense_statuses_path %>
-							</li>
-							<% end %>
-							<li>
-								<%= link_to "Expense Types", expense_types_path %>
-							</li>
-							<li>
-								<%= link_to "Users", users_path %>
-							</li>
-							<% if can? :read, UserType %>
-							<li>
-								<%= link_to "Users Types", user_types_path %>
-							</li>
-							<% end %>
-						</ul>
-					</li>
+					<ul class="nav pull-left">
+						<li id="fat-menu" class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Admin <b class="caret"></b> </a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-submenu">
+									<a tabindex="-1" href="#">Resources</a>
+									<ul class="dropdown-menu">
+										<% if can? :manage, Company %>
+										<li>
+											<%= link_to "Companies", companies_path %>
+										</li>
+										<% end %>
+										<% if can? :manage, Currency %>
+										<li>
+											<%= link_to "Currencies", currencies_path %>
+										</li>
+										<% end %>
+										<li>
+											<%= link_to "Expenses", expenses_path %>
+										</li>
+										<% if can? :read, ExpenseStatus %>
+										<li>
+											<%= link_to "Expense Statuses", expense_statuses_path %>
+										</li>
+										<% end %>
+										<li>
+											<%= link_to "Expense Types", expense_types_path %>
+										</li>
+										<li>
+											<%= link_to "Users", users_path %>
+										</li>
+										<% if can? :read, UserType %>
+										<li>
+											<%= link_to "Users Types", user_types_path %>
+										</li>
+										<% end %>
+									</ul>
+								</li>
+								<li class="dropdown-submenu">
+									<a tabindex="-1" href="#"> Utilities </a>
+									<ul class="dropdown-menu">
+										<li>
+											<%= link_to "Replace Expense Owner", new_replace_expense_owner_path %>
+										</li>
+										<li>
+											<%= link_to "Replace User Manager", new_replace_user_manager_path %>
+										</li>
+									</ul>
+								</li>
+								<% if current_user().vendor_admin? %>
+								<li class="divider"></li>
+								<li>
+									<%= link_to "Delayed Jobs", delayed_job_url %>
+								</li>
+								<% end %>
+							</ul>
+						</li>
+					</ul>
 					<% end %>
-					<% if current_user().admin? %>
-					<li id="fat-menu" class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Utilities <b class="caret"></b> </a>
-						<ul class="dropdown-menu">
-							<li>
-								<%= link_to "Replace Expense Owner", new_replace_expense_owner_path %>
-							</li>
-							<li>
-								<%= link_to "Replace User Manager", new_replace_user_manager_path %>
-							</li>
-						</ul>
-					<% end %>
-					<li id="fat-menu" class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Expenses <b class="caret"></b> </a>
-						<ul class="dropdown-menu">
-							<li>
-								<%= link_to "New Expense", new_expense_path %>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<%= link_to "Submitted Expenses", submitted_expenses_path %>
-							</li>
-							<li>
-								<%= link_to "Owned Expenses", owned_expenses_path %>
-							</li>
-						</ul>
-					</li>
+
+					<ul class="nav pull-left">
+						<li id="fat-menu" class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Expenses <b class="caret"></b> </a>
+							<ul class="dropdown-menu">
+								<li>
+									<%= link_to "New Expense", new_expense_path %>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<%= link_to "Submitted Expenses", submitted_expenses_path %>
+								</li>
+								<li>
+									<%= link_to "Owned Expenses", owned_expenses_path %>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					
 					<% else %>
 					<li>
 						<%= link_to "Sign in", signin_path %>
 					</li>
 					<% end %>
+					
 					<li>
 						<%= link_to "Help", help_path %>
 					</li>
+					
 				</ul>
 			</nav>
 		</div>
