@@ -9,6 +9,8 @@ gem 'pg'
 group :development, :test do
   gem 'rspec-rails'
   gem 'wdm', '~> 0.0.3'
+  gem 'guard-spork', '1.2.0'
+  gem 'spork', '0.9.2'
 end
 
 group :development do
