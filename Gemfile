@@ -8,11 +8,19 @@ gem 'pg'
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'wdm', '~> 0.0.3'
+end
+
+group :development do
+  gem 'guard-rspec'
 end
 
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'rb-fchange'
+  gem 'rb-notifu'
+  gem 'win32console'
 end
 
 # Gems used only for assets and not required
