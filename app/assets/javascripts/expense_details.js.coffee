@@ -87,4 +87,6 @@ $ ->
     changeYear: true
     dateFormat: "yy-mm-dd"        
 
+  $('#expense_details_tabs').tabs()
+
 expense_details.action()

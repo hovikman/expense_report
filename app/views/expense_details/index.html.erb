@@ -4,29 +4,43 @@
 
 <%= render partial: 'expenses/form_alt' %>
 
-<table id="expense_details" class="display">
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Date</th>
-			<th>Expense Type</th>
-			<th>Total Amount</th>
-		</tr>
-	</thead>
+<div id="expense_details_tabs">
+	<ul>
+		<li><a href="#tab_details">Details</a></li>
+		<li><a href="#tab_attachments">Attachments</a></li>
+	</ul>
 
-	<tbody>
-		<% @expense_details.each do |expense_detail| %>
-		<tr>
-			<td><%= expense_detail.id %></td>
-			<td><%= expense_detail.date %></td>
-			<td><%= expense_detail.expense_type.name %></td>
-			<td><%= number_to_currency(expense_detail.total_amount(), precision: 2, delimiter: "", format: "%n") %></td>
-		</tr>
-		<% end %>
-	</tbody>
-</table>
+	<div id="tab_details">
+		<table id="expense_details" class="display">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Date</th>
+					<th>Expense Type</th>
+					<th>Total Amount</th>
+				</tr>
+			</thead>
+		
+			<tbody>
+				<% @expense_details.each do |expense_detail| %>
+				<tr>
+					<td><%= expense_detail.id %></td>
+					<td><%= expense_detail.date %></td>
+					<td><%= expense_detail.expense_type.name %></td>
+					<td><%= number_to_currency(expense_detail.total_amount(), precision: 2, delimiter: "", format: "%n") %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+	
+	<div id="tab_attachments">
+		<p>Attachments go here ...</p>
+	</div>
+	<br />
+	<br />
 
-<br />
+</div>
 
 <% if current_user.id == @expense.owner_id %>
 <%= form_for(@expense, url: change_state_expense_path(@expense.id), html: { class: "form-horizontal"}) do |f| %>
