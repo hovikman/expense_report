@@ -36,6 +36,12 @@ private
     can :read, ExpenseDetail, expense: {user_id: user.id}
     can :read, ExpenseDetail, expense: {owner_id: user.id}
     
+    # ExpenseAttachment
+    can :create, ExpenseAttachment
+    can [:update, :destroy], ExpenseAttachment, expense: {user_id: user.id, owner_id: user.id}
+    can :read, ExpenseAttachment, expense: {user_id: user.id}
+    can :read, ExpenseAttachment, expense: {owner_id: user.id}
+
     # ExpenseStatus
     # no permission on ExpenseStatus
 
@@ -69,6 +75,9 @@ private
     # ExpenseDetail
     can [:create, :read, :update, :destroy], ExpenseDetail, expense: {user: {company_id: user.company_id}}
     
+    # ExpenseAttachment
+    can [:create, :read, :update, :destroy], ExpenseAttachment, expense: {user: {company_id: user.company_id}}
+
     # ReplaceExpenseOwner
     can :create, ReplaceExpenseOwner
     
@@ -84,6 +93,7 @@ private
     can :manage, Currency
     can [:read, :update, :destroy], Expense
     can [:create, :read, :update, :destroy], ExpenseDetail
+    can [:create, :read, :update, :destroy], ExpenseAttachment
     can :read, ExpenseStatus
     can :manage, ExpenseType
     can :manage, User

@@ -5,6 +5,7 @@ gem 'bootstrap-sass', '~> 2.1.0.0'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'cancan', '1.6.7'
 gem 'pg'
+gem 'carrierwave'
 
 group :development, :test do
   gem 'rspec-rails'

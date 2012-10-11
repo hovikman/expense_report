@@ -12,6 +12,7 @@ class Expense < ActiveRecord::Base
 
   # Associations
   has_many :expense_details, dependent: :delete_all
+  has_many :expense_attachments, dependent: :delete_all
   belongs_to :user
   belongs_to :expense_status
   belongs_to :owner, class_name: "User", foreign_key: "owner_id"

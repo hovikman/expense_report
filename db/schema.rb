@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120924183443) do
+ActiveRecord::Schema.define(:version => 20121004193907) do
 
   create_table "companies", :force => true do |t|
     t.string   "name",           :limit => 30, :null => false
@@ -52,6 +52,16 @@ ActiveRecord::Schema.define(:version => 20120924183443) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "expense_attachments", :force => true do |t|
+    t.integer  "expense_id",                :null => false
+    t.string   "description", :limit => 40, :null => false
+    t.string   "file_path",                 :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "expense_attachments", ["expense_id"], :name => "index_expense_attachments_on_expense_id"
 
   create_table "expense_details", :force => true do |t|
     t.integer  "expense_id",                                    :null => false

@@ -1,0 +1,44 @@
+<div class="row form_background">
+	<div class="span6 offset2">
+		<% if action_name == "new" || action_name == "create" %>
+			<% url = expense_expense_attachments_path(@expense_attachment.expense_id) %>
+			<% html = {method: :post, multipart: true, class: "form-horizontal"} %>
+		<% else %>
+			<% url = expense_attachment_path(@expense_attachment.id) %>
+			<% html = {method: :put, multipart: true, class: "form-horizontal"} %>
+		<% end %>
+		<% if action_name == "new" || action_name == "create" || action_name == "edit" || action_name == "update" %>
+			<% read_only = false %>
+		<% else %>
+			<% read_only = true %>
+		<% end %>
+		<%= form_for(@expense_attachment, url: url, html: html) do |f| %>
+		<%= f.hidden_field :expense_id %>
+		<%= render 'shared/error_messages', object: f.object %>
+		<div class="field control-group">
+			<%= f.label :expense_id, "Expense:", class: "control-label" %>
+			<div class="controls">
+				<%= text_field_tag :expense_id, f.object.expense.purpose, class: "input-large", readonly: true %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :description, "Description:", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :description, class: "input-large", readonly: read_only %>
+			</div>
+		</div>
+		<div class="field control-group">
+			<%= f.label :file_path, "Attachment:", class: "control-label" %>
+			<div class="controls">
+				<%= f.file_field :file_path, class: "input-large", readonly: read_only %>
+			</div>
+		</div>
+		<br/>
+		<% if !read_only %>
+			<div class="form-actions center">
+				<%= f.submit class: "btn btn-primary" %>
+			</div>
+		<% end %>
+		<% end %>
+  </div>
+</div>

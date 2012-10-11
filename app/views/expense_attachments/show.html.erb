@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Expense:</b>
+  <%= @expense_attachment.expense_id %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @expense_attachment.description %>
+</p>
+
+<p>
+  <b>File path:</b>
+  <%= @expense_attachment.file_path %>
+</p>
+
+
+<%= link_to 'Edit', edit_expense_attachment_path(@expense_attachment) %> |
+<%= link_to 'Back', expense_attachments_path %>

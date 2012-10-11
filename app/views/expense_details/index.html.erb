@@ -1,6 +1,7 @@
 <%= render partial: 'shared/title', locals: { title: 'Expense Details' } %>
 
 <div id='expense_id' style="visibility: hidden"><%= @expense.id %></div>
+<% @expense_attachments = @expense.expense_attachments %>
 
 <%= render partial: 'expenses/form_alt' %>
 
@@ -33,10 +34,26 @@
 			</tbody>
 		</table>
 	</div>
-	
+
 	<div id="tab_attachments">
-		<p>Attachments go here ...</p>
+		<table id="expense_attachments" class="display">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @expense_attachments.each do |expense_attachment| %>
+				<tr>
+					<td><%= expense_attachment.id %></td>
+					<td><%= expense_attachment.description %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
 	</div>
+	
 	<br />
 	<br />
 

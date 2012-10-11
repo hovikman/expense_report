@@ -16,3 +16,6 @@
 
 # Ignore Emacs backup files
 *~
+
+# Ignore uploads directory
+/public/uploads
