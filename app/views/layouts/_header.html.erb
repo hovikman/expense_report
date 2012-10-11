@@ -4,10 +4,12 @@
 			<%= link_to "Expense Report", root_path, id: "logo" %>
 			<nav>
 				<ul class="nav pull-right">
-					
-					<li>
-						<%= link_to "Home", root_path %>
-					</li>
+
+					<ul class="nav pull-left">					
+						<li>
+							<%= link_to "Home", root_path %>
+						</li>
+					</ul>
 					
 					<% if signed_in? %>
 					<ul class="nav pull-left">
@@ -108,14 +110,18 @@
 					</ul>
 					
 					<% else %>
-					<li>
-						<%= link_to "Sign in", signin_path %>
-					</li>
+					<ul class="nav pull-left">					
+						<li>
+							<%= link_to "Sign in", signin_path %>
+						</li>
+					</ul>
 					<% end %>
 					
-					<li>
-						<%= link_to "Help", help_path %>
-					</li>
+					<ul class="nav pull-left">					
+						<li>
+							<%= link_to "Help", help_path %>
+						</li>
+					</ul>
 					
 				</ul>
 			</nav>
