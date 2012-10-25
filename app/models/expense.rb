@@ -7,9 +7,6 @@ class Expense < ActiveRecord::Base
                   :submit_date,
                   :user_id
                   
-  # Scope
-  default_scope order: 'submit_date'
-
   # Associations
   has_many :expense_details, dependent: :delete_all
   has_many :expense_attachments, dependent: :delete_all

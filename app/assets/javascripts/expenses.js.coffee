@@ -2,36 +2,57 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 #= require crud
-
+  
 class expenses
-
   @action: () ->
     jQuery ->
       $('#expenses').dataTable
         sPaginationType: "full_numbers"
         bStateSave: true
         bJQueryUI: true
-        iDisplayLength: 20
+        bProcessing: true
+        bServerSide: true
+        sAjaxSource: $('#expenses').data('source')
+        iDisplayLength: 10
         aLengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]]
         aoColumns: [
           {
             bVisible: false
           }
-          null
+          {
+            sWidth: "16%"
+          }
           {
             sClass: "center_align"
+            sWidth: "19%"
           }
-          null
-          null
+          {
+            sWidth: "32%"
+          }
+          {
+            sWidth: "18%"
+          }
           {
             sClass: "right_align"
+            sWidth: "15%"
           }
         ]
+        aaSorting: [[ 2, "desc" ]]
         sDom: '<"H"lfr>t<"F"ip>T'
+        fnPreDrawCallback: (oSettings) ->
+            $('#expense_attachments').dataTable().fnReloadAjax('/expenses/0/expense_attachments.json')
+            $("#transition_buttons").text('')
         oTableTools: {
           sRowSelect: "single"     
           aButtons : 
-            crud.construct_buttons('expenses', 3, true, 'expense_details')
+            crud.construct_buttons('expenses', 3)
+          fnRowSelected: (node) ->
+            expense_id = TableTools.fnGetInstance('expenses').fnGetSelectedData()[0][0]
+            $("#transition_buttons").load('/expenses/' + expense_id + '/transition_buttons')
+            $('#expense_attachments').dataTable().fnReloadAjax('/expenses/' + expense_id + '/expense_attachments.json')
+          fnRowDeselected: (node) ->
+            $('#expense_attachments').dataTable().fnReloadAjax('/expenses/0/expense_attachments.json')
+            $("#transition_buttons").text('')
         }
 
 $ ->

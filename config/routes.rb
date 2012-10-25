@@ -9,6 +9,7 @@ ExpenseReport::Application.routes.draw do
     put 'change_state', on: :member
     get 'owned', on: :collection
     get 'submitted', on: :collection
+    get 'transition_buttons', on: :member
   end
   resources :expense_statuses
   resources :expense_types

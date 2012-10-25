@@ -5,24 +5,32 @@ class ExpensesController < ApplicationController
   # GET /expenses.json
   def index
     respond_to do |format|
-      format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Expenses' } }
-      format.json { render json: @expenses }
+      format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Expenses', jason_url: expenses_url(format: "json")} }
+      format.json { render json: ExpensesDatatable.new(view_context, @expenses) }
     end
   end
 
   def owned
     respond_to do |format|
-      format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Owned Expenses' } }
-      format.json { render json: @expenses }
+      format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Owned Expenses', jason_url: owned_expenses_url(format: "json") } }
+      format.json { render json: ExpensesDatatable.new(view_context, @expenses) }
     end
   end
   
   def submitted
     respond_to do |format|
-      format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Submitted Expenses' } }
-      format.json { render json: @expenses }
+      format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Submitted Expenses', jason_url: submitted_expenses_url(format: "json") } }
+      format.json { render json: ExpensesDatatable.new(view_context, @expenses) }
     end
   end  
+  
+  def transition_buttons
+    @expense = Expense.find(params[:id])
+    respond_to do |format|
+      format.html { render partial: 'transition_buttons' }
+      format.json { render json: @expense }
+    end
+  end
 
   # GET /expenses/1
   # GET /expenses/1.json

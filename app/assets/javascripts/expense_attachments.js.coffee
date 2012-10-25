@@ -12,7 +12,10 @@ class expense_attachments
         sPaginationType: "full_numbers"
         bStateSave: true
         bJQueryUI: true
-        iDisplayLength: 20
+        bProcessing: true
+        bServerSide: true
+        sAjaxSource: $('#expense_attachments').data('source')
+        iDisplayLength: 10
         aLengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]]
         aoColumns: [
           {
@@ -24,7 +27,7 @@ class expense_attachments
         oTableTools: {
           sRowSelect: "single"     
           aButtons : 
-              crud.construct_buttons('expense_attachments', 1, false, '', true, 'expenses', expense_id)
+              crud.construct_buttons('expense_attachments', 1, true, 'expenses', expense_id)
         }
 
 expense_attachments.action()

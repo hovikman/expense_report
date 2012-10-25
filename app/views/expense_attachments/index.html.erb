@@ -1,25 +1,10 @@
-<h1>Listing expense_attachments</h1>
-
-<table>
-  <tr>
-    <th>Expense</th>
-    <th>Description</th>
-    <th>File path</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @expense_attachments.each do |expense_attachment| %>
-  <tr>
-    <td><%= expense_attachment.expense_id %></td>
-    <td><%= expense_attachment.description %></td>
-    <td><%= expense_attachment.file_path %></td>
-    <td><%= link_to 'Show', expense_attachment %></td>
-    <td><%= link_to 'Edit', edit_expense_attachment_path(expense_attachment) %></td>
-    <td><%= link_to 'Destroy', expense_attachment, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+<table id="expense_attachments" class="display">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
 </table>
-
-<br />

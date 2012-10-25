@@ -1,76 +1,12 @@
-<%= render partial: 'shared/title', locals: { title: 'Expense Details' } %>
-
-<div id='expense_id' style="visibility: hidden"><%= @expense.id %></div>
-<% @expense_attachments = @expense.expense_attachments %>
-
-<%= render partial: 'expenses/form_alt' %>
-
-<div id="expense_details_tabs">
-	<ul>
-		<li><a href="#tab_details">Details</a></li>
-		<li><a href="#tab_attachments">Attachments</a></li>
-	</ul>
-
-	<div id="tab_details">
-		<table id="expense_details" class="display">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Date</th>
-					<th>Expense Type</th>
-					<th>Total Amount</th>
-				</tr>
-			</thead>
-		
-			<tbody>
-				<% @expense_details.each do |expense_detail| %>
-				<tr>
-					<td><%= expense_detail.id %></td>
-					<td><%= expense_detail.date %></td>
-					<td><%= expense_detail.expense_type.name %></td>
-					<td><%= number_to_currency(expense_detail.total_amount(), precision: 2, delimiter: "", format: "%n") %></td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
-	</div>
-
-	<div id="tab_attachments">
-		<table id="expense_attachments" class="display">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Description</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @expense_attachments.each do |expense_attachment| %>
-				<tr>
-					<td><%= expense_attachment.id %></td>
-					<td><%= expense_attachment.description %></td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
-	</div>
-	
-	<br />
-	<br />
-
-</div>
-
-<% if current_user.id == @expense.owner_id %>
-<%= form_for(@expense, url: change_state_expense_path(@expense.id), html: { class: "form-horizontal"}) do |f| %>
-	<div class="form-actions center">
-		<% if @expense.expense_status_id == ExpenseStatus.new_id %>
-			<%= f.submit 'Send for approval', name: 'send_for_approval_from_new_button', class: "btn btn-primary" %>
-	    <% elsif @expense.expense_status_id == ExpenseStatus.assigned_to_manager_id %>
-			<%= f.submit 'Reject', name: 'reject_from_assigned_to_manager_button', class: "btn btn-danger" %>
-			<%= f.submit 'Approve', name: 'approve_from_assigned_to_manager_button', class: "btn btn-success" %>
-		<% elsif @expense.expense_status_id == ExpenseStatus.assigned_to_accounting_id%>
-			<%= f.submit 'Reject', name: 'reject_from_assigned_to_accounting_button', class: "btn btn-danger" %>		
-			<%= f.submit 'Approve', name: 'approve_from_assigned_to_accounting_button', class: "btn btn-success" %>
-		<% end %>
-	</div>
-<% end %>
-<% end %>
+<table id="expense_details" class="display">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Date</th>
+			<th>Expense Type</th>
+			<th>Total Amount</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>

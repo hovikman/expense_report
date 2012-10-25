@@ -1,0 +1,15 @@
+<% if current_user.id == @expense.owner_id %>
+<%= form_for(@expense, url: change_state_expense_path(@expense.id), html: { class: "form-horizontal"}) do |f| %>
+	<div class="form-actions center">
+		<% if @expense.expense_status_id == ExpenseStatus.new_id %>
+			<%= f.submit 'Send for approval', name: 'send_for_approval_from_new_button', class: "btn btn-primary" %>
+	    <% elsif @expense.expense_status_id == ExpenseStatus.assigned_to_manager_id %>
+			<%= f.submit 'Reject', name: 'reject_from_assigned_to_manager_button', class: "btn btn-danger" %>
+			<%= f.submit 'Approve', name: 'approve_from_assigned_to_manager_button', class: "btn btn-success" %>
+		<% elsif @expense.expense_status_id == ExpenseStatus.assigned_to_accounting_id%>
+			<%= f.submit 'Reject', name: 'reject_from_assigned_to_accounting_button', class: "btn btn-danger" %>		
+			<%= f.submit 'Approve', name: 'approve_from_assigned_to_accounting_button', class: "btn btn-success" %>
+		<% end %>
+	</div>
+<% end %>
+<% end %>

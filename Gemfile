@@ -53,3 +53,5 @@ gem 'delayed_job_web'
 
 # ActiveRecord plugin that allows to specify default values for attributes
 gem 'attribute-defaults'
+
+gem 'kaminari'

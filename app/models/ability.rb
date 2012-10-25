@@ -24,7 +24,7 @@ private
     can :get_exchange_rate, Currency
 
     # Expense
-    can :create, Expense
+    can [:create, :transition_buttons], Expense
     can [:read, :submitted], Expense, user_id: user.id 
     can :read, Expense, owner_id: user.id 
     can [:update, :destroy], Expense, user_id: user.id, owner_id: user.id

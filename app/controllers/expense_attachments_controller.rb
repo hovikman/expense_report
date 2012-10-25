@@ -2,12 +2,16 @@ class ExpenseAttachmentsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @expense = Expense.find(params[:expense_id])
+    if params[:expense_id] == '0'
+      @expense = Expense.new()
+    else
+      @expense = Expense.find(params[:expense_id])
+    end
     @expense_attachments = @expense.expense_attachments
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @expense_attachments }
+      format.json { render json: ExpenseAttachmentsDatatable.new(view_context, @expense_attachments) }
     end
   end
 

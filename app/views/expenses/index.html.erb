@@ -1,6 +1,6 @@
 <%= render partial: 'shared/title', locals: { title: title } %>
 
-<table id="expenses" class="display">
+<table id="expenses" class="display" data-source="<%= jason_url %>">
 	<thead>
 		<tr>
 			<th>Id</th>
@@ -13,17 +13,46 @@
 	</thead>
 
 	<tbody>
-		<% @expenses.each do |expense| %>
-		<tr>
-			<td><%= expense.id %></td>
-			<td><%= expense.user.name %></td>
-			<td><%= expense.submit_date %></td>
-			<td><%= expense.purpose %></td>
-			<td><%= expense.expense_status.name %></td>
-			<td><%= number_to_currency(expense.total_amount(), precision: 2, delimiter: "", format: "%n") %></td>
-		</tr>
-		<% end %>
 	</tbody>
 </table>
-
 <br />
+<br />
+<br />
+<div id="expense_details_tabs">
+	<ul>
+		<li><a href="#tab_details">Details</a></li>
+		<li><a href="#tab_attachments">Attachments</a></li>
+	</ul>
+
+	<div id="tab_details">
+		<table id="expense_details" class="display">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Date</th>
+					<th>Expense Type</th>
+					<th>Total Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="tab_attachments">
+		<table id="expense_attachments" class="display" data-source="/expenses/0/expense_attachments.json">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+<div id='transition_buttons'>
+</div>

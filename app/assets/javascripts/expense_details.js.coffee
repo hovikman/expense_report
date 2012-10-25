@@ -12,7 +12,7 @@ class expense_details
         sPaginationType: "full_numbers"
         bStateSave: true
         bJQueryUI: true
-        iDisplayLength: 20
+        iDisplayLength: 10
         aLengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]]
         aoColumns: [
           {
@@ -30,7 +30,7 @@ class expense_details
         oTableTools: {
           sRowSelect: "single"     
           aButtons : 
-              crud.construct_buttons('expense_details', 2, false, '', true, 'expenses', expense_id)
+              crud.construct_buttons('expense_details', 2, true, 'expenses', expense_id)
         }
 
 exchange_rate = (from_currency, to_currency, from_currency_code) ->
