@@ -20,6 +20,7 @@ class expense_attachments
         aoColumns: [
           {
             bVisible: false
+            sWidth: "100%"
           }
           null
         ]
