@@ -71,7 +71,6 @@ private
     else
       expenses.order("#{columns[field_index]} #{sort_direction}")
     end
-    
   end
 
   def sort_direction

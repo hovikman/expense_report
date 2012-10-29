@@ -2,12 +2,16 @@ class ExpenseDetailsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @expense = Expense.find(params[:expense_id])
+    if params[:expense_id] == '0'
+      @expense = Expense.new()
+    else
+      @expense = Expense.find(params[:expense_id])
+    end
     @expense_details = @expense.expense_details
     
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @expense_details }
+      format.json { render json: ExpenseDetailsDatatable.new(view_context, @expense_details) }
     end
   end
 

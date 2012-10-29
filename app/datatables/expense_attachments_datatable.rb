@@ -1,5 +1,5 @@
 class ExpenseAttachmentsDatatable
-  delegate :params, :h, :link_to, :number_to_currency, to: :@view
+  delegate :params, to: :@view
 
   def initialize(view, expense_attachment_list)
     @view = view
@@ -21,7 +21,7 @@ private
     expense_attachments.map do |expense_attachment|
       [
         expense_attachment.id,
-        expense_attachment.description,
+        expense_attachment.description
       ]
     end
   end
@@ -54,6 +54,6 @@ private
   end
 
   def sort_direction
-    params[:sSortDir_0] == "desc" ? "desc" : "asc"
+    params[:sSortDir_0] == 'desc' ? 'desc' : 'asc'
   end
 end

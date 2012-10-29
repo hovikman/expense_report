@@ -41,6 +41,7 @@ class expenses
         sDom: '<"H"lfr>t<"F"ip>T'
         fnPreDrawCallback: (oSettings) ->
             $('#expense_attachments').dataTable().fnReloadAjax('/expenses/0/expense_attachments.json')
+            $('#expense_details').dataTable().fnReloadAjax('/expenses/0/expense_details.json')
             $("#transition_buttons").text('')
         oTableTools: {
           sRowSelect: "single"     
@@ -50,8 +51,10 @@ class expenses
             expense_id = TableTools.fnGetInstance('expenses').fnGetSelectedData()[0][0]
             $("#transition_buttons").load('/expenses/' + expense_id + '/transition_buttons')
             $('#expense_attachments').dataTable().fnReloadAjax('/expenses/' + expense_id + '/expense_attachments.json')
+            $('#expense_details').dataTable().fnReloadAjax('/expenses/' + expense_id + '/expense_details.json')
           fnRowDeselected: (node) ->
             $('#expense_attachments').dataTable().fnReloadAjax('/expenses/0/expense_attachments.json')
+            $('#expense_details').dataTable().fnReloadAjax('/expenses/0/expense_details.json')
             $("#transition_buttons").text('')
         }
 

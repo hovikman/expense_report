@@ -24,6 +24,7 @@ class expense_attachments
           }
           null
         ]
+        aaSorting: [[ 1, "asc" ]]
         sDom: '<"H"lfr>t<"F"ip>T'
         oTableTools: {
           sRowSelect: "single"     

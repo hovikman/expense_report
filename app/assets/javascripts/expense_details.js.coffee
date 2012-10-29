@@ -12,6 +12,9 @@ class expense_details
         sPaginationType: "full_numbers"
         bStateSave: true
         bJQueryUI: true
+        bProcessing: true
+        bServerSide: true
+        sAjaxSource: $('#expense_details').data('source')
         iDisplayLength: 10
         aLengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]]
         aoColumns: [
@@ -26,6 +29,7 @@ class expense_details
             sClass: "right_align"
           }
         ]
+        aaSorting: [[ 1, "desc" ]]
         sDom: '<"H"lfr>t<"F"ip>T'
         oTableTools: {
           sRowSelect: "single"     

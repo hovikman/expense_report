@@ -7,10 +7,6 @@ class ExpenseDetail < ActiveRecord::Base
                   :exchange_rate,
                   :expense_type_id
                   
-  # Scope
-  default_scope order: 'expense_id'
-  default_scope order: 'date'
-
   # Associations
   belongs_to :currency
   belongs_to :expense
