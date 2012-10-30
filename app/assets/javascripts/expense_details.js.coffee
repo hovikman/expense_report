@@ -23,10 +23,14 @@ class expense_details
           }
           {
             sClass: "center_align"
+            sWidth: "25%"
           }
-          null
+          {
+            sWidth: "50%"
+          }
           {
             sClass: "right_align"
+            sWidth: "25%"
           }
         ]
         aaSorting: [[ 1, "desc" ]]
@@ -34,7 +38,7 @@ class expense_details
         oTableTools: {
           sRowSelect: "single"     
           aButtons : 
-              crud.construct_buttons('expense_details', 2, true, 'expenses', expense_id)
+              crud.construct_buttons('expense_details', 2, true, 'expenses')
         }
 
 exchange_rate = (from_currency, to_currency, from_currency_code) ->

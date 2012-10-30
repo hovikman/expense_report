@@ -20,7 +20,6 @@ class expense_attachments
         aoColumns: [
           {
             bVisible: false
-            sWidth: "100%"
           }
           null
         ]
@@ -29,7 +28,7 @@ class expense_attachments
         oTableTools: {
           sRowSelect: "single"     
           aButtons : 
-              crud.construct_buttons('expense_attachments', 1, true, 'expenses', expense_id)
+              crud.construct_buttons('expense_attachments', 1, true, 'expenses')
         }
 
 expense_attachments.action()

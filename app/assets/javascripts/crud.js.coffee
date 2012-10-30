@@ -4,28 +4,31 @@
 
 class window.crud
 
-  @crud_action: (sResource, sAction, nColumnIndex = 1, bNested = false, sParentResource = '', nParentId = 0) ->
+  @crud_action: (sResource, sAction, nColumnIndex = 1, bNested = false, sParentResource = '') ->
     if sAction == 'C'
       if bNested
-        sURL = '/' + sParentResource + '/' + nParentId + '/' + sResource + '/new'
+        nParentId = @selected_id(sParentResource)
+        if nParentId == null
+          alert('No row is selected!')
+        else  
+          window.location.href = '/' + sParentResource + '/' + nParentId + '/' + sResource + '/new'
       else
-        sURL = '/' + sResource + '/new'
-      window.location.href = sURL
-    else
-      sId = @selected_id(sResource)
-      if sId == null
-        alert('No row is selected!')
-      else
-        if sAction == 'R'
-          sURL = '/' + sResource + '/' + sId
-          window.location.href = sURL
-        if sAction == 'U'
-          sURL = '/' + sResource + '/' + sId + '/edit'
-          window.location.href = sURL
-        if sAction == 'D'
-          sURL = '/' + sResource + '/' + sId
-          sItemName = TableTools.fnGetInstance(sResource).fnGetSelectedData()[0][nColumnIndex]
-          @delete_row(sURL, sItemName)
+        window.location.href = '/' + sResource + '/new'
+     else
+       sId = @selected_id(sResource)
+       if sId == null
+         alert('No row is selected!')
+       else
+         if sAction == 'R'
+           sURL = '/' + sResource + '/' + sId
+           window.location.href = sURL
+         if sAction == 'U'
+           sURL = '/' + sResource + '/' + sId + '/edit'
+           window.location.href = sURL
+         if sAction == 'D'
+           sURL = '/' + sResource + '/' + sId
+           sItemName = TableTools.fnGetInstance(sResource).fnGetSelectedData()[0][nColumnIndex]
+           @delete_row(sURL, sItemName)
 
   @selected_id: (sResource) ->
     aData = TableTools.fnGetInstance(sResource).fnGetSelectedData()
@@ -47,14 +50,14 @@ class window.crud
     $('#delete_button').click()
     $('#delete_button').remove()
    
-  @construct_buttons: (sResource, nColumnIndex = 1, bNested = false, sParentResource = '', nParentId = 0) ->
+  @construct_buttons: (sResource, nColumnIndex = 1, bNested = false, sParentResource = '') ->
     aColumns = [
       # New
       {
         sExtends:    "text"
         sButtonText: "New"
         fnClick: () ->
-          crud.crud_action(sResource, 'C', nColumnIndex, bNested, sParentResource, nParentId)
+          crud.crud_action(sResource, 'C', nColumnIndex, bNested, sParentResource)
       }
 
       # View
