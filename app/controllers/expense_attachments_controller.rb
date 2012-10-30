@@ -38,7 +38,7 @@ class ExpenseAttachmentsController < ApplicationController
 
     respond_to do |format|
       if @expense_attachment.save
-        format.html { redirect_to expense_expense_details_path(@expense_attachment.expense_id) + '#tab_attachments',
+        format.html { redirect_to get_expense_list_path + '#tab_attachments',
                       flash: { success: "Expense attachment '#{@expense_attachment.description}' was successfully created." }
                     }
         format.json { render json: @expense_attachment, status: :created, location: @expense_attachment }
@@ -54,7 +54,7 @@ class ExpenseAttachmentsController < ApplicationController
 
     respond_to do |format|
       if @expense_attachment.update_attributes(params[:expense_attachment])
-        format.html { redirect_to expense_expense_details_path(@expense_attachment.expense_id) + '#tab_attachments',
+        format.html { redirect_to get_expense_list_path + '#tab_attachments',
                       flash: { success: "Expense attachment '#{@expense_attachment.description}' was successfully updated." }
                     }
         format.json { head :no_content }
@@ -76,7 +76,7 @@ class ExpenseAttachmentsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to expense_expense_details_path(@expense_attachment.expense_id) + '#tab_attachments', flash: { flash_status => notification } }
+      format.html { redirect_to get_expense_list_path + '#tab_attachments', flash: { flash_status => notification } }
       format.json { head :no_content }
     end
   end

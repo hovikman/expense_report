@@ -4,6 +4,7 @@ class ExpensesController < ApplicationController
   # GET /expenses
   # GET /expenses.json
   def index
+    set_expense_list_path(expenses_path)
     respond_to do |format|
       format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Expenses', jason_url: expenses_url(format: "json")} }
       format.json { render json: ExpensesDatatable.new(view_context, @expenses) }
@@ -11,6 +12,7 @@ class ExpensesController < ApplicationController
   end
 
   def owned
+    set_expense_list_path(owned_expenses_path)
     respond_to do |format|
       format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Owned Expenses', jason_url: owned_expenses_url(format: "json") } }
       format.json { render json: ExpensesDatatable.new(view_context, @expenses) }
@@ -18,6 +20,7 @@ class ExpensesController < ApplicationController
   end
   
   def submitted
+    set_expense_list_path(submitted_expenses_path)
     respond_to do |format|
       format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Submitted Expenses', jason_url: submitted_expenses_url(format: "json") } }
       format.json { render json: ExpensesDatatable.new(view_context, @expenses) }
@@ -59,7 +62,7 @@ class ExpensesController < ApplicationController
   def create
     respond_to do |format|
       if @expense.save
-        format.html { redirect_to expense_expense_details_path(@expense.id), flash: { success: "Expense '#{@expense.purpose}' was successfully created." } }
+        format.html { redirect_to get_expense_list_path, flash: { success: "Expense '#{@expense.purpose}' was successfully created." } }
         format.json { render json: @expense, status: :created, location: @expense }
       else
         format.html { render action: "new" }
@@ -118,7 +121,7 @@ class ExpensesController < ApplicationController
         Notifier.delay.became_owner(@expense) if (@expense.owner_id_changed?) and (@expense.owner_id?)
         Notifier.delay.status_changed(@expense) if @expense.expense_status_id_changed?
                         
-        format.html { redirect_to expenses_path, flash: { success: "Expense '#{@expense.purpose}' was successfully updated." } }
+        format.html { redirect_to get_expense_list_path, flash: { success: "Expense '#{@expense.purpose}' was successfully updated." } }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -139,7 +142,7 @@ class ExpensesController < ApplicationController
       flash_status = :error
     end
     respond_to do |format|
-      format.html { redirect_to expenses_path, flash: { flash_status => notification } }
+      format.html { redirect_to get_expense_list_path, flash: { flash_status => notification } }
       format.json { head :no_content }
     end
   end

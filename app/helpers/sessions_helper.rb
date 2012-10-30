@@ -47,4 +47,15 @@ module SessionsHelper
     end
   end
 
+  def set_expense_list_path(new_path)
+    cookies[:expense_list_path] = new_path
+  end
+  
+  def get_expense_list_path
+    if cookies[:expense_list_path] != nil
+      expense_list_path = cookies[:expense_list_path]
+    else
+      expense_list_path = submitted_expenses_path
+    end
+  end
 end

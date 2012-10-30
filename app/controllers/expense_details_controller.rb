@@ -47,7 +47,7 @@ class ExpenseDetailsController < ApplicationController
     
     respond_to do |format|
       if @expense_detail.save
-        format.html { redirect_to expense_expense_details_path(@expense_detail.expense_id),
+        format.html { redirect_to get_expense_list_path + '#tab_details',
                       flash: { success: "Expense detail '#{@expense_detail.expense_type.name}' was successfully created." }
                     }
         format.json { render json: @expense_detail, status: :created, location: @expense_detail }
@@ -64,7 +64,7 @@ class ExpenseDetailsController < ApplicationController
     
     respond_to do |format|
       if @expense_detail.update_attributes(params[:expense_detail])
-        format.html { redirect_to expense_expense_details_path(@expense_detail.expense_id),
+        format.html { redirect_to get_expense_list_path + '#tab_details',
                       flash: { success: "Expense detail '#{@expense_detail.expense_type.name}' was successfully updated." }
                     }
         format.json { head :no_content }
@@ -86,7 +86,7 @@ class ExpenseDetailsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to expense_expense_details_path(@expense_detail.expense_id), flash: { flash_status => notification } }
+      format.html { redirect_to get_expense_list_path + '#details', flash: { flash_status => notification } }
       format.json { head :no_content }
     end
   end
