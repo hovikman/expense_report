@@ -7,7 +7,6 @@ class expense_attachments
   
   @action: () ->
     jQuery ->
-      expense_id = $('#expense_id').text()
       $('#expense_attachments').dataTable
         sPaginationType: "full_numbers"
         bStateSave: true

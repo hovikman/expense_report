@@ -7,7 +7,6 @@ class expense_details
   
   @action: () ->
     jQuery ->
-      expense_id = $('#expense_id').text()
       $('#expense_details').dataTable
         sPaginationType: "full_numbers"
         bStateSave: true
