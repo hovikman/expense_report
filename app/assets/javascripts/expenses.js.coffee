@@ -12,6 +12,7 @@ class expenses
         bJQueryUI: true
         bProcessing: true
         bServerSide: true
+        bAutoWidth: false
         sAjaxSource: $('#expenses').data('source')
         iDisplayLength: 10
         aLengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]]
