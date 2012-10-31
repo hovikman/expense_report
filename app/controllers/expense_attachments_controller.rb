@@ -36,11 +36,17 @@ class ExpenseAttachmentsController < ApplicationController
   def create
     @expense_attachment = ExpenseAttachment.new(params[:expense_attachment])
 
+    if params[:save_and_exit_button]
+      # save_and_exit_button was pressed
+      redirect_path = get_expense_list_path + '#tab_attachments'
+    else
+      # save_and_create_more_button was pressed
+      redirect_path = new_expense_expense_attachment_path(params[:expense_id])
+    end
+ 
     respond_to do |format|
       if @expense_attachment.save
-        format.html { redirect_to get_expense_list_path + '#tab_attachments',
-                      flash: { success: "Expense attachment '#{@expense_attachment.description}' was successfully created." }
-                    }
+        format.html { redirect_to redirect_path, flash: { success: "Expense attachment '#{@expense_attachment.description}' was successfully created." } }
         format.json { render json: @expense_attachment, status: :created, location: @expense_attachment }
       else
         format.html { render action: "new" }
