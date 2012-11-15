@@ -35,10 +35,19 @@ class expense_details
         ]
         aaSorting: [[ 1, "desc" ]]
         sDom: '<"H"lfr>t<"F"ip>T'
+        fnRowCallback: (nRow, aData, iDisplayIndex, iDisplayIndexFull) ->
+          if parseInt($.cookie("expense_details_selected_row")) == aData[0]
+            oTT = TableTools.fnGetInstance('expense_details')
+            oTT.fnSelect nRow
         oTableTools: {
           sRowSelect: "single"     
           aButtons : 
               crud.construct_buttons('expense_details', 2, true, 'expenses')
+          fnRowSelected: (node) ->
+            expense_detail_id = TableTools.fnGetInstance('expense_details').fnGetSelectedData()[0][0]
+            $.cookie "expense_details_selected_row", expense_detail_id, path: "/"
+          fnRowDeselected: (node) ->
+            $.cookie "expense_details_selected_row", null, path: "/"
         }
 
 exchange_rate = (from_currency, to_currency, from_currency_code) ->

@@ -25,10 +25,19 @@ class expense_attachments
         ]
         aaSorting: [[ 1, "asc" ]]
         sDom: '<"H"lfr>t<"F"ip>T'
+        fnRowCallback: (nRow, aData, iDisplayIndex, iDisplayIndexFull) ->
+          if parseInt($.cookie("expense_attachments_selected_row")) == aData[0]
+            oTT = TableTools.fnGetInstance('expense_attachments')
+            oTT.fnSelect nRow
         oTableTools: {
           sRowSelect: "single"     
           aButtons : 
-              crud.construct_buttons('expense_attachments', 1, true, 'expenses')
+            crud.construct_buttons('expense_attachments', 1, true, 'expenses')
+          fnRowSelected: (node) ->
+            expense_attachment_id = TableTools.fnGetInstance('expense_attachments').fnGetSelectedData()[0][0]
+            $.cookie "expense_attachments_selected_row", expense_attachment_id, path: "/"
+          fnRowDeselected: (node) ->
+            $.cookie "expense_attachments_selected_row", null, path: "/"
         }
 
 expense_attachments.action()

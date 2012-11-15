@@ -41,9 +41,13 @@ class expenses
         aaSorting: [[ 2, "desc" ]]
         sDom: '<"H"lfr>t<"F"ip>T'
         fnPreDrawCallback: (oSettings) ->
-            $('#expense_attachments').dataTable().fnReloadAjax('/expenses/0/expense_attachments.json')
-            $('#expense_details').dataTable().fnReloadAjax('/expenses/0/expense_details.json')
-            $("#transition_buttons").text('')
+          $('#expense_attachments').dataTable().fnReloadAjax('/expenses/0/expense_attachments.json')
+          $('#expense_details').dataTable().fnReloadAjax('/expenses/0/expense_details.json')
+          $("#transition_buttons").text('')
+        fnRowCallback: (nRow, aData, iDisplayIndex, iDisplayIndexFull) ->
+          if parseInt($.cookie("expenses_selected_row")) == aData[0]
+            oTT = TableTools.fnGetInstance('expenses')
+            oTT.fnSelect nRow
         oTableTools: {
           sRowSelect: "single"     
           aButtons : 
@@ -53,10 +57,12 @@ class expenses
             $("#transition_buttons").load('/expenses/' + expense_id + '/transition_buttons')
             $('#expense_attachments').dataTable().fnReloadAjax('/expenses/' + expense_id + '/expense_attachments.json')
             $('#expense_details').dataTable().fnReloadAjax('/expenses/' + expense_id + '/expense_details.json')
+            $.cookie "expenses_selected_row", expense_id, path: "/"
           fnRowDeselected: (node) ->
             $('#expense_attachments').dataTable().fnReloadAjax('/expenses/0/expense_attachments.json')
             $('#expense_details').dataTable().fnReloadAjax('/expenses/0/expense_details.json')
             $("#transition_buttons").text('')
+            $.cookie "expenses_selected_row", null, path: "/"
         }
 
 $ ->
