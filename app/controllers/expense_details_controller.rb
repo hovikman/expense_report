@@ -45,17 +45,11 @@ class ExpenseDetailsController < ApplicationController
     @expense = Expense.find(params[:expense_id])
     @expense_detail = @expense.expense_details.build(params[:expense_detail])
 
-    if params[:save_and_exit_button]
-      # save_and_exit_button was pressed
-      redirect_path = get_expense_list_path + '#tab_details'
-    else
-      # save_and_create_more_button was pressed
-      redirect_path = new_expense_expense_detail_path(params[:expense_id])
-    end
     
     respond_to do |format|
       if @expense_detail.save
-        format.html { redirect_to redirect_path, flash: { success: "Expense detail '#{@expense_detail.expense_type.name}' was successfully created." }
+        format.html { redirect_to get_expense_list_path + '#tab_details',
+                      flash: { success: "Expense detail '#{@expense_detail.expense_type.name}' was successfully created." }
                     }
         format.json { render json: @expense_detail, status: :created, location: @expense_detail }
       else
