@@ -6,6 +6,13 @@ class Expense < ActiveRecord::Base
                   :purpose,
                   :submit_date,
                   :user_id
+  # Scopes
+  scope :for_datatable, select('expenses.id, users.name as user_name, expenses.submit_date, expenses.purpose, expense_statuses.name as status_name, ' +
+                               'COALESCE(sum(expense_details.exchange_rate * expense_details.amount), 0.00) as amount')
+    .joins(:user)
+    .joins(:expense_status)
+    .joins('LEFT JOIN expense_details ON expenses.id = expense_details.expense_id')
+    .group('expenses.id, users.name, expense_statuses.name')
                   
   # Associations
   has_many :expense_details, dependent: :delete_all
@@ -24,9 +31,4 @@ class Expense < ActiveRecord::Base
   # Default values
   attr_defaults advance_pay: 0.00
   attr_defaults submit_date: lambda {DateTime.now.to_date}
-
-  # Methods
-  def total_amount
-    expense_details.inject(0) {|sum, expense_detail| sum + expense_detail.total_amount()} - advance_pay
-  end
 end

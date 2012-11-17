@@ -7,7 +7,7 @@ class ExpensesController < ApplicationController
     set_expense_list_path(expenses_path)
     respond_to do |format|
       format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Expenses', jason_url: expenses_url(format: "json")} }
-      format.json { render json: ExpensesDatatable.new(view_context, @expenses) }
+      format.json { render json: ExpensesDatatable.new(view_context, @expenses.for_datatable) }
     end
   end
 
@@ -15,7 +15,7 @@ class ExpensesController < ApplicationController
     set_expense_list_path(owned_expenses_path)
     respond_to do |format|
       format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Owned Expenses', jason_url: owned_expenses_url(format: "json") } }
-      format.json { render json: ExpensesDatatable.new(view_context, @expenses) }
+      format.json { render json: ExpensesDatatable.new(view_context, @expenses.for_datatable) }
     end
   end
   
@@ -23,7 +23,7 @@ class ExpensesController < ApplicationController
     set_expense_list_path(submitted_expenses_path)
     respond_to do |format|
       format.html { render template: 'expenses/index.html.erb', locals: { title: 'Listing Submitted Expenses', jason_url: submitted_expenses_url(format: "json") } }
-      format.json { render json: ExpensesDatatable.new(view_context, @expenses) }
+      format.json { render json: ExpensesDatatable.new(view_context, @expenses.for_datatable) }
     end
   end  
   
