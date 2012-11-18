@@ -8,7 +8,7 @@ class Expense < ActiveRecord::Base
                   :user_id
   # Scopes
   scope :for_datatable, select('expenses.id, users.name as user_name, expenses.submit_date, expenses.purpose, expense_statuses.name as status_name, ' +
-                               'COALESCE(sum(expense_details.exchange_rate * expense_details.amount), 0.00) as amount')
+                               'COALESCE(sum(expense_details.exchange_rate * expense_details.amount), 0.00) - expenses.advance_pay as amount')
     .joins(:user)
     .joins(:expense_status)
     .joins('LEFT JOIN expense_details ON expenses.id = expense_details.expense_id')
