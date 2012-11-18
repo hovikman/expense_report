@@ -8,7 +8,7 @@ class ExpensesDatatable < Datatable
         expense.submit_date.strftime("%B %e, %Y"),
         expense.purpose,
         expense.status_name,
-        number_to_currency(expense.amount, precision: 2, delimiter: "", format: "%n")
+        number_to_currency(expense.total_amount, precision: 2, delimiter: "", format: "%n")
       ]
     end
   end
