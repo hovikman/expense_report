@@ -11,7 +11,7 @@ class ExpenseAttachmentsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: ExpenseAttachmentsDatatable.new(view_context, @expense_attachments) }
+      format.json { render json: ExpenseAttachmentsDatatable.new(view_context, @expense_attachments.for_datatable) }
     end
   end
 

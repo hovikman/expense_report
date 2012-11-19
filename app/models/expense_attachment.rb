@@ -4,6 +4,9 @@ class ExpenseAttachment < ActiveRecord::Base
                   :expense_id,
                   :file_path
                   
+  # Scopes
+  scope :for_datatable, select('expense_attachments.id, expense_attachments.description') 
+
   # Associations
   belongs_to :expense
    
