@@ -40,4 +40,7 @@ class expense_attachments
             $.cookie "expense_attachments_selected_row", null, path: "/"
         }
 
+$ ->
+  $('#expense_details_tabs').tabs()
+
 expense_attachments.action()
