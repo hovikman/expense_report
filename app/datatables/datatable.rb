@@ -8,10 +8,10 @@ class Datatable
   
   def as_json(options = {})
     {
+      aaData: data,
       sEcho: params[:sEcho].to_i,
       iTotalRecords: @klass.length,
-      iTotalDisplayRecords: items.length,
-      aaData: data
+      iTotalDisplayRecords: @filtered_count
     }
   end
     
@@ -35,19 +35,15 @@ private
 
   def fetch_items
     items = @klass
-    items = selected_columns(items)
     items = items.order(sort_order)
-    items = items.page(page).per(per_page)
     if params[:sSearch].present?
       items = items.where(quick_search)
     end
+    @filtered_count = items.length
+    items = items.page(page).per(per_page)
     items
   end
     
-  def selected_columns items
-    items
-  end
-  
   def quick_search
     search_for = params[:sSearch].split(' ')
     terms = {}

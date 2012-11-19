@@ -14,7 +14,7 @@ class ExpensesDatatable < Datatable
   end
   
   def columns
-    %w[id user_name submit_date purpose status_name amount]
+    %w[id user_name submit_date purpose status_name total_amount]
   end
 
   def search_cols
