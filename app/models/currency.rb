@@ -3,9 +3,6 @@ class Currency < ActiveRecord::Base
   attr_accessible :code,
                   :name
                   
-  # Scope
-  default_scope order: 'code'
-
   # Associations
   has_many :companies
   has_many :expense_details

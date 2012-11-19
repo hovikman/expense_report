@@ -9,7 +9,7 @@ class CurrenciesController < ApplicationController
   def index
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @currencies }
+      format.json { render json: CurrenciesDatatable.new(view_context, @currencies) }
     end
   end
 
