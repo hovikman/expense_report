@@ -13,7 +13,7 @@ class expense_attachments
         bJQueryUI: true
         bProcessing: true
         bServerSide: true
-        bAutoWidth: false
+        bAutoWidth: true
         sAjaxSource: $('#expense_attachments').data('source')
         iDisplayLength: 10
         aLengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]]
