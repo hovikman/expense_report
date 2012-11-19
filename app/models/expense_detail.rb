@@ -7,6 +7,10 @@ class ExpenseDetail < ActiveRecord::Base
                   :exchange_rate,
                   :expense_type_id
                   
+  # Scopes
+  scope :for_datatable, select('expense_details.id, expense_details.date, expense_types.name as type_name, expense_details.exchange_rate * expense_details.amount as total_amount') 
+    .joins(:expense_type)
+                  
   # Associations
   belongs_to :currency
   belongs_to :expense
@@ -24,10 +28,5 @@ class ExpenseDetail < ActiveRecord::Base
   attr_defaults amount: 0.0
   attr_defaults date: lambda {DateTime.now.to_date}
   attr_defaults exchange_rate: 1.00
-
-  # Methods
-  def total_amount
-    exchange_rate * amount
-  end
   
 end

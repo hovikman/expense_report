@@ -11,7 +11,7 @@ class ExpenseDetailsController < ApplicationController
     
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: ExpenseDetailsDatatable.new(view_context, @expense_details) }
+      format.json { render json: ExpenseDetailsDatatable.new(view_context, @expense_details.for_datatable) }
     end
   end
 
