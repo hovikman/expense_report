@@ -1,6 +1,6 @@
 <%= render partial: 'shared/title', locals: { title: 'Listing Expense Types' } %>
 
-<table id="expense_types" class="display" data-source="<%= expense_types_url(format: "json") %>">
+<table id="expense_types" class="display" data-source="<% expense_types_url(format: "json") %>">
 	<thead>
 		<tr>
 			<th>Id</th>

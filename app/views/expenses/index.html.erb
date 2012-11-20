@@ -1,6 +1,6 @@
 <%= render partial: 'shared/title', locals: { title: title } %>
 
-<table id="expenses" class="display" data-source="<%= jason_url %>">
+<table id="expenses" class="display" data-source="<% jason_url %>">
 	<thead>
 		<tr>
 			<th>Id</th>
@@ -25,7 +25,7 @@
 	</ul>
 
 	<div id="tab_details">
-		<table id="expense_details" class="display"  data-source="/expenses/0/expense_details.json">
+		<table id="expense_details" class="display" data-source="/expenses/0/expense_details.json">
 			<thead>
 				<tr>
 					<th>Id</th>
