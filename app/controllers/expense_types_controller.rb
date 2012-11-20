@@ -6,7 +6,7 @@ class ExpenseTypesController < ApplicationController
   def index
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @expense_types }
+      format.json { render json: ExpenseTypesDatatable.new(view_context, @expense_types.for_datatable) }
     end
   end
 

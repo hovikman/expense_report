@@ -3,8 +3,9 @@ class ExpenseType < ActiveRecord::Base
   attr_accessible :company_id,
                   :name
                   
-  # Scope
-  default_scope order: 'name'
+  # Scopes
+  scope :for_datatable, select('expense_types.id, expense_types.name, companies.name as company_name') 
+    .joins(:company)
 
   # Associations
   has_many :expense_details

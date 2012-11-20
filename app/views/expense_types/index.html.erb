@@ -1,6 +1,6 @@
 <%= render partial: 'shared/title', locals: { title: 'Listing Expense Types' } %>
 
-<table id="expense_types" class="display">
+<table id="expense_types" class="display" data-source="<%= expense_types_url(format: "json") %>">
 	<thead>
 		<tr>
 			<th>Id</th>
@@ -10,13 +10,6 @@
 	</thead>
 
 	<tbody>
-		<% @expense_types.each do |expense_type| %>
-		<tr>
-			<td><%= expense_type.id %></td>
-			<td><%= expense_type.name %></td>
-			<td><%= expense_type.company.name %></td>
-		</tr>
-		<% end %>
 	</tbody>
 </table>
 
