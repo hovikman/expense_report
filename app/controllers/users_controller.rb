@@ -6,7 +6,8 @@ class UsersController < ApplicationController
   def index
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @users }
+      format.json { render json: UsersDatatable.new(view_context, @users.for_datatable) }
+
     end
   end
 

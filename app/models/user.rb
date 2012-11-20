@@ -11,9 +11,11 @@ class User < ActiveRecord::Base
                   :phone,
                   :user_type_id
 
-  # Scope
-  default_scope order: 'name'
-
+  # Scopes
+  scope :for_datatable, select('users.id, users.name, companies.name as company_name, user_types.name as user_type_name') 
+    .joins(:company)
+    .joins(:user_type)
+    
   # Associations
   has_many :users, foreign_key: "manager_id"
   has_many :expenses

@@ -1,6 +1,6 @@
 <%= render partial: 'shared/title', locals: { title: 'Listing Users' } %>
 
-<table id="users" class="display">
+<table id="users" class="display" data-source="<%= users_url(format: "json") %>">
 	<thead>
 		<tr>
 			<th>Id</th>
@@ -11,14 +11,6 @@
 	</thead>
 
 	<tbody>
-		<% @users.each do |user| %>
-		<tr>
-			<td><%= user.id %></td>
-			<td><%= user.name %></td>
-			<td><%= user.company.name %></td>
-			<td><%= user.user_type.name %></td>
-		</tr>
-		<% end %>
 	</tbody>
 </table>
 
