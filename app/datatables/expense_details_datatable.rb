@@ -1,4 +1,5 @@
 class ExpenseDetailsDatatable < Datatable 
+  delegate :number_to_currency, to: :@view
 
   def data
     items.map do |expense_detail|

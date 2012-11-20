@@ -1,6 +1,6 @@
 <%= render partial: 'shared/title', locals: { title: 'Listing Companies' } %>
 
-<table id="companies" class="display">
+<table id="companies" class="display" data-source="<%= companies_url(format: "json") %>">
 	<thead>
 		<tr>
 			<th>Id</th>
@@ -12,15 +12,6 @@
 	</thead>
 
 	<tbody>
-		<% @companies.each do |company| %>
-		<tr>
-			<td><%= company.id %></td>
-			<td><%= company.name %></td>
-			<td><%= company.contact_person %></td>
-			<td><%= company.contact_title %></td>
-			<td><%= number_to_phone(company.contact_phone, area_code: true) %></td>
-		</tr>
-		<% end %>
 	</tbody>
 </table>
 

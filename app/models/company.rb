@@ -7,8 +7,6 @@ class Company < ActiveRecord::Base
                   :contact_title,
                   :currency_id,
                   :name
-  # Scope
-  default_scope order: 'name'
                    
   # Associations
   has_many :users

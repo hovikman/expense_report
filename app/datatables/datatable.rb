@@ -1,5 +1,5 @@
 class Datatable  
-  delegate :params, :number_to_currency, to: :@view
+  delegate :params, to: :@view
 
   def initialize(view, klass)
     @klass = klass
