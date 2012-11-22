@@ -5,10 +5,10 @@ Hi <%= @expense.owner.name %>,<br/>
 <br/>
 
 You became the owner of an expense.<br/>
-You can see the details of this expense at the link below:<br/>
+You can see the list of expenses you own at the link below:<br/>
 <br/>
 
-<%= link_to 'Expense Details', expense_expense_details_url(@expense.id) %><br/>
+<%= link_to 'Expenses You Own', owned_expenses_url %><br/>
 <br/>
 
 Thank you for using Expense Report.<br/>
