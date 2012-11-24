@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+ExpenseAttachment.delete_all
 ExpenseDetail.delete_all
 Expense.delete_all
 User.delete_all
@@ -196,27 +197,6 @@ Company.create(:name => Company::VENDOR_NAME_STR,
                :contact_phone => '5105730246',
                :contact_email => 'hovikman@gmail.com',
               )
-Company.create(:name => 'Company A',
-               :currency_id => Currency.find_by_code("USD").id,
-               :contact_person => 'Sam Ruby',
-               :contact_title => 'Admin',
-               :contact_phone => '4805790277',
-               :contact_email => 'sam.ruby@companya.com',
-              )
-Company.create(:name => 'Company B',
-               :currency_id => Currency.find_by_code("GBP").id,
-               :contact_person => 'Dave Thomas',
-               :contact_title => 'Admin',
-               :contact_phone => '9105790943',
-               :contact_email => 'dave.thomas@companyb.com',
-              )
-Company.create(:name => 'Manvelyan Soft',
-               :currency_id => Currency.find_by_code("USD").id,
-               :contact_person => 'Hovik Manvelyan',
-               :contact_title => 'Programmer',
-               :contact_phone => '5105730246',
-               :contact_email => 'hovikman@gmail.com',
-              )              
 
 #ExpenseType
 ExpenseType.create(:name => 'Airfare',
@@ -249,67 +229,8 @@ ExpenseType.create(:name => 'Office Supply',
 ExpenseType.create(:name => 'Postage and Shipping',
                    :company_id => Company::vendor_id
                   )
-ExpenseType.create(:name => 'Company A1',
-                   :company_id => Company.find_by_name('Company A').id
-                  )
-ExpenseType.create(:name => 'Company A2',
-                   :company_id => Company.find_by_name('Company A').id
-                  )
-ExpenseType.create(:name => 'Company B1',
-                   :company_id => Company.find_by_name('Company B').id
-                  )
-ExpenseType.create(:name => 'Company B2',
-                   :company_id => Company.find_by_name('Company B').id
-                  )                               
+
 #User
-User.create(:name => 'Hovik Manvelyan',
-            :company_id => Company::vendor_id,
-            :user_type_id => UserType::vendor_admin_id,
-            :manager_id => nil,
-            :email => 'hovikman@gmail.com',
-            :password => 'foobar',
-            :password_confirmation => 'foobar'
-            )
-User.create(:name => 'Sam Ruby',
-            :company_id => Company.find_by_name("Company A").id,
-            :user_type_id => UserType::admin_id,
-            :manager_id => nil,
-            :email => 'sam.ruby@companya.com',
-            :password => 'foobar',
-            :password_confirmation => 'foobar'
-            )
-User.create(:name => 'Dave Thomas',
-            :company_id => Company.find_by_name("Company A").id,
-            :user_type_id => UserType::regular_user_id,
-            :manager_id => User.find_by_name("Sam Ruby").id,
-            :email => 'dave.thomas@companya.com',
-            :password => 'foobar',
-            :password_confirmation => 'foobar'
-            )
-User.create(:name => 'David Hansson',
-            :company_id => Company.find_by_name("Company B").id,
-            :user_type_id => UserType::admin_id,
-            :manager_id => nil,
-            :email => 'david.hansson@companyb.com',
-            :password => 'foobar',
-            :password_confirmation => 'foobar'
-            )
-User.create(:name => 'Leon Breedt',
-            :company_id => Company.find_by_name("Company B").id,
-            :user_type_id => UserType::regular_user_id,
-            :manager_id => User.find_by_name("David Hansson").id,
-            :email => 'leon.breedt@companyb.com',
-            :password => 'foobar',
-            :password_confirmation => 'foobar'
-            )
-User.create(:name => 'admin',
-            :company_id => Company.find_by_name("Company A").id,
-            :user_type_id => UserType::admin_id,
-            :manager_id => nil,
-            :email => 'admin@companya.com',
-            :password => 'foobar',
-            :password_confirmation => 'foobar'
-            )
 User.create(:name => 'vendor_admin',
             :company_id => Company.find_by_name(Company::VENDOR_NAME_STR).id,
             :user_type_id => UserType::vendor_admin_id,
@@ -318,123 +239,7 @@ User.create(:name => 'vendor_admin',
             :password => 'foobar',
             :password_confirmation => 'foobar'
             )
-User.create(:name => 'regular user',
-            :company_id => Company.find_by_name("Company A").id,
-            :user_type_id => UserType::regular_user_id,
-            :manager_id => User.find_by_name("admin").id,
-            :email => 'regular_user@companya.com',
-            :password => 'foobar',
-            :password_confirmation => 'foobar'
-            )
-User.create(:name => 'Hovik',
-            :company_id => Company.find_by_name("Manvelyan Soft").id,
-            :user_type_id => UserType::admin_id,
-            :manager_id => nil,
-            :email => 'hovik_manvelyan2002@yahoo.com',
-            :password => 'foobar',
-            :password_confirmation => 'foobar'
-            )
-User.create(:name => 'Hayk',
-            :company_id => Company.find_by_name("Manvelyan Soft").id,
-            :user_type_id => UserType::regular_user_id,
-            :manager_id => User.find_by_name("Hovik").id,
-            :email => 'haykm1993@yahoo.com',
-            :password => 'foobar',
-            :password_confirmation => 'foobar'
-            )
-User.create(:name => 'Melan',
-            :company_id => Company.find_by_name("Manvelyan Soft").id,
-            :user_type_id => UserType::regular_user_id,
-            :manager_id => User.find_by_name("Hovik").id,
-            :email => 'melanarm@yahoo.com',
-            :password => 'foobar',
-            :password_confirmation => 'foobar'
-            )
 
-
-
-#Expense
-Expense.create(:user_id => User.find_by_name("David Hansson").id,
-               :purpose => "Expenses for my trip to Paris",
-               :advance_pay => 500.00,
-              ) 
-Expense.create(:user_id => User.find_by_name("Leon Breedt").id,
-               :purpose => "Expenses for my trip to New York",
-               :advance_pay => 0.00,
-              ) 
-Expense.create(:user_id => User.find_by_name("Sam Ruby").id,
-               :purpose => "Expenses for my trip to Tokio",
-               :advance_pay => 0.00,
-              )
-Expense.create(:user_id => User.find_by_name("admin").id,
-               :purpose => "Expenses for my trip to London",
-               :advance_pay => 10.00,
-              )
-Expense.create(:user_id => User.find_by_name("regular user").id,
-               :purpose => "Expenses for my trip to Moscow",
-               :advance_pay => 10.00,
-              )
-Expense.create(:user_id => User.find_by_name("Leon Breedt").id,
-               :purpose => "Expenses for my trip Kiev",
-               :advance_pay => 0.00,
-              )
-              
-#ExpenseDetail
-ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("David Hansson").id).id,
-                     :expense_type_id => ExpenseType.find_by_name('Meal').id,
-                     :amount => 40.00,
-                     :currency_id => Currency.find_by_code("USD").id,
-                     :exchange_rate => 1.00,
-                     :comments => 'New York is very expensive city'
-                    )
-ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("Leon Breedt").id).id,
-                     :expense_type_id => ExpenseType.find_by_name('Entertainment').id,
-                     :amount => 240.00,
-                     :currency_id => Currency.find_by_code("USD").id,
-                     :exchange_rate => 1.00,
-                     :comments => 'I had a great time'
-                    )
-ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("Sam Ruby").id).id,
-                     :expense_type_id => ExpenseType.find_by_name('Airfare').id,
-                     :amount => 1040.00,
-                     :currency_id => Currency.find_by_code("USD").id,
-                     :exchange_rate => 1.00,
-                     :comments => 'I used United Airlines'
-                    )
-ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("David Hansson").id).id,
-                     :expense_type_id => ExpenseType.find_by_name('Office Supply').id,
-                     :amount => 30.00,
-                     :currency_id => Currency.find_by_code("USD").id,
-                     :exchange_rate => 1.00,
-                     :comments => 'I needed some pens'
-                    )
-ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("admin").id).id,
-                     :expense_type_id => ExpenseType.find_by_name('Office Supply').id,
-                     :amount => 30.00,
-                     :currency_id => Currency.find_by_code("JPY").id,
-                     :exchange_rate => 1.00,
-                     :comments => 'I needed some pens'
-                    )
-ExpenseDetail.create(:expense_id => Expense.find_by_user_id(User.find_by_name("regular user").id).id,
-                     :expense_type_id => ExpenseType.find_by_name('Office Supply').id,
-                     :amount => 30.00,
-                     :currency_id => Currency.find_by_code("RUB").id,
-                     :exchange_rate => 1.00,
-                     :comments => 'I needed some pens'
-                    )
-                    
 company = Company.find_by_name(Company::VENDOR_NAME_STR)
-company.accountant_id = User.find_by_name("admin").id
-company.save
-
-company = Company.find_by_name('Company A')
-company.accountant_id = User.find_by_name("Sam Ruby").id
-company.save
-
-company = Company.find_by_name('Company B')
-company.accountant_id = User.find_by_name("David Hansson").id
-company.save
-
-company = Company.find_by_name('Manvelyan Soft')
-company.accountant_id = User.find_by_name("Melan").id
+company.accountant_id = User.find_by_name('vendor_admin').id
 company.save

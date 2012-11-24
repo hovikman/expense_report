@@ -41,8 +41,9 @@ class User < ActiveRecord::Base
   after_update  :ensure_an_admin_remains
 
   after_initialize do
-    if self.new_record?
+    if self.new_record? && self.password.nil?
       self.password = SecureRandom.hex(6)
+      self.password_confirmation = self.password
     end
   end
 
