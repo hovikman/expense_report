@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   before_create { generate_token(:remember_token) }
   before_destroy :ensure_not_referenced_by_any_user
   before_destroy :ensure_not_referenced_by_any_expense
+  before_destroy :ensure_not_accountant
   after_destroy :ensure_an_admin_remains
   after_update  :ensure_an_admin_remains
 
@@ -117,7 +118,12 @@ class User < ActiveRecord::Base
     def ensure_not_referenced_by_any_user
       raise "Cannot delete user '#{name}'. There are users referencing this user as manager." unless users.empty?
     end
-
+    
+    # ensure that this user is not the accountant of the company
+    def ensure_not_accountant
+      raise "Cannot delete user '#{name}'. The user is the accountant of the company." unless company.accountant_id != id
+    end
+    
     # ensure that there are no expenses referencing this user
     def ensure_not_referenced_by_any_expense
       raise "Cannot delete user '#{name}'. There are expenses referencing this user." unless expenses.empty?
