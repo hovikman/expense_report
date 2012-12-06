@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "StaticPages" do
+describe "Static Pages" do
   subject { page }
   
   shared_examples_for "all static pages" do
@@ -38,6 +38,29 @@ describe "StaticPages" do
     let(:page_title) { 'Contact' }
     
     it_should_behave_like "all static pages"
+  end
+  
+  describe "Sign in page" do
+    before { visit signin_path }
+    let(:heading)    { 'Sign in' }
+    let(:page_title) { 'Sign in' }
+    
+    it_should_behave_like "all static pages"
+  end
+  
+  it "should have the right links on the layout" do
+    visit root_path
+    click_link "About"
+    page.should have_selector 'title', text: full_title('About')
+    click_link "Contact"
+    page.should have_selector 'title', text: full_title('Contact')
+    click_link "Help"
+    page.should have_selector 'title', text: full_title('Help')
+    click_link "Home"
+    page.should have_selector 'title', text: full_title('Home')
+    click_link "Sign in"
+    page.should have_selector 'title', text: full_title('Sign in')
+
   end
 
 end
