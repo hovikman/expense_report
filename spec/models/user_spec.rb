@@ -28,6 +28,7 @@ describe User do
   pending "test validity"
   # it { should be_valid }
   
+  # presence tests
   #describe "when company_id is not present" do
   #  before { @user.company_id = nil }
   #  it { should_not be_valid }
@@ -48,5 +49,20 @@ describe User do
   #  it { should_not be_valid }
   #end
 
+  # length tests
+  #describe "when name is too long" do
+  #  before { @user.name = "a" * 31 }
+  #  it { should_not be_valid }
+  #end
+
+  #describe "when email is too long" do
+  #  before { @user.email = "a" * 41 }
+  #  it { should_not be_valid }
+  #end
+
+  #describe "when phone is too long" do
+  #  before { @user.phone = "a" * 21 }
+  #  it { should_not be_valid }
+  #end
 
 end
