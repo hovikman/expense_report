@@ -25,9 +25,11 @@ class User < ActiveRecord::Base
   belongs_to :user_type
 
   # Validations
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :company_id, presence: true
   validates :name, presence: true, length: { maximum: 30 }
-  validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 40 }
+  validates :email, presence: true, uniqueness: { case_sensitive: false },
+    length: { maximum: 40 }, format: { with: VALID_EMAIL_REGEX }
   validates :phone, length: { maximum: 20 }
   validates :user_type_id, presence: true
   validates_uniqueness_of :name, scope: :company_id
