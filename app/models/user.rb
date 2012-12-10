@@ -26,8 +26,9 @@ class User < ActiveRecord::Base
 
   # Validations
   validates :company_id, presence: true
-  validates :name, presence: true
-  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true, length: { maximum: 30 }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 40 }
+  validates :phone, length: { maximum: 20 }
   validates :user_type_id, presence: true
   validates_uniqueness_of :name, scope: :company_id
   validate :validate_user_type
