@@ -102,8 +102,8 @@ class ExpensesController < ApplicationController
     
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
-        Notifier.delay.became_owner(@expense) if @expense.owner_id?
-        Notifier.delay.status_changed(@expense)
+        Notifier.became_owner(@expense).deliver if @expense.owner_id?
+        Notifier.status_changed(@expense).deliver
         format.html { redirect_to  owned_expenses_path, flash: { success: "Expense '#{@expense.purpose}' was successfully #{transition_name}." } }
         format.json { head :no_content }
       else
@@ -118,8 +118,8 @@ class ExpensesController < ApplicationController
   def update
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
-        Notifier.delay.became_owner(@expense) if (@expense.owner_id_changed?) and (@expense.owner_id?)
-        Notifier.delay.status_changed(@expense) if @expense.expense_status_id_changed?
+        Notifier.became_owner(@expense).deliver if (@expense.owner_id_changed?) and (@expense.owner_id?)
+        Notifier.status_changed(@expense).deliver if @expense.expense_status_id_changed?
                         
         format.html { redirect_to get_expense_list_path, flash: { success: "Expense '#{@expense.purpose}' was successfully updated." } }
         format.json { head :no_content }
