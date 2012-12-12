@@ -5,11 +5,14 @@ describe User do
   before { @user = User.new(company_id: 1,
                             name: "Example User",
                             email: "user@example.com",
-                            user_type_id: 1) }
+                            user_type_id: 1,
+                            password: "foobar",
+                            password_confirmation: "foobar") }
 
   subject { @user }
 
   # test accessable attributes
+  it { should respond_to(:authenticate) }
   it { should respond_to(:company_id) }
   it { should respond_to(:email) }
   it { should respond_to(:id) }
@@ -94,6 +97,33 @@ describe User do
     end
 
     it { should_not be_valid }
+  end
+  
+  # test authentication
+  describe "when password doesn't match confirmation" do
+    before { @user.password_confirmation = "mismatch" }
+    it { should_not be_valid }
+  end
+  
+  describe "with a password that's too short" do
+    before { @user.password = @user.password_confirmation = "a" * 5 }
+    it { @user.password_valid?(@user.password).should be false }
+  end
+
+  describe "return value of authenticate method" do
+    before { @user.save }
+    let(:found_user) { User.find_by_email(@user.email) }
+
+    describe "with valid password" do
+      it { should == found_user.authenticate(@user.password) }
+    end
+
+    describe "with invalid password" do
+      let(:user_for_invalid_password) { found_user.authenticate("invalid") }
+
+      it { should_not == user_for_invalid_password }
+      specify { user_for_invalid_password.should be_false }
+    end
   end
 
 end
