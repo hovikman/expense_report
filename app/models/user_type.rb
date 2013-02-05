@@ -9,7 +9,7 @@ class UserType < ActiveRecord::Base
   has_many :users
 
   # Validations
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true, length: { maximum: 20 }
 
   # Callbacks
   before_destroy :ensure_not_referenced_by_any_user
