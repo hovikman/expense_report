@@ -13,8 +13,8 @@ describe UserType do
       UserType.create!(@attr)
     end
     it "should respond to #name" do
-      @user_type = UserType.create!(@attr)
-      @user_type.should respond_to(:name)
+      user_type = UserType.create!(@attr)
+      user_type.should respond_to(:name)
     end
   end
     
@@ -44,19 +44,19 @@ describe UserType do
     
   describe "validations" do
     it "should require a name" do
-      no_name_usertype = UserType.new(@attr.merge(name: ""))
-      no_name_usertype.should_not be_valid
+      no_name_user_type = UserType.new(@attr.merge(name: ""))
+      no_name_user_type.should_not be_valid
     end
   
     it "should reject names that are too long" do
       long_name = "a" * 21
-      long_name_usertype = UserType.new(@attr.merge(name: long_name))
-      long_name_usertype.should_not be_valid
+      long_name_user_type = UserType.new(@attr.merge(name: long_name))
+      long_name_user_type.should_not be_valid
     end
 
     it "should reject duplicate names" do
       UserType.create!(@attr)
-      usertype_with_duplicate_name = User.new(@attr)
+      usertype_with_duplicate_name = UserType.new(@attr)
       usertype_with_duplicate_name.should_not be_valid
     end
   end
