@@ -8,8 +8,8 @@ class Currency < ActiveRecord::Base
   has_many :expense_details
 
   # Validations
-  validates :name, presence: true, uniqueness: {case_sensitive: false}
-  validates :code, presence: true, uniqueness: {case_sensitive: false}
+  validates :name, presence: true, uniqueness: {case_sensitive: false}, length: { maximum: 30 }
+  validates :code, presence: true, uniqueness: {case_sensitive: false}, length: { maximum: 3 }
 
   # Callbacks
   before_save { self.code.upcase! }
