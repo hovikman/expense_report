@@ -37,6 +37,7 @@ describe Currency do
       currency.should be_valid
       currency.name = ''
       currency.should_not be_valid
+      currency.should have(1).error_on(:name)
     end
 
     it "rejects names that are too long" do
@@ -44,6 +45,7 @@ describe Currency do
       currency.should be_valid
       currency.name = "a" * 31
       currency.should_not be_valid
+      currency.should have(1).error_on(:name)
     end
 
     it "rejects duplicate names" do
@@ -51,6 +53,7 @@ describe Currency do
       currency_with_duplicate_name = FactoryGirl.build(:currency)
       currency_with_duplicate_name.name = currency.name
       currency_with_duplicate_name.should_not be_valid
+      currency_with_duplicate_name.should have(1).error_on(:name)
     end
 
     it "requires code" do
@@ -58,6 +61,7 @@ describe Currency do
       currency.should be_valid
       currency.code = ''
       currency.should_not be_valid
+      currency.should have(1).error_on(:code)
     end
 
     it "rejects codes that are too long" do
@@ -65,6 +69,7 @@ describe Currency do
       currency.should be_valid
       currency.code = "a" * 4
       currency.should_not be_valid
+      currency.should have(1).error_on(:code)
     end
 
     it "rejects duplicate codes" do
@@ -72,6 +77,7 @@ describe Currency do
       currency_with_duplicate_code = FactoryGirl.build(:currency)
       currency_with_duplicate_code.code = currency.code
       currency_with_duplicate_code.should_not be_valid
+      currency_with_duplicate_code.should have(1).error_on(:code)
     end
   end
 
