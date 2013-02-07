@@ -8,4 +8,9 @@ FactoryGirl.define do
     password "foobar"
     password_confirmation "foobar"
   end
+  
+  factory :currency do
+    sequence(:name) {|n| "Sample Currency #{n}" }
+    sequence(:code, 'A') {|char| "AA#{char}"}
+  end
 end

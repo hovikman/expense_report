@@ -2,20 +2,13 @@ require 'spec_helper'
 
 describe Currency do
 
-  before(:each) do
-    @attr = {
-      name: "Example Currency",
-      code: "AAA"
-    }
-  end
-  
   describe "attributes" do
     it "should create a new instance given a valid attribute" do
-      Currency.create!(@attr)
+      Currency.create!(FactoryGirl.attributes_for(:currency))
     end
-    describe "should respond to"
+    describe "should respond to" do
       before(:each) do
-        @currency = Currency.new(@attr)
+        @currency = FactoryGirl.build(:currency)
       end
       it "should respond to #name" do
         @currency.should respond_to(:name)
@@ -23,10 +16,11 @@ describe Currency do
       it "should respond to #code" do
         @currency.should respond_to(:code)
       end
+    end
   end
-    
+
   describe "associations" do
-    currency = Currency.new(@attr)
+    currency = FactoryGirl.build(:currency)
     it { currency.should respond_to :companies }
     it { currency.should respond_to :expense_details }
     it "tests related to Company association" do
@@ -36,63 +30,79 @@ describe Currency do
       pending "need more time to understand how to do it"
     end
   end
-    
+
   describe "validations" do
     describe "name validations" do
+      
       it "should require a name" do
-        no_name_currency = Currency.new(@attr.merge(name: ""))
-        no_name_currency.should_not be_valid
+        currency = FactoryGirl.build(:currency)
+        currency.should be_valid
+        currency.name = ''
+        currency.should_not be_valid
       end
-    
+
       it "should reject names that are too long" do
-        long_name = "a" * 31
-        long_name_currency = Currency.new(@attr.merge(name: long_name))
-        long_name_currency.should_not be_valid
+        currency = FactoryGirl.build(:currency)
+        currency.should be_valid
+        currency.name = "a" * 31
+        currency.should_not be_valid
       end
-  
+
       it "should reject duplicate names" do
-        Currency.create!(@attr)
-        currency_with_duplicate_name = Currency.new({name: @attr[:name], code: 'A01'})
+        currency = FactoryGirl.create(:currency)
+        currency_with_duplicate_name = FactoryGirl.build(:currency)
+        currency_with_duplicate_name.name = currency.name
         currency_with_duplicate_name.should_not be_valid
       end
     end
-    
+
     describe "code validations" do
       it "should require a code" do
-        no_code_currency = Currency.new(@attr.merge(code: ""))
-        no_code_currency.should_not be_valid
+        currency = FactoryGirl.build(:currency)
+        currency.should be_valid
+        currency.code = ''
+        currency.should_not be_valid
       end
-    
+
       it "should reject codes that are too long" do
-        long_code = "a" * 4
-        long_code_currency = Currency.new(@attr.merge(code: long_code))
-        long_code_currency.should_not be_valid
+        currency = FactoryGirl.build(:currency)
+        currency.should be_valid
+        currency.code = "a" * 4
+        currency.should_not be_valid
       end
-  
+
       it "should reject duplicate codes" do
-        Currency.create!(@attr)
-        currency_with_duplicate_code = Currency.new({name: 'Example Currency2', code: @attr[:code]})
+        currency = FactoryGirl.create(:currency)
+        currency_with_duplicate_code = FactoryGirl.build(:currency)
+        currency_with_duplicate_code.code = currency.code
         currency_with_duplicate_code.should_not be_valid
       end
     end
   end
 
   describe "callbacks" do
+    it "upcase should be called on 'code' before save" do
+      currency = FactoryGirl.build(:currency)
+      code = currency.code
+      currency.code.downcase!
+      currency.save
+      currency.code.should == code
+    end
     it "tests related to Currency callbacks" do
       pending "need more time to understand how to do it"
     end
   end
-      
+
   describe "methods" do
-    before(:each) do
-      @currency = Currency.new(@attr)
+    before (:each) do
+      @currency = FactoryGirl.build(:currency)
     end
     describe "should responde to :code_and_name" do
       it { @currency.should respond_to :code_and_name }
     end
     describe ":code_and_name should return correct value" do
-      it { @currency.code_and_name.should == 'AAA Example Currency' }
+      it { @currency.code_and_name.should == @currency.code + ' ' + @currency.name }
     end
   end
-  
+
 end
