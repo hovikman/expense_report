@@ -15,12 +15,12 @@ class Company < ActiveRecord::Base
   belongs_to :accountant, class_name: "User", foreign_key: "accountant_id"
   
   # Validations
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true, length: { maximum: 30 }
   validates :currency_id, presence: true
-  validates :contact_person, presence: true
-  validates :contact_title, presence: true
-  validates :contact_phone, presence: true
-  validates :contact_email, presence: true
+  validates :contact_person, presence: true, length: { maximum: 30 }
+  validates :contact_title, presence: true, length: { maximum: 20 }
+  validates :contact_phone, presence: true, length: { maximum: 20 }
+  validates :contact_email, presence: true, length: { maximum: 40 }
 
   # Callbacks
   before_destroy :ensure_cannot_delete_vendor

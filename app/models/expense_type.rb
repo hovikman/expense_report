@@ -13,7 +13,7 @@ class ExpenseType < ActiveRecord::Base
 
   # Validations
   validates :company_id, presence: true
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 30 }
   validates_uniqueness_of :name, scope: :company_id
 
   # Callbacks

@@ -24,7 +24,7 @@ class Expense < ActiveRecord::Base
   # Validations
   validates :advance_pay, presence: true, numericality: {greater_than_or_equal_to: 0.00}
   validates :expense_status_id, presence: true
-  validates :purpose, presence: true
+  validates :purpose, presence: true, length: { maximum: 40 }
   validates :submit_date, presence: true
   validates :user_id, presence: true
 
