@@ -69,6 +69,10 @@ FactoryGirl.define do
     expense_type_id     { ExpenseType.find_by_name('Meal').id }
   end
   
+  factory :expense_status do
+    sequence(:name) { |n| "Sample Expense Status #{n}" }
+  end
+  
   factory :expense_type do
     company_id      { Company.vendor_id }
     sequence(:name) { |n| "Sample Expense Type #{n}" }
@@ -94,9 +98,8 @@ FactoryGirl.define do
     end
   end
   
-  # no factories needed for the following models: 
-  #  :expense_status
-  #  :user_type
-  # rows of these models are predefined and
-  # users can't create new objects of these models
+  factory :user_type do
+    sequence(:name) { |n| "Sample User Type #{n}" }
+  end
+
 end
