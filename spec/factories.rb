@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :company do
-    accountant_id
+    accountant_id   nil
     contact_email   { "#{contact_person}@#{name}.com".downcase }
     contact_person  'SamplePerson'
     contact_phone   '5103531846'
@@ -70,7 +70,7 @@ FactoryGirl.define do
   end
   
   factory :expense_type do
-    company         { Company.find(Company.vendor_id) }
+    company_id      { Company.vendor_id }
     sequence(:name) { |n| "Sample Expense Type #{n}" }
   end
   
