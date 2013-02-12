@@ -69,17 +69,20 @@ describe UserType do
       @vendor_admin = UserType.find(UserType.vendor_admin_id)
     end
     it "raises error when 'vendor administrator' UserType is deleted" do
-      lambda do
+      expect {
         @vendor_admin.destroy
-      end.should raise_error(RuntimeError)
+      }.to raise_error(
+        RuntimeError,
+        "Cannot delete user type 'Vendor Administrator'. There are users referencing this user type."
+        )
     end
     it "number of records in UserType table is not changed when attempted to delete 'vendor administrator' UserType" do
-      lambda do
+      expect {
         begin
           @vendor_admin.destroy
         rescue RuntimeError
         end
-      end.should_not change(UserType, :count)
+      }.to_not change(UserType, :count)
     end
     it "callback #ensure_not_referenced_by_any_user is called when attempted to delete 'vendor administrator' UserType" do
       @vendor_admin.should_receive(:ensure_not_referenced_by_any_user)      
