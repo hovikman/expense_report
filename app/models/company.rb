@@ -15,12 +15,13 @@ class Company < ActiveRecord::Base
   belongs_to :accountant, class_name: "User", foreign_key: "accountant_id"
   
   # Validations
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :name, presence: true, uniqueness: true, length: { maximum: 30 }
   validates :currency_id, presence: true
   validates :contact_person, presence: true, length: { maximum: 30 }
   validates :contact_title, presence: true, length: { maximum: 20 }
   validates :contact_phone, presence: true, length: { maximum: 20 }
-  validates :contact_email, presence: true, length: { maximum: 40 }
+  validates :contact_email, presence: true, length: { maximum: 40 }, format: { with: VALID_EMAIL_REGEX }
 
   # Callbacks
   before_destroy :ensure_cannot_delete_vendor
@@ -37,7 +38,6 @@ class Company < ActiveRecord::Base
   end
  
   private
-
 
     def ensure_cannot_delete_vendor
       raise "Cannot delete the vendor company." if name == VENDOR_NAME_STR
