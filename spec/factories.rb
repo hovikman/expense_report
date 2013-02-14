@@ -1,3 +1,5 @@
+include ActionDispatch::TestProcess
+
 FactoryGirl.define do
 
   factory :company do
@@ -6,7 +8,7 @@ FactoryGirl.define do
     contact_person  'SamplePerson'
     contact_phone   '5103531846'
     contact_title   'Sample Title'
-    currency_id     { Currency.find_by_code('USD').id }
+    currency
     sequence(:name) { |n| "SampleCompany#{n}" }    
   end
   
@@ -20,7 +22,7 @@ FactoryGirl.define do
     expense_status_id { ExpenseStatus.new_id }
     purpose           'Sample Purpose'
     submit_date       { DateTime.now.to_date }
-    user_id           { current_user.id }    
+    user   
     after(:build)     { |expense| expense.owner_id = expense.user_id }
     
     factory :expense_with_attachments do
@@ -54,19 +56,19 @@ FactoryGirl.define do
   end
  
   factory :expense_attachment do
-    description          'Sample Description'
+    description 'Sample Description'
     expense
-    sequence(:file_path) { |n| "c:/sample_dir/sample_file#{n}.txt" }
+    file_path   { fixture_file_upload(Rails.root.join('spec', 'support', 'test_files', 'burney_falls.jpg'), 'image/jpg') }
   end
   
   factory :expense_detail do
     sequence(:amount, 50)
     sequence(:comments) { |n| "Sample Comment #{n}" } 
-    currency_id         { Currency.find_by_code('USD').id }
+    currency
     date                { DateTime.now.to_date }
     exchange_rate       1.00
     expense
-    expense_type_id     { ExpenseType.find_by_name('Meal').id }
+    expense_type
   end
   
   factory :expense_status do
