@@ -9,7 +9,8 @@ class ExpenseAttachment < ActiveRecord::Base
    
   # Validations
   validates :description, presence: true, length: { maximum: 40 }
-  validates :file_path, presence: true, length: { maximum: 255 }
+  validates :expense_id, presence: true
+  validates :file_path, presence: true
 
   # Uploader
   mount_uploader :file_path, ExpenseAttachmentUploader               

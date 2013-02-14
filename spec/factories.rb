@@ -8,7 +8,7 @@ FactoryGirl.define do
     contact_person  'SamplePerson'
     contact_phone   '5103531846'
     contact_title   'Sample Title'
-    currency
+    currency_id     { Currency.find_by_code('USD').id }
     sequence(:name) { |n| "SampleCompany#{n}" }    
   end
   
@@ -22,7 +22,7 @@ FactoryGirl.define do
     expense_status_id { ExpenseStatus.new_id }
     purpose           'Sample Purpose'
     submit_date       { DateTime.now.to_date }
-    user   
+    user
     after(:build)     { |expense| expense.owner_id = expense.user_id }
     
     factory :expense_with_attachments do
@@ -64,11 +64,11 @@ FactoryGirl.define do
   factory :expense_detail do
     sequence(:amount, 50)
     sequence(:comments) { |n| "Sample Comment #{n}" } 
-    currency
+    currency_id         { Currency.find_by_code('USD').id }
     date                { DateTime.now.to_date }
     exchange_rate       1.00
     expense
-    expense_type
+    expense_type_id     { ExpenseType.find_by_name('Meal').id }
   end
   
   factory :expense_status do
