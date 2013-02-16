@@ -30,28 +30,25 @@ describe ExpenseAttachment do
   end
 
   describe "validations" do
+    before(:each) do
+      @expense_attachment = FactoryGirl.build(:expense_attachment)
+    end
     it "requires description" do
-      expense_attachment = FactoryGirl.build(:expense_attachment)
-      expense_attachment.should be_valid
-      expense_attachment.description = ''
-      expense_attachment.should_not be_valid
-      expense_attachment.should have(1).error_on(:description)
+      @expense_attachment.description = ''
+      @expense_attachment.should_not be_valid
+      @expense_attachment.should have(1).error_on(:description)
     end
 
     it "rejects descriptions that are too long" do
-      expense_attachment = FactoryGirl.build(:expense_attachment)
-      expense_attachment.should be_valid
-      expense_attachment.description = "a" * 41
-      expense_attachment.should_not be_valid
-      expense_attachment.should have(1).error_on(:description)
+      @expense_attachment.description = "a" * 41
+      @expense_attachment.should_not be_valid
+      @expense_attachment.should have(1).error_on(:description)
     end
 
     it "requires expense_id" do
-      expense_attachment = FactoryGirl.build(:expense_attachment)
-      expense_attachment.should be_valid
-      expense_attachment.expense_id = nil
-      expense_attachment.should_not be_valid
-      expense_attachment.should have(1).error_on(:expense_id)
+      @expense_attachment.expense_id = nil
+      @expense_attachment.should_not be_valid
+      @expense_attachment.should have(1).error_on(:expense_id)
     end
 
     it "requires file_path" do
