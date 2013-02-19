@@ -83,6 +83,7 @@ FactoryGirl.define do
   factory :user, aliases: [:vendor_admin] do
     company               { Company.find(Company.vendor_id) }
     email                 { "#{name}@#{company.name}.com".downcase }
+    manager_id            nil
     sequence(:name)       { |n| "VendorAdmin#{n}" }
     password              'foobar'
     password_confirmation 'foobar'

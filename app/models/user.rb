@@ -92,22 +92,6 @@ class User < ActiveRecord::Base
      "#{name}, #{company.name}"
   end
   
-  def validate_user_type
-    if company_id != Company::vendor_id
-      if user_type_id == UserType::vendor_admin_id
-        errors.add(:user_type_id, "can be 'Vendor Administrator' only for vendor company")
-      end
-    end
-  end
-
-  def ensure_an_admin_remains
-    if user_type_id == UserType::vendor_admin_id
-      if User.where({user_type_id: UserType::vendor_admin_id, company_id: company_id}).count.zero?
-        raise "Cannot delete last vendor admin."
-      end
-    end
-  end
-
   def send_password_reset
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
@@ -117,6 +101,24 @@ class User < ActiveRecord::Base
   
   private
 
+    # ensure that there is at least one vendor admin
+    def ensure_an_admin_remains
+      if user_type_id == UserType::vendor_admin_id
+        if User.where({user_type_id: UserType::vendor_admin_id, company_id: company_id}).count.zero?
+          raise "Cannot delete last vendor admin."
+        end
+      end
+    end
+  
+    # ensure that vendor administrators can be created only for vendor company
+    def validate_user_type
+      if company_id != Company::vendor_id
+        if user_type_id == UserType::vendor_admin_id
+          errors.add(:user_type_id, "can be 'Vendor Administrator' only for vendor company")
+        end
+      end
+    end
+  
     # ensure that there are no users referencing this user as a manager
     def ensure_not_referenced_by_any_user
       raise "Cannot delete user '#{name}'. There are users referencing this user as manager." unless users.empty?

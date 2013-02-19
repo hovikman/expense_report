@@ -24,6 +24,7 @@ class Company < ActiveRecord::Base
   validates :contact_email, presence: true, length: { maximum: 40 }, format: { with: VALID_EMAIL_REGEX }
 
   # Callbacks
+  before_save { self.contact_email.downcase! }
   before_destroy :ensure_cannot_delete_vendor
   before_update  :ensure_vendor_name_not_changed
   before_destroy :ensure_not_referenced_by_any_user
