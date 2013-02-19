@@ -41,32 +41,27 @@ describe Currency do
       @currency.should_not be_valid
       @currency.should have(1).error_on(:name)
     end
-
     it "rejects names that are too long" do
       @currency.name = "a" * 31
       @currency.should_not be_valid
       @currency.should have(1).error_on(:name)
     end
-
     it "rejects duplicate names" do
       currency = FactoryGirl.create(:currency)
       @currency.name = currency.name
       @currency.should_not be_valid
       @currency.should have(1).error_on(:name)
     end
-
     it "requires code" do
       @currency.code = ''
       @currency.should_not be_valid
       @currency.should have(1).error_on(:code)
     end
-
     it "rejects codes that are too long" do
       @currency.code = "a" * 4
       @currency.should_not be_valid
       @currency.should have(1).error_on(:code)
     end
-
     it "rejects duplicate codes" do
       currency = FactoryGirl.create(:currency)
       @currency.code = currency.code

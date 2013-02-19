@@ -86,55 +86,46 @@ describe ExpenseDetail do
       @expense_detail.should_not be_valid
       @expense_detail.should have(2).error_on(:amount)
     end
-
     it "rejects 0 amounts" do
       @expense_detail.amount = 0.0
       @expense_detail.should_not be_valid
       @expense_detail.should have(1).error_on(:amount)
     end
-
     it "rejects negative amounts" do
       @expense_detail.amount = -5.0
       @expense_detail.should_not be_valid
       @expense_detail.should have(1).error_on(:amount)
     end
-
     it "requires currency_id" do
       @expense_detail.currency_id = nil
       @expense_detail.should_not be_valid
       @expense_detail.should have(1).error_on(:currency_id)
     end
-
     it "requires date" do
       @expense_detail.date = nil
       @expense_detail.should_not be_valid
       @expense_detail.should have(1).error_on(:date)
     end
-    
     it "requires exchange_rate" do
       @expense_detail.exchange_rate = nil
       @expense_detail.should_not be_valid
       @expense_detail.should have(2).error_on(:exchange_rate)
     end
-
     it "rejects 0 exchange_rate" do
       @expense_detail.exchange_rate = 0.0
       @expense_detail.should_not be_valid
       @expense_detail.should have(1).error_on(:exchange_rate)
     end
-
     it "rejects negative exchange_rate" do
       @expense_detail.exchange_rate = -5.0
       @expense_detail.should_not be_valid
       @expense_detail.should have(1).error_on(:exchange_rate)
     end
-
     it "requires expense_id" do
       @expense_detail.expense_id = nil
       @expense_detail.should_not be_valid
       @expense_detail.should have(1).error_on(:expense_id)
     end
-
     it "requires expense_type_id" do
       @expense_detail.expense_type_id = nil
       @expense_detail.should_not be_valid
@@ -155,7 +146,6 @@ describe ExpenseDetail do
     it "default value of exchange_rate is 1.0" do
       @expense_detail.exchange_rate.should == 1.00
     end
-
   end
 
 end

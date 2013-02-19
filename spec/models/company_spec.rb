@@ -63,68 +63,57 @@ describe Company do
     before(:each) do
       @company = FactoryGirl.build(:company)
     end
-
     it "requires name" do
       @company.name = ''
       @company.should_not be_valid
       @company.should have(1).error_on(:name)
     end
-
     it "rejects names that are too long" do
       @company.name = "a" * 31
       @company.should_not be_valid
       @company.should have(1).error_on(:name)
     end
-
     it "rejects duplicate names" do
       company = FactoryGirl.create(:company)
       @company.name = company.name
       @company.should_not be_valid
       @company.should have(1).error_on(:name)
     end
-
     it "requires currency_id" do
       @company.currency_id = nil
       @company.should_not be_valid
       @company.should have(1).error_on(:currency_id)
     end
-
     it "requires contact_person" do
       @company.contact_person = ''
       @company.should_not be_valid
       @company.should have(1).error_on(:contact_person)
     end
-
     it "rejects contact_persons that are too long" do
       @company.contact_person = "a" * 31
       @company.should_not be_valid
       @company.should have(1).error_on(:contact_person)
     end
-
     it "requires contact_title" do
       @company.contact_title = ''
       @company.should_not be_valid
       @company.should have(1).error_on(:contact_title)
     end
-
     it "rejects contact_titles that are too long" do
       @company.contact_title = "a" * 21
       @company.should_not be_valid
       @company.should have(1).error_on(:contact_title)
     end
-
     it "requires contact_phone" do
       @company.contact_phone = ''
       @company.should_not be_valid
       @company.should have(1).error_on(:contact_phone)
     end
-
     it "rejects contact_phones that are too long" do
       @company.contact_phone = "a" * 21
       @company.should_not be_valid
       @company.should have(1).error_on(:contact_phone)
     end
-    
     it "requires contact_email" do
       @company.contact_email = ''
       @company.should_not be_valid
@@ -136,7 +125,6 @@ describe Company do
       @company.should_not be_valid
       @company.should have_at_least(1).error_on(:contact_email)
     end
-
     it "rejects invalid contact_emails" do
       emails = %w[user@foo,com user_at_foo.org example.user@foo. foo@bar_baz.com foo@bar+baz.com]
       emails.each do |email|
@@ -145,7 +133,6 @@ describe Company do
         @company.should have(1).error_on(:contact_email)
       end      
     end
-    
     it "accepts valid contact_emails" do
       emails = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn]
       emails.each do |email|
@@ -154,7 +141,6 @@ describe Company do
         @company.should have(:no).error_on(:contact_email)
       end
     end      
-
   end
 
   describe "callbacks" do
@@ -207,7 +193,7 @@ describe Company do
         pending('@vendor_company.should have(1).error_on(:name)')
       end
     end
-  
+
     it "tests related to #ensure_not_referenced_by_any_user callback" do
       pending "need more time to understand how to do it"
     end

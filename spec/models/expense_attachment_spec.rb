@@ -38,19 +38,16 @@ describe ExpenseAttachment do
       @expense_attachment.should_not be_valid
       @expense_attachment.should have(1).error_on(:description)
     end
-
     it "rejects descriptions that are too long" do
       @expense_attachment.description = "a" * 41
       @expense_attachment.should_not be_valid
       @expense_attachment.should have(1).error_on(:description)
     end
-
     it "requires expense_id" do
       @expense_attachment.expense_id = nil
       @expense_attachment.should_not be_valid
       @expense_attachment.should have(1).error_on(:expense_id)
     end
-
     it "requires file_path" do
       pending "need more time to understand how to do it"
     end

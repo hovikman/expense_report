@@ -46,7 +46,6 @@ describe UserType do
       user_type.should_not be_valid
       user_type.should have(1).error_on(:name)
     end
-  
     it "rejects names that are too long" do
       user_type = FactoryGirl.build(:user_type)
       user_type.should be_valid
@@ -54,7 +53,6 @@ describe UserType do
       user_type.should_not be_valid
       user_type.should have(1).error_on(:name)
     end
-
     it "rejects duplicate names" do
       user_type = FactoryGirl.create(:user_type)
       user_type_with_duplicate_name = FactoryGirl.build(:user_type)
