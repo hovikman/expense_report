@@ -189,8 +189,14 @@ describe Company do
       it "generates error message on :name when 'vendor' company is renamed" do
         @vendor_company.name = 'some other name'
         @vendor_company.save
-        @vendor_company.should have(1).error
-        pending('@vendor_company.should have(1).error_on(:name)')
+        @vendor_company.errors.include?(:name).should == true
+        # @vendor_company.should have(1).error_on(:name) doesn't work
+        # here is the explanation from http://agaskar.com/post/1627270986/fun-state-machine-rspec-gotcha
+        # 1) When a state_machine transition fails, it automatically rolls you back to the prior state.
+        # 2) The prior state will now be valid, as we don’t have the extra validations added by state machine.
+        #    Calling valid? at this point will clear out the (correct) errors that state_machine added to your
+        #    object when it tried to transition it.
+        # 3) error_on calls valid? under the hood
       end
     end
 
