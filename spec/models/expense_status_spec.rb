@@ -3,32 +3,28 @@ require 'spec_helper'
 describe ExpenseStatus do
   
   describe "attributes" do
-    before(:each) do
-      @expense_status = FactoryGirl.build(:expense_status)
-    end
+    let(:expense_status) { FactoryGirl.build(:expense_status) }
     it "responds to #name" do
-      @expense_status.should respond_to(:name)
+      expense_status.should respond_to(:name)
     end
   end
     
   describe "scope and number of rows" do
-    before(:each) do
-      @expense_statuses = ExpenseStatus.all
-    end
+    let(:expense_statuses) { ExpenseStatus.all }
     it "number of ExpenseStatuses is 4" do 
-      @expense_statuses.count.should == 4
+      expense_statuses.count.should == 4
     end
     it "first element is 'Approved'" do 
-      @expense_statuses[0].name.should == "Approved"
+      expense_statuses[0].name.should == "Approved"
     end
     it "second element is 'Assigned to accounting'" do
-      @expense_statuses[1].name.should == "Assigned to accounting"
+      expense_statuses[1].name.should == "Assigned to accounting"
     end
     it "third element is 'Assigned to manager'" do
-      @expense_statuses[2].name.should == "Assigned to manager"
+      expense_statuses[2].name.should == "Assigned to manager"
     end
     it "forth element is 'New'" do
-      @expense_statuses[3].name.should == "New"
+      expense_statuses[3].name.should == "New"
     end
   end
 
@@ -42,24 +38,22 @@ describe ExpenseStatus do
   end
     
   describe "validations" do
-    before(:each) do
-      @expense_status = FactoryGirl.build(:expense_status)
-    end
+    let(:expense_status) { FactoryGirl.build(:expense_status) }
     it "requires name" do
-      @expense_status.name = ''
-      @expense_status.should_not be_valid
-      @expense_status.should have(1).error_on(:name)
+      expense_status.name = ''
+      expense_status.should_not be_valid
+      expense_status.should have(1).error_on(:name)
     end
     it "rejects names that are too long" do
-      @expense_status.name = "a" * 26
-      @expense_status.should_not be_valid
-      @expense_status.should have(1).error_on(:name)
+      expense_status.name = "a" * 26
+      expense_status.should_not be_valid
+      expense_status.should have(1).error_on(:name)
     end
     it "rejects duplicate names" do
-      expense_status = FactoryGirl.create(:expense_status)
-      @expense_status.name = expense_status.name
-      @expense_status.should_not be_valid
-      @expense_status.should have(1).error_on(:name)
+      new_expense_status = FactoryGirl.create(:expense_status)
+      expense_status.name = new_expense_status.name
+      expense_status.should_not be_valid
+      expense_status.should have(1).error_on(:name)
     end
   end
 

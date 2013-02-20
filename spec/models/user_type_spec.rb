@@ -3,17 +3,14 @@ require 'spec_helper'
 describe UserType do
 
   describe "attributes" do
-    it "creates new instance given a valid attribute" do
-      UserType.create!(FactoryGirl.attributes_for(:user_type))
-    end
-    user_type = FactoryGirl.build(:user_type)
+    let(:user_type) { FactoryGirl.build(:user_type) }
     it "responds to #name" do
       user_type.should respond_to(:name)
     end
   end
     
   describe "scope and number of rows" do
-    user_types = UserType.all
+    let(:user_types) { UserType.all }
     it "number of UserTypes is 3" do 
       user_types.count.should == 3
     end
@@ -29,7 +26,7 @@ describe UserType do
   end
 
   describe "associations" do
-    user_type = FactoryGirl.build(:user_type)
+    let(:user_type) { FactoryGirl.build(:user_type) }
     it "responds to #users" do
       user_type.should respond_to :users
     end
@@ -39,36 +36,30 @@ describe UserType do
   end
     
   describe "validations" do
+    let(:user_type) { FactoryGirl.build(:user_type) }
     it "requires name" do
-      user_type = FactoryGirl.build(:user_type)
-      user_type.should be_valid
       user_type.name = ''
       user_type.should_not be_valid
       user_type.should have(1).error_on(:name)
     end
     it "rejects names that are too long" do
-      user_type = FactoryGirl.build(:user_type)
-      user_type.should be_valid
       user_type.name = "a" * 21
       user_type.should_not be_valid
       user_type.should have(1).error_on(:name)
     end
     it "rejects duplicate names" do
-      user_type = FactoryGirl.create(:user_type)
-      user_type_with_duplicate_name = FactoryGirl.build(:user_type)
-      user_type_with_duplicate_name.name = user_type.name
-      user_type_with_duplicate_name.should_not be_valid
-      user_type_with_duplicate_name.should have(1).error_on(:name)
+      new_user_type = FactoryGirl.create(:user_type)
+      user_type.name = new_user_type.name
+      user_type.should_not be_valid
+      user_type.should have(1).error_on(:name)
     end
   end
 
   describe "callbacks" do
-    before(:each) do
-      @vendor_admin = UserType.find(UserType.vendor_admin_id)
-    end
+    let(:vendor_admin) { UserType.find(UserType.vendor_admin_id) }
     it "raises error when 'vendor administrator' UserType is deleted" do
       expect {
-        @vendor_admin.destroy
+        vendor_admin.destroy
       }.to raise_error(
         RuntimeError,
         "Cannot delete user type 'Vendor Administrator'. There are users referencing this user type."
@@ -77,15 +68,15 @@ describe UserType do
     it "number of records in UserType table is not changed when attempted to delete 'vendor administrator' UserType" do
       expect {
         begin
-          @vendor_admin.destroy
+          vendor_admin.destroy
         rescue RuntimeError
         end
       }.to_not change(UserType, :count)
     end
     it "callback #ensure_not_referenced_by_any_user is called when attempted to delete 'vendor administrator' UserType" do
-      @vendor_admin.should_receive(:ensure_not_referenced_by_any_user)      
+      vendor_admin.should_receive(:ensure_not_referenced_by_any_user)      
       begin
-        @vendor_admin.destroy
+        vendor_admin.destroy
       rescue RuntimeError
       end
     end
