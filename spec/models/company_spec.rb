@@ -194,6 +194,14 @@ describe Company do
       end
     end
 
+    it "calls downcase on 'contact_email' field before save" do
+      company = FactoryGirl.build(:company)
+      mixed_case_email = "Foo@ExAMPle.CoM"
+      company.contact_email = mixed_case_email
+      company.save
+      company.reload.contact_email.should == mixed_case_email.downcase
+    end
+
     it "tests related to #ensure_not_referenced_by_any_user callback" do
       pending "need more time to understand how to do it"
     end
