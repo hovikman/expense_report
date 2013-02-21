@@ -40,18 +40,18 @@ describe UserType do
     it "requires name" do
       user_type.name = ''
       user_type.should_not be_valid
-      user_type.should have(1).error_on(:name)
+      user_type.errors[:name].should_not be_nil
     end
     it "rejects names that are too long" do
       user_type.name = "a" * 21
       user_type.should_not be_valid
-      user_type.should have(1).error_on(:name)
+      user_type.errors[:name].should_not be_nil
     end
     it "rejects duplicate names" do
       new_user_type = FactoryGirl.create(:user_type)
       user_type.name = new_user_type.name
       user_type.should_not be_valid
-      user_type.should have(1).error_on(:name)
+      user_type.errors[:name].should_not be_nil
     end
   end
 

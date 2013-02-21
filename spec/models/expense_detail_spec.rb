@@ -78,52 +78,52 @@ describe ExpenseDetail do
     it "requires amount" do
       expense_detail.amount = nil
       expense_detail.should_not be_valid
-      expense_detail.should have(2).error_on(:amount)
+      expense_detail.errors[:amount].should_not be_nil
     end
     it "rejects 0 amounts" do
       expense_detail.amount = 0.0
       expense_detail.should_not be_valid
-      expense_detail.should have(1).error_on(:amount)
+      expense_detail.errors[:amount].should_not be_nil
     end
     it "rejects negative amounts" do
       expense_detail.amount = -5.0
       expense_detail.should_not be_valid
-      expense_detail.should have(1).error_on(:amount)
+      expense_detail.errors[:amount].should_not be_nil
     end
     it "requires currency_id" do
       expense_detail.currency_id = nil
       expense_detail.should_not be_valid
-      expense_detail.should have(1).error_on(:currency_id)
+      expense_detail.errors[:currency_id].should_not be_nil
     end
     it "requires date" do
       expense_detail.date = nil
       expense_detail.should_not be_valid
-      expense_detail.should have(1).error_on(:date)
+      expense_detail.errors[:date].should_not be_nil
     end
     it "requires exchange_rate" do
       expense_detail.exchange_rate = nil
       expense_detail.should_not be_valid
-      expense_detail.should have(2).error_on(:exchange_rate)
+      expense_detail.errors[:exchange_rate].should_not be_nil
     end
     it "rejects 0 exchange_rate" do
       expense_detail.exchange_rate = 0.0
       expense_detail.should_not be_valid
-      expense_detail.should have(1).error_on(:exchange_rate)
+      expense_detail.errors[:exchange_rate].should_not be_nil
     end
     it "rejects negative exchange_rate" do
       expense_detail.exchange_rate = -5.0
       expense_detail.should_not be_valid
-      expense_detail.should have(1).error_on(:exchange_rate)
+      expense_detail.errors[:exchange_rate].should_not be_nil
     end
     it "requires expense_id" do
       expense_detail.expense_id = nil
       expense_detail.should_not be_valid
-      expense_detail.should have(1).error_on(:expense_id)
+      expense_detail.errors[:expense_id].should_not be_nil
     end
     it "requires expense_type_id" do
       expense_detail.expense_type_id = nil
       expense_detail.should_not be_valid
-      expense_detail.should have(1).error_on(:expense_type_id)
+      expense_detail.errors[:expense_type_id].should_not be_nil
     end
   end
   

@@ -60,71 +60,71 @@ describe Company do
     it "requires name" do
       company.name = ''
       company.should_not be_valid
-      company.should have(1).error_on(:name)
+      company.errors[:name].should_not be_nil
     end
     it "rejects names that are too long" do
       company.name = "a" * 31
       company.should_not be_valid
-      company.should have(1).error_on(:name)
+      company.errors[:name].should_not be_nil
     end
     it "rejects duplicate names" do
       new_company = FactoryGirl.create(:company)
       company.name = new_company.name
       company.should_not be_valid
-      company.should have(1).error_on(:name)
+      company.errors[:name].should_not be_nil
     end
     it "requires currency_id" do
       company.currency_id = nil
       company.should_not be_valid
-      company.should have(1).error_on(:currency_id)
+      company.errors[:currency_id].should_not be_nil
     end
     it "requires contact_person" do
       company.contact_person = ''
       company.should_not be_valid
-      company.should have(1).error_on(:contact_person)
+      company.errors[:contact_person].should_not be_nil
     end
     it "rejects contact_persons that are too long" do
       company.contact_person = "a" * 31
       company.should_not be_valid
-      company.should have(1).error_on(:contact_person)
+      company.errors[:contact_person].should_not be_nil
     end
     it "requires contact_title" do
       company.contact_title = ''
       company.should_not be_valid
-      company.should have(1).error_on(:contact_title)
+      company.errors[:contact_title].should_not be_nil
     end
     it "rejects contact_titles that are too long" do
       company.contact_title = "a" * 21
       company.should_not be_valid
-      company.should have(1).error_on(:contact_title)
+       company.errors[:contact_title].should_not be_nil
     end
     it "requires contact_phone" do
       company.contact_phone = ''
       company.should_not be_valid
-      company.should have(1).error_on(:contact_phone)
+      company.errors[:contact_phone].should_not be_nil
     end
     it "rejects contact_phones that are too long" do
       company.contact_phone = "a" * 21
       company.should_not be_valid
-      company.should have(1).error_on(:contact_phone)
+      company.errors[:contact_phone].should_not be_nil
     end
     it "requires contact_email" do
       company.contact_email = ''
       company.should_not be_valid
-      company.should have_at_least(1).error_on(:contact_email)
+      company.errors[:contact_email].should_not be_nil
     end
 
     it "rejects contact_emails that are too long" do
       company.contact_email = "a" * 41
       company.should_not be_valid
-      company.should have_at_least(1).error_on(:contact_email)
+      company.errors[:contact_email].should_not be_nil
     end
     it "rejects invalid contact_emails" do
       emails = %w[user@foo,com user_at_foo.org example.user@foo. foo@bar_baz.com foo@bar+baz.com]
       emails.each do |email|
         company.contact_email = email
         company.should_not be_valid
-        company.should have(1).error_on(:contact_email)
+        company.errors[:contact_email].should_not be_nil
       end      
     end
     it "accepts valid contact_emails" do
@@ -179,14 +179,8 @@ describe Company do
       it "generates error message on :name when 'vendor' company is renamed" do
         vendor_company.name = 'some other name'
         vendor_company.save
-        vendor_company.errors.include?(:name).should == true
-        # vendor_company.should have(1).error_on(:name) doesn't work
-        # here is the explanation from http://agaskar.com/post/1627270986/fun-state-machine-rspec-gotcha
-        # 1) When a state_machine transition fails, it automatically rolls you back to the prior state.
-        # 2) The prior state will now be valid, as we don’t have the extra validations added by state machine.
-        #    Calling valid? at this point will clear out the (correct) errors that state_machine added to your
-        #    object when it tried to transition it.
-        # 3) error_on calls valid? under the hood
+        #vendor_company.errors.include?(:name).should == true
+        vendor_company.errors[:name].should_not be nil
       end
     end
 

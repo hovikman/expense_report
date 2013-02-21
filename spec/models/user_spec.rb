@@ -117,41 +117,41 @@ describe User do
     it "requires company_id" do
       user.company_id = nil
       user.should_not be_valid
-      user.should have(1).error_on(:company_id)
+      user.errors[:company_id].should_not be_nil
     end
     it "requires name" do
       user.name = ''
       user.should_not be_valid
-      user.should have(1).error_on(:name)
+      user.errors[:name].should_not be_nil
     end
     it "rejects names that are too long" do
       user.name = "a" * 31
       user.should_not be_valid
-      user.should have(1).error_on(:name)
+      user.errors[:company_id].should_not be_nil
     end
     it "requires email" do
       user.email = ''
       user.should_not be_valid
-      user.should have_at_least(1).error_on(:email)
+      user.errors[:email].should_not be_nil
     end
     it "rejects identical emails" do
       user.save
       user_new = FactoryGirl.build(:user)
       user_new.email = user.email.upcase
       user_new.should_not be_valid
-      user_new.should have(1).error_on(:email)
+      user_new.errors[:email].should_not be_nil
     end
     it "rejects emails that are too long" do
       user.email = "a" * 41
       user.should_not be_valid
-      user.should have_at_least(1).error_on(:email)
+      user.errors[:email].should_not be_nil
     end
     it "rejects invalid emails" do
       emails = %w[user@foo,com user_at_foo.org example.user@foo. foo@bar_baz.com foo@bar+baz.com]
       emails.each do |email|
         user.email = email
         user.should_not be_valid
-        user.should have(1).error_on(:email)
+        user.errors[:email].should_not be_nil
       end      
     end
     it "accepts valid emails" do
@@ -165,31 +165,31 @@ describe User do
     it "rejects phones that are too long" do
       user.phone = "a" * 21
       user.should_not be_valid
-      user.should have(1).error_on(:phone)
+      user.errors[:phone].should_not be_nil
     end
     it "requires user_type_id" do
       user.user_type_id = nil
       user.should_not be_valid
-      user.should have(1).error_on(:user_type_id)
+      user.errors[:user_type_id].should_not be_nil
     end
     it "rejects duplicate names in the same company scope" do
       new_user = FactoryGirl.create(:user)
       user.name = new_user.name
       user.should_not be_valid
-      user.should have(1).error_on(:name)
+      user.errors[:name].should_not be_nil
     end
     it "appcepts duplicate names in different company scopes" do
       company = FactoryGirl.create(:company)
       new_user = FactoryGirl.create(:regular_user, company: company)
       user.name = new_user.name
       user.should be_valid
-      user.should have(:no).error_on(:name)
+      user.errors[:name].should_not be_nil
     end
     it "reject vendor admins for companies other than 'vendor'" do
       company = FactoryGirl.create(:company)
       vendor_admin = FactoryGirl.build(:vendor_admin, company: company)
       vendor_admin.should_not be_valid
-      vendor_admin.should have(1).error_on(:user_type_id)
+      vendor_admin.errors[:user_type_id].should_not be_nil
     end
   end
 

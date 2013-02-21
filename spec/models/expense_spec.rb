@@ -93,37 +93,37 @@ describe Expense do
     it "requires advance_pay" do
       expense.advance_pay = nil
       expense.should_not be_valid
-      expense.should have(2).error_on(:advance_pay)
+      expense.errors[:advance_pay].should_not be_nil
     end
     it "rejects negative advance_pay" do
       expense.advance_pay = -5.0
       expense.should_not be_valid
-      expense.should have(1).error_on(:advance_pay)
+      expense.errors[:advance_pay].should_not be_nil
     end
     it "requires expense_status_id" do
       expense.expense_status_id = nil
       expense.should_not be_valid
-      expense.should have(1).error_on(:expense_status_id)
+      expense.errors[:expense_status_id].should_not be_nil
     end
     it "requires purpose" do
       expense.purpose = ''
       expense.should_not be_valid
-      expense.should have(1).error_on(:purpose)
+      expense.errors[:purpose].should_not be_nil
     end
     it "rejects purposes that are too long" do
       expense.purpose = "a" * 41
       expense.should_not be_valid
-      expense.should have(1).error_on(:purpose)
+      expense.errors[:purpose].should_not be_nil
     end
     it "requires submit_date" do
       expense.submit_date = nil
       expense.should_not be_valid
-      expense.should have(1).error_on(:submit_date)
+      expense.errors[:submit_date].should_not be_nil
     end
     it "requires user_id" do
       expense.user_id = nil
       expense.should_not be_valid
-      expense.should have(1).error_on(:user_id)
+      expense.errors[:user_id].should_not be_nil
     end
   end
   

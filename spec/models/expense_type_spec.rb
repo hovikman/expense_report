@@ -54,30 +54,30 @@ describe ExpenseType do
     it "requires name" do
       expense_type.name = ''
       expense_type.should_not be_valid
-      expense_type.should have(1).error_on(:name)
+      expense_type.errors[:name].should_not be_nil
     end
     it "rejects names that are too long" do
       expense_type.name = "a" * 31
       expense_type.should_not be_valid
-      expense_type.should have(1).error_on(:name)
+      expense_type.errors[:name].should_not be_nil
     end
     it "rejects duplicate names in the same company scope" do
       new_expense_type = FactoryGirl.create(:expense_type)
       expense_type.name = new_expense_type.name
       expense_type.should_not be_valid
-      expense_type.should have(1).error_on(:name)
+      expense_type.errors[:name].should_not be_nil
     end
     it "appcepts duplicate names in different company scopes" do
       company = FactoryGirl.create(:company)
       new_expense_type = FactoryGirl.create(:expense_type, company: company)
       expense_type.name = new_expense_type.name
       expense_type.should be_valid
-      expense_type.should have(:no).error_on(:name)
+      expense_type.errors[:name].should_not be_nil
     end
     it "requires company_id" do
       expense_type.company_id = nil
       expense_type.should_not be_valid
-      expense_type.should have(1).error_on(:company_id)
+      expense_type.errors[:company_id].should_not be_nil
     end
   end
 

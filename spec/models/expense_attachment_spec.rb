@@ -30,17 +30,17 @@ describe ExpenseAttachment do
     it "requires description" do
       expense_attachment.description = ''
       expense_attachment.should_not be_valid
-      expense_attachment.should have(1).error_on(:description)
+      expense_attachment.errors[:description].should_not be_nil
     end
     it "rejects descriptions that are too long" do
       expense_attachment.description = "a" * 41
       expense_attachment.should_not be_valid
-      expense_attachment.should have(1).error_on(:description)
+      expense_attachment.errors[:description].should_not be_nil
     end
     it "requires expense_id" do
       expense_attachment.expense_id = nil
       expense_attachment.should_not be_valid
-      expense_attachment.should have(1).error_on(:expense_id)
+      expense_attachment.errors[:expense_id].should_not be_nil
     end
     it "requires file_path" do
       pending "need more time to understand how to do it"

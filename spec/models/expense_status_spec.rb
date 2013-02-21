@@ -42,18 +42,18 @@ describe ExpenseStatus do
     it "requires name" do
       expense_status.name = ''
       expense_status.should_not be_valid
-      expense_status.should have(1).error_on(:name)
+      expense_status.errors[:name].should_not be_nil
     end
     it "rejects names that are too long" do
       expense_status.name = "a" * 26
       expense_status.should_not be_valid
-      expense_status.should have(1).error_on(:name)
+      expense_status.errors[:name].should_not be_nil
     end
     it "rejects duplicate names" do
       new_expense_status = FactoryGirl.create(:expense_status)
       expense_status.name = new_expense_status.name
       expense_status.should_not be_valid
-      expense_status.should have(1).error_on(:name)
+      expense_status.errors[:name].should_not be_nil
     end
   end
 
