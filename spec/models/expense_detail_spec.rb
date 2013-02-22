@@ -2,32 +2,16 @@ require 'spec_helper'
 
 describe ExpenseDetail do
 
-  describe "attributes" do
+  context "attributes" do
     let(:expense_detail) { FactoryGirl.build(:expense_detail) }
-    it "responds to #amount" do
-      expense_detail.should respond_to(:amount)
-    end
-    it "responds to #comments" do
-      expense_detail.should respond_to(:comments)
-    end
-    it "responds to #currency_id" do
-      expense_detail.should respond_to(:currency_id)
-    end
-    it "responds to #date" do
-      expense_detail.should respond_to(:date)
-    end
-    it "responds to #exchange_rate" do
-      expense_detail.should respond_to(:exchange_rate)
-    end
-    it "responds to #expense_id" do
-      expense_detail.should respond_to(:expense_id)
-    end
-    it "responds to #expense_type_id" do
-      expense_detail.should respond_to(:expense_type_id)
+    [:amount, :comments, :currency_id, :date, :exchange_rate, :expense_id, :expense_type_id].each do |attr|
+      it "responds to #{attr}" do
+        expense_detail.should respond_to(attr)
+      end
     end
   end
 
-  describe "scope" do
+  context "scope" do
     it "responds to #for_datatable" do
       ExpenseDetail.should respond_to(:for_datatable)
     end
@@ -36,49 +20,34 @@ describe ExpenseDetail do
         FactoryGirl.create(:expense_detail)
         @expense_detail = ExpenseDetail.for_datatable.first
       end
-      it "responds to #id" do
-        @expense_detail.should respond_to(:id)
-      end
-      it "responds to #date" do
-        @expense_detail.should respond_to(:date)
-      end
-      it "responds to #type_name" do
-        @expense_detail.should respond_to(:type_name)
-      end
-      it "responds to #total_amount" do
-        @expense_detail.should respond_to(:total_amount)
+      [:id, :date, :type_name, :total_amount].each do |attr|
+        it "responds to #{attr}" do
+          @expense_detail.should respond_to(attr)
+        end
       end
     end
   end
 
-  describe "associations" do
+  context "associations" do
     let(:expense_detail) { FactoryGirl.build(:expense_detail) }
-    it "responds to #currency" do
-      expense_detail.should respond_to :currency
-    end
-    it "responds to #expense" do
-      expense_detail.should respond_to :expense
-    end
-    it "responds to #expense_type" do
-      expense_detail.should respond_to :expense_type
-    end
-    it "tests related to 'currency' association" do
-      pending "need more time to understand how to do it"
-    end
-    it "tests related to 'expense' association" do
-      pending "need more time to understand how to do it"
-    end
-    it "tests related to 'expense_type' association" do
-      pending "need more time to understand how to do it"
+    [:currency, :expense, :expense_type].each do |assoc|
+      it "responds to #{assoc}" do
+        expense_detail.should respond_to(assoc)
+      end
+      it "tests related to #{assoc} association" do
+        pending "need more time to understand how to do it"
+      end
     end
   end
 
-  describe "validations" do
+  context "validations" do
     let(:expense_detail) { FactoryGirl.build(:expense_detail) }
-    it "requires amount" do
-      expense_detail.amount = nil
-      expense_detail.should_not be_valid
-      expense_detail.errors[:amount].should_not be_nil
+    [:amount, :currency_id, :date, :exchange_rate, :expense_id, :expense_type_id].each do |attr|
+      it "requires #{attr}" do
+        expense_detail[attr] = nil
+        expense_detail.should_not be_valid
+        expense_detail.errors[attr].should_not be_nil
+      end
     end
     it "rejects 0 amounts" do
       expense_detail.amount = 0.0
@@ -90,21 +59,6 @@ describe ExpenseDetail do
       expense_detail.should_not be_valid
       expense_detail.errors[:amount].should_not be_nil
     end
-    it "requires currency_id" do
-      expense_detail.currency_id = nil
-      expense_detail.should_not be_valid
-      expense_detail.errors[:currency_id].should_not be_nil
-    end
-    it "requires date" do
-      expense_detail.date = nil
-      expense_detail.should_not be_valid
-      expense_detail.errors[:date].should_not be_nil
-    end
-    it "requires exchange_rate" do
-      expense_detail.exchange_rate = nil
-      expense_detail.should_not be_valid
-      expense_detail.errors[:exchange_rate].should_not be_nil
-    end
     it "rejects 0 exchange_rate" do
       expense_detail.exchange_rate = 0.0
       expense_detail.should_not be_valid
@@ -115,19 +69,9 @@ describe ExpenseDetail do
       expense_detail.should_not be_valid
       expense_detail.errors[:exchange_rate].should_not be_nil
     end
-    it "requires expense_id" do
-      expense_detail.expense_id = nil
-      expense_detail.should_not be_valid
-      expense_detail.errors[:expense_id].should_not be_nil
-    end
-    it "requires expense_type_id" do
-      expense_detail.expense_type_id = nil
-      expense_detail.should_not be_valid
-      expense_detail.errors[:expense_type_id].should_not be_nil
-    end
   end
   
-  describe "default values" do
+  context "default values" do
     let(:expense_detail) { ExpenseDetail.new }
     it "default value of amount is 0.0" do
       expense_detail.amount.should == 0.0

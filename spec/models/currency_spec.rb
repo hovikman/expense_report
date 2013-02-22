@@ -2,38 +2,35 @@ require 'spec_helper'
 
 describe Currency do
 
-  describe "attributes" do
+  context "attributes" do
     let(:currency) { FactoryGirl.build(:currency) }
-    it "responds to #name" do
-      currency.should respond_to(:name)
-    end
-    it "responds to #code" do
-      currency.should respond_to(:code)
+    [:name, :code].each do |attr|
+      it "responds to #{attr}" do
+        currency.should respond_to(attr)
+      end
     end
   end
 
-  describe "associations" do
+  context "associations" do
     let(:currency) { FactoryGirl.build(:currency) }
-    it "responds to #companies" do
-      currency.should respond_to :companies
-    end
-    it "responds to #expense_details" do
-      currency.should respond_to :expense_details
-    end
-    it "tests related to Company association" do
-      pending "need more time to understand how to do it"
-    end
-    it "tests related to ExpenseDetail association" do
-      pending "need more time to understand how to do it"
+    [:companies, :expense_details].each do |assoc|
+      it "responds to #{assoc}" do
+        currency.should respond_to(assoc)
+      end
+      it "tests related to #{assoc} association" do
+        pending "need more time to understand how to do it"
+      end
     end
   end
 
-  describe "validations" do
+  context "validations" do
     let(:currency) { FactoryGirl.build(:currency) }
-    it "requires name" do
-      currency.name = ''
-      currency.should_not be_valid
-      currency.errors[:name].should_not be_nil
+    [:name, :code].each do |attr|
+      it "requires #{attr}" do
+        currency[attr] = nil
+        currency.should_not be_valid
+        currency.errors[attr].should_not be_nil
+      end
     end
     it "rejects names that are too long" do
       currency.name = "a" * 31
@@ -45,11 +42,6 @@ describe Currency do
       currency.name = new_currency.name
       currency.should_not be_valid
       currency.errors[:name].should_not be_nil
-    end
-    it "requires code" do
-      currency.code = ''
-      currency.should_not be_valid
-      currency.errors[:code].should_not be_nil
     end
     it "rejects codes that are too long" do
       currency.code = "a" * 4
@@ -64,7 +56,7 @@ describe Currency do
     end
   end
 
-  describe "callbacks" do
+  context "callbacks" do
     it "calls upcase on 'code' field before save" do
       currency = FactoryGirl.build(:currency)
       code = currency.code
@@ -77,7 +69,7 @@ describe Currency do
     end
   end
 
-  describe "methods" do
+  context "methods" do
     let(:currency) { FactoryGirl.build(:currency) }
     it "responds to #code_and_name" do
       currency.should respond_to :code_and_name

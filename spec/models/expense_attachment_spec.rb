@@ -2,20 +2,16 @@ require 'spec_helper'
 
 describe ExpenseAttachment do
 
-  describe "attributes" do
+  context "attributes" do
     let(:expense_attachment) { FactoryGirl.build(:expense_attachment) }
-    it "responds to #description" do
-      expense_attachment.should respond_to(:description)
-    end
-    it "responds to #expense_id" do
-      expense_attachment.should respond_to(:expense_id)
-    end
-    it "responds to #file_path" do
-      expense_attachment.should respond_to(:file_path)
+    [:description, :expense_id, :file_path].each do |attr|
+      it "responds to #{attr}" do
+        expense_attachment.should respond_to(attr)
+      end
     end
   end
 
-  describe "associations" do
+  context "associations" do
     let(:expense_attachment) { FactoryGirl.build(:expense_attachment) }
     it "responds to #expense" do
       expense_attachment.should respond_to :expense
@@ -25,22 +21,19 @@ describe ExpenseAttachment do
     end
   end
 
-  describe "validations" do
+  context "validations" do
     let(:expense_attachment) { FactoryGirl.build(:expense_attachment) }
-    it "requires description" do
-      expense_attachment.description = ''
-      expense_attachment.should_not be_valid
-      expense_attachment.errors[:description].should_not be_nil
+    [:description, :expense_id].each do |attr|
+      it "requires #{attr}" do
+        expense_attachment[attr] = nil
+        expense_attachment.should_not be_valid
+        expense_attachment.errors[attr].should_not be_nil
+      end
     end
     it "rejects descriptions that are too long" do
       expense_attachment.description = "a" * 41
       expense_attachment.should_not be_valid
       expense_attachment.errors[:description].should_not be_nil
-    end
-    it "requires expense_id" do
-      expense_attachment.expense_id = nil
-      expense_attachment.should_not be_valid
-      expense_attachment.errors[:expense_id].should_not be_nil
     end
     it "requires file_path" do
       pending "need more time to understand how to do it"

@@ -2,65 +2,36 @@ require 'spec_helper'
 
 describe Company do
 
-  describe "attributes" do
+  context "attributes" do
     let(:company) { FactoryGirl.build(:company) }
-    it "responds to #accountant_id" do
-      company.should respond_to(:accountant_id)
-    end
-    it "responds to #contact_email" do
-      company.should respond_to(:contact_email)
-    end
-    it "responds to #contact_person" do
-      company.should respond_to(:contact_person)
-    end
-    it "responds to #contact_phone" do
-      company.should respond_to(:contact_phone)
-    end
-    it "responds to #contact_title" do
-      company.should respond_to(:contact_title)
-    end
-    it "responds to #currency_id" do
-      company.should respond_to(:currency_id)
-    end
-    it "responds to #name" do
-      company.should respond_to(:name)
+    [:accountant_id, :contact_email, :contact_person,
+     :contact_phone, :contact_title, :currency_id, :name].each do |attr|
+      it "responds to #{attr}" do
+        company.should respond_to(attr)
+      end
     end
   end
 
-  describe "associations" do
+  context "associations" do
     let(:company) { FactoryGirl.build(:company) }
-    it "responds to #users" do
-      company.should respond_to :users
-    end
-    it "responds to #expense_types" do
-      company.should respond_to :expense_types
-    end
-    it "responds to #currency" do
-      company.should respond_to :currency
-    end
-    it "responds to #accountant" do
-      company.should respond_to :accountant
-    end
-    it "tests related to 'users' association" do
-      pending "need more time to understand how to do it"
-    end
-    it "tests related to 'expense_types' association" do
-      pending "need more time to understand how to do it"
-    end
-    it "tests related to 'currency' association" do
-      pending "need more time to understand how to do it"
-    end
-    it "tests related to 'accountant' association" do
-      pending "need more time to understand how to do it"
+    [:users, :expense_types, :currency, :accountant].each do |assoc|
+      it "responds to #{assoc}" do
+        company.should respond_to(assoc)
+      end
+      it "tests related to #{assoc} association" do
+        pending "need more time to understand how to do it"
+      end
     end
   end
 
-  describe "validations" do
+  context "validations" do
     let(:company) { FactoryGirl.build(:company) }
-    it "requires name" do
-      company.name = ''
-      company.should_not be_valid
-      company.errors[:name].should_not be_nil
+    [:name, :contact_person, :contact_title, :contact_phone, :contact_email, :currency_id].each do |attr|
+      it "requires #{attr}" do
+        company[attr] = nil
+        company.should_not be_valid
+        company.errors[attr].should_not be_nil
+      end
     end
     it "rejects names that are too long" do
       company.name = "a" * 31
@@ -73,47 +44,21 @@ describe Company do
       company.should_not be_valid
       company.errors[:name].should_not be_nil
     end
-    it "requires currency_id" do
-      company.currency_id = nil
-      company.should_not be_valid
-      company.errors[:currency_id].should_not be_nil
-    end
-    it "requires contact_person" do
-      company.contact_person = ''
-      company.should_not be_valid
-      company.errors[:contact_person].should_not be_nil
-    end
     it "rejects contact_persons that are too long" do
       company.contact_person = "a" * 31
       company.should_not be_valid
       company.errors[:contact_person].should_not be_nil
-    end
-    it "requires contact_title" do
-      company.contact_title = ''
-      company.should_not be_valid
-      company.errors[:contact_title].should_not be_nil
     end
     it "rejects contact_titles that are too long" do
       company.contact_title = "a" * 21
       company.should_not be_valid
        company.errors[:contact_title].should_not be_nil
     end
-    it "requires contact_phone" do
-      company.contact_phone = ''
-      company.should_not be_valid
-      company.errors[:contact_phone].should_not be_nil
-    end
     it "rejects contact_phones that are too long" do
       company.contact_phone = "a" * 21
       company.should_not be_valid
       company.errors[:contact_phone].should_not be_nil
     end
-    it "requires contact_email" do
-      company.contact_email = ''
-      company.should_not be_valid
-      company.errors[:contact_email].should_not be_nil
-    end
-
     it "rejects contact_emails that are too long" do
       company.contact_email = "a" * 41
       company.should_not be_valid
@@ -137,7 +82,7 @@ describe Company do
     end      
   end
 
-  describe "callbacks" do
+  context "callbacks" do
     describe "attempt to delete 'vendor' company" do
       let(:vendor_company) { Company.find(Company.vendor_id) }
       it "raises error when 'vendor' company is deleted" do
@@ -200,7 +145,7 @@ describe Company do
     end
   end
 
-  describe "methods" do
+  context "methods" do
     it "responds to #vendor_id" do
       Company.should respond_to :vendor_id
     end

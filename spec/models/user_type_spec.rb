@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe UserType do
 
-  describe "attributes" do
+  context "attributes" do
     let(:user_type) { FactoryGirl.build(:user_type) }
     it "responds to #name" do
       user_type.should respond_to(:name)
     end
   end
     
-  describe "scope and number of rows" do
+  context "scope and number of rows" do
     let(:user_types) { UserType.all }
     it "number of UserTypes is 3" do 
       user_types.count.should == 3
@@ -25,7 +25,7 @@ describe UserType do
     end
   end
 
-  describe "associations" do
+  context "associations" do
     let(:user_type) { FactoryGirl.build(:user_type) }
     it "responds to #users" do
       user_type.should respond_to :users
@@ -35,7 +35,7 @@ describe UserType do
     end
   end
     
-  describe "validations" do
+  context "validations" do
     let(:user_type) { FactoryGirl.build(:user_type) }
     it "requires name" do
       user_type.name = ''
@@ -55,7 +55,7 @@ describe UserType do
     end
   end
 
-  describe "callbacks" do
+  context "callbacks" do
     let(:vendor_admin) { UserType.find(UserType.vendor_admin_id) }
     it "raises error when 'vendor administrator' UserType is deleted" do
       expect {
@@ -82,24 +82,14 @@ describe UserType do
     end
   end
       
-  describe "methods" do
-    it "responds to #admin_id" do
-      UserType.should respond_to :admin_id
-    end
-    it "responds to #regular_user_id" do
-      UserType.should respond_to :regular_user_id
-    end
-    it "responds to #vendor_admin_id" do
-      UserType.should respond_to :vendor_admin_id
-    end
-    it "#admin_id returns number" do
-      UserType.admin_id.should be_a_kind_of(Fixnum)
-    end
-    it "#regular_user_id returns number" do
-      UserType.regular_user_id.should be_a_kind_of(Fixnum)
-    end
-    it "#vendor_admin_id returns number" do
-      UserType.vendor_admin_id.should be_a_kind_of(Fixnum)
+  context "methods" do
+    [:admin_id, :regular_user_id, :vendor_admin_id].each do |method|
+      it "responds to #{method}" do
+        UserType.should respond_to(method)
+      end
+      it "#{method} returns number" do
+        UserType.send(method).should be_a_kind_of(Fixnum)
+      end
     end
   end
   

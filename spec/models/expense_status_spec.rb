@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe ExpenseStatus do
   
-  describe "attributes" do
+  context "attributes" do
     let(:expense_status) { FactoryGirl.build(:expense_status) }
     it "responds to #name" do
       expense_status.should respond_to(:name)
     end
   end
     
-  describe "scope and number of rows" do
+  context "scope and number of rows" do
     let(:expense_statuses) { ExpenseStatus.all }
     it "number of ExpenseStatuses is 4" do 
       expense_statuses.count.should == 4
@@ -28,7 +28,7 @@ describe ExpenseStatus do
     end
   end
 
-  describe "associations" do
+  context "associations" do
     it "responds to :expenses" do
       pending "need more time to understand how to use factories"
     end
@@ -37,7 +37,7 @@ describe ExpenseStatus do
     end
   end
     
-  describe "validations" do
+  context "validations" do
     let(:expense_status) { FactoryGirl.build(:expense_status) }
     it "requires name" do
       expense_status.name = ''
@@ -57,36 +57,20 @@ describe ExpenseStatus do
     end
   end
 
-  describe "callbacks" do
+  context "callbacks" do
     it "tests related to Expense callbacks" do
       pending "need more time to understand how to do it"
     end
   end
       
-  describe "methods" do
-    it "responds to #new_id" do
-      ExpenseStatus.should respond_to :new_id
-    end
-    it "responds to #assigned_to_manager_id" do
-      ExpenseStatus.should respond_to :assigned_to_manager_id
-    end
-    it "responds to #assigned_to_accounting_id" do
-      ExpenseStatus.should respond_to :assigned_to_accounting_id
-    end
-    it "responds to #approved_id" do
-      ExpenseStatus.should respond_to :approved_id
-    end
-    it "#new_id returns number" do
-      ExpenseStatus.new_id.should be_a_kind_of(Fixnum)
-    end
-    it "#assigned_to_manager_id returns number" do
-      ExpenseStatus.assigned_to_manager_id.should be_a_kind_of(Fixnum)
-    end
-    it "#assigned_to_accounting_id returns number" do
-      ExpenseStatus.assigned_to_accounting_id.should be_a_kind_of(Fixnum)
-    end
-    it "#approved_id returns number" do
-      ExpenseStatus.approved_id.should be_a_kind_of(Fixnum)
+  context "methods" do
+    [:new_id, :assigned_to_manager_id, :assigned_to_accounting_id, :approved_id].each do |method|
+      it "responds to #{method}" do
+        ExpenseStatus.should respond_to(method)
+      end
+      it "#{method} returns number" do
+        ExpenseStatus.send(method).should be_a_kind_of(Fixnum)
+      end
     end
   end
   

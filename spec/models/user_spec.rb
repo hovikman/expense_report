@@ -2,53 +2,18 @@ require 'spec_helper'
 
 describe User do
 
-  describe "attributes" do
+  context "attributes" do
     let(:user) { FactoryGirl.build(:user) }
-    it "responds to #authenticate" do
-      user.should respond_to(:authenticate)
-    end
-    it "responds to #company_id" do
-      user.should respond_to(:company_id)
-    end
-    it "responds to #email" do
-      user.should respond_to(:email)
-    end
-    it "responds to #id" do
-      user.should respond_to(:id)
-    end
-    it "responds to #manager_id" do
-      user.should respond_to(:manager_id)
-    end
-    it "responds to #name" do
-      user.should respond_to(:name)
-    end
-    it "responds to #password" do
-      user.should respond_to(:password)
-    end
-    it "responds to #password_confirmation" do
-      user.should respond_to(:password_confirmation)
-    end
-    it "responds to #password_digest" do
-      user.should respond_to(:password_digest)
-    end
-    it "responds to #password_reset_sent_at" do
-      user.should respond_to(:password_reset_sent_at)
-    end
-    it "responds to #password_reset_token" do
-      user.should respond_to(:password_reset_token)
-    end
-    it "responds to #phone" do
-      user.should respond_to(:phone)
-    end
-    it "responds to #remember_token" do
-      user.should respond_to(:remember_token)
-    end
-    it "responds to #user_type_id" do
-      user.should respond_to(:user_type_id)
+    [:authenticate, :company_id, :email, :id, :manager_id, :name,
+     :password, :password_confirmation, :password_digest, :password_reset_sent_at,
+     :password_reset_token, :phone, :remember_token, :user_type_id].each do |attr|
+      it "responds to #{attr}" do
+        user.should respond_to(attr)
+      end
     end
   end
 
-  describe "scope" do
+  context "scope" do
     it "responds to #for_datatable" do
       User.should respond_to(:for_datatable)
     end
@@ -57,82 +22,39 @@ describe User do
         FactoryGirl.create(:user)
         @user = User.for_datatable.first
       end
-      it "responds to #id" do
-        @user.should respond_to(:id)
-      end
-      it "responds to #name" do
-        @user.should respond_to(:name)
-      end
-      it "responds to #company_name" do
-        @user.should respond_to(:company_name)
-      end
-      it "responds to #company_name" do
-        @user.should respond_to(:company_name)
+      [:id, :name, :company_name, :user_type_name].each do |attr|
+        it "responds to #{attr}" do
+          @user.should respond_to(attr)
+        end
       end
     end
   end
 
-  describe "associations" do
+  context "associations" do
     let(:user) { FactoryGirl.build(:user) }
-    it "responds to #users" do
-      user.should respond_to :users
-    end
-    it "responds to #expenses" do
-      user.should respond_to :expenses
-    end
-    it "responds to #owned_expenses" do
-      user.should respond_to :owned_expenses
-    end
-    it "responds to #company" do
-      user.should respond_to :company
-    end
-    it "responds to #manager" do
-      user.should respond_to :manager
-    end
-    it "responds to #user_type" do
-      user.should respond_to :user_type
-    end
-    it "tests related to 'users' association" do
-      pending "need more time to understand how to do it"
-    end
-    it "tests related to 'expenses' association" do
-      pending "need more time to understand how to do it"
-    end
-    it "tests related to 'owned_expenses' association" do
-      pending "need more time to understand how to do it"
-    end
-    it "tests related to 'company' association" do
-      pending "need more time to understand how to do it"
-    end
-    it "tests related to 'manager' association" do
-      pending "need more time to understand how to do it"
-    end
-    it "tests related to 'user_type' association" do
-      pending "need more time to understand how to do it"
+    [:users, :expenses, :owned_expenses, :company, :manager, :user_type].each do |assoc|
+      it "responds to #{assoc}" do
+        user.should respond_to(assoc)
+      end
+      it "tests related to #{assoc} association" do
+        pending "need more time to understand how to do it"
+      end
     end
   end
   
-  describe "validations" do
+  context "validations" do
     let(:user) { FactoryGirl.build(:user) }
-    it "requires company_id" do
-      user.company_id = nil
-      user.should_not be_valid
-      user.errors[:company_id].should_not be_nil
-    end
-    it "requires name" do
-      user.name = ''
-      user.should_not be_valid
-      user.errors[:name].should_not be_nil
+    [:company_id, :name, :email, :user_type_id].each do |attr|
+      it "requires #{attr}" do
+        user[attr] = nil
+        user.should_not be_valid
+        user.errors[attr].should_not be_nil
+      end
     end
     it "rejects names that are too long" do
       user.name = "a" * 31
       user.should_not be_valid
       user.errors[:company_id].should_not be_nil
-    end
-    it "requires email" do
-      user.email = ''
-      user.should_not be_valid
-      user.errors[:email].should_not be_nil
     end
     it "rejects identical emails" do
       user.save
@@ -167,11 +89,6 @@ describe User do
       user.should_not be_valid
       user.errors[:phone].should_not be_nil
     end
-    it "requires user_type_id" do
-      user.user_type_id = nil
-      user.should_not be_valid
-      user.errors[:user_type_id].should_not be_nil
-    end
     it "rejects duplicate names in the same company scope" do
       new_user = FactoryGirl.create(:user)
       user.name = new_user.name
@@ -197,7 +114,7 @@ describe User do
     pending "need more time to understand how to do it"
   end
 
-  describe "callbacks" do
+  context "callbacks" do
     let(:user) { FactoryGirl.build(:user) }
     it "calls downcase on 'email' field before save" do
       mixed_case_email = "Foo@ExAMPle.CoM"
@@ -220,35 +137,14 @@ describe User do
     end
   end
 
-  describe "methods" do
+  context "methods" do
     describe "respond" do
       let(:user) { FactoryGirl.build(:user) }
-      it "responds to #vendor_admin?" do
-        user.should respond_to :vendor_admin?
-      end
-      it "responds to #regular_user?" do
-        user.should respond_to :regular_user?
-      end
-      it "responds to #company_admin?" do
-        user.should respond_to :company_admin?
-      end
-      it "responds to #admin?" do
-        user.should respond_to :admin?
-      end
-      it "responds to #guest?" do
-        user.should respond_to :guest?
-      end
-      it "responds to #password_valid?" do
-        user.should respond_to :password_valid?
-      end
-      it "responds to #manager_name" do
-        user.should respond_to :manager_name
-      end
-      it "responds to #name_with_company" do
-        user.should respond_to :name_with_company
-      end
-      it "responds to #send_password_reset" do
-        user.should respond_to :send_password_reset
+      [:vendor_admin?, :regular_user?, :company_admin?, :admin?, :guest?,
+       :password_valid?, :manager_name, :name_with_company, :send_password_reset].each do |method|
+        it "responds to #{method}" do
+          user.should respond_to(method)
+        end
       end
     end
     describe "regular user" do
@@ -346,7 +242,7 @@ describe User do
     end
   end
   
-  describe "authentication" do
+  context "authentication" do
     let(:user) { FactoryGirl.build(:user) }
     it "rejects when password and password_confirmation do not match" do
       user.password_confirmation = "mismatch"
