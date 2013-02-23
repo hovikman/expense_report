@@ -90,7 +90,7 @@ describe User do
       user.errors[:phone].should_not be_nil
     end
     it "rejects duplicate names in the same company scope" do
-      new_user = FactoryGirl.create(:user)
+      new_user = FactoryGirl.create(:user, company: user.company)
       user.name = new_user.name
       user.should_not be_valid
       user.errors[:name].should_not be_nil

@@ -55,7 +55,7 @@ describe ExpenseType do
       expense_type.errors[:name].should_not be_nil
     end
     it "rejects duplicate names in the same company scope" do
-      new_expense_type = FactoryGirl.create(:expense_type)
+      new_expense_type = FactoryGirl.create(:expense_type, company: expense_type.company)
       expense_type.name = new_expense_type.name
       expense_type.should_not be_valid
       expense_type.errors[:name].should_not be_nil

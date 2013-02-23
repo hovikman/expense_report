@@ -18,9 +18,27 @@ describe Company do
       it "responds to #{assoc}" do
         company.should respond_to(assoc)
       end
-      it "tests related to #{assoc} association" do
-        pending "need more time to understand how to do it"
-      end
+    end
+    it "retrieves users" do
+      user = FactoryGirl.create(:user)
+      company = user.company
+      company.users.should == [user]
+    end
+    it "retrieves expense_types" do
+      expense_type = FactoryGirl.create(:expense_type)
+      company = expense_type.company
+      company.expense_types.should == [expense_type]
+    end
+    it "retrieves currency" do
+      currency = FactoryGirl.create(:currency)
+      company.currency_id = currency.id
+      company.currency.should == currency
+    end
+    it "retrieves accountant" do
+      company.save
+      accountant = FactoryGirl.create(:user, company: company)
+      company.accountant_id = accountant.id
+      company.accountant.should == accountant
     end
   end
 

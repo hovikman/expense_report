@@ -10,7 +10,7 @@ describe "User pages" do
 
     describe "Heading and Titel" do
       before { visit signin_path }
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:vendor_admin) }
       before do
         fill_in "Email",    with: user.email
         fill_in "Password", with: user.password
@@ -26,7 +26,7 @@ describe "User pages" do
 
     describe "with invalid information" do
       before { visit signin_path }
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:vendor_admin) }
       before do
         fill_in "Email",    with: user.email
         fill_in "Password", with: user.password
@@ -40,7 +40,7 @@ describe "User pages" do
 
     describe "with valid information" do
       before { visit signin_path }
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:vendor_admin) }
       before do
         fill_in "Email",    with: user.email
         fill_in "Password", with: user.password
