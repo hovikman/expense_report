@@ -26,12 +26,13 @@ describe UserType do
   end
 
   context "associations" do
-    let(:user_type) { FactoryGirl.build(:user_type) }
+    let(:user_type) { FactoryGirl.create(:user_type) }
     it "responds to #users" do
       user_type.should respond_to :users
     end
-    it "tests related to User association" do
-      pending "need more time to understand how to do it"
+    it "retrieves users" do
+      user = FactoryGirl.create(:user, user_type: user_type)
+      user_type.users.should == [user]
     end
   end
     

@@ -13,20 +13,18 @@ describe Company do
   end
 
   context "associations" do
-    let(:company) { FactoryGirl.build(:company) }
+    let(:company) { FactoryGirl.create(:company) }
     [:users, :expense_types, :currency, :accountant].each do |assoc|
       it "responds to #{assoc}" do
         company.should respond_to(assoc)
       end
     end
     it "retrieves users" do
-      user = FactoryGirl.create(:user)
-      company = user.company
+      user = FactoryGirl.create(:user, company: company)
       company.users.should == [user]
     end
     it "retrieves expense_types" do
-      expense_type = FactoryGirl.create(:expense_type)
-      company = expense_type.company
+      expense_type = FactoryGirl.create(:expense_type, company: company)
       company.expense_types.should == [expense_type]
     end
     it "retrieves currency" do

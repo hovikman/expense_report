@@ -16,8 +16,10 @@ describe ExpenseAttachment do
     it "responds to #expense" do
       expense_attachment.should respond_to :expense
     end
-    it "tests related to 'expense' association" do
-      pending "need more time to understand how to do it"
+    it "retrieves expense" do
+      expense = FactoryGirl.create(:expense)
+      expense_attachment.expense_id = expense.id
+      expense_attachment.expense.should == expense
     end
   end
 

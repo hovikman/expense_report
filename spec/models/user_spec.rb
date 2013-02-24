@@ -31,14 +31,38 @@ describe User do
   end
 
   context "associations" do
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryGirl.create(:user) }
     [:users, :expenses, :owned_expenses, :company, :manager, :user_type].each do |assoc|
       it "responds to #{assoc}" do
         user.should respond_to(assoc)
       end
-      it "tests related to #{assoc} association" do
-        pending "need more time to understand how to do it"
-      end
+    end
+    it "retrieves users" do
+      employee = FactoryGirl.create(:user, manager_id: user.id)
+      user.users.should == [employee]
+    end
+    it "retrieves expenses" do
+      expense = FactoryGirl.create(:expense, user: user)
+      user.expenses.should == [expense]
+    end
+    it "retrieves owned_expenses" do
+      expense = FactoryGirl.create(:expense, user: user, owner: user)
+      user.owned_expenses.should == [expense]
+    end
+    it "retrieves company" do
+      company = FactoryGirl.create(:company)
+      user.company_id = company.id
+      user.company.should == company
+    end
+    it "retrieves manager" do
+      manager = FactoryGirl.create(:user)
+      user.manager_id = manager.id
+      user.manager.should == manager
+    end
+    it "retrieves user_type" do
+      user_type = FactoryGirl.create(:user_type)
+      user.user_type_id = user_type.id
+      user.user_type.should == user_type
     end
   end
   

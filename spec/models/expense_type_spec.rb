@@ -29,14 +29,20 @@ describe ExpenseType do
   end
   
   context "associations" do
-    let(:expense_type) { FactoryGirl.build(:expense_type) }
+    let(:expense_type) { FactoryGirl.create(:expense_type) }
     [:expense_details, :company].each do |assoc|
       it "responds to #{assoc}" do
         expense_type.should respond_to(assoc)
       end
-      it "tests related to #{assoc} association" do
-        pending "need more time to understand how to do it"
-      end
+    end
+    it "retrieves expense_details" do
+      expense_detail = FactoryGirl.create(:expense_detail, expense_type: expense_type)
+      expense_type.expense_details.should == [expense_detail]
+    end
+    it "retrieves company" do
+      company = FactoryGirl.create(:company)
+      expense_type.company_id = company.id
+      expense_type.company.should == company
     end
   end
 

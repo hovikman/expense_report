@@ -34,9 +34,21 @@ describe ExpenseDetail do
       it "responds to #{assoc}" do
         expense_detail.should respond_to(assoc)
       end
-      it "tests related to #{assoc} association" do
-        pending "need more time to understand how to do it"
-      end
+    end
+    it "retrieves currency" do
+      currency = FactoryGirl.create(:currency)
+      expense_detail.currency_id = currency.id
+      expense_detail.currency.should == currency
+    end
+    it "retrieves expense" do
+      expense = FactoryGirl.create(:expense)
+      expense_detail.expense_id = expense.id
+      expense_detail.expense.should == expense
+    end
+    it "retrieves expense_type" do
+      expense_type = FactoryGirl.create(:expense_type)
+      expense_detail.expense_type_id = expense_type.id
+      expense_detail.expense_type.should == expense_type
     end
   end
 

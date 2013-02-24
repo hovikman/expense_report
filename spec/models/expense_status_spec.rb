@@ -29,11 +29,13 @@ describe ExpenseStatus do
   end
 
   context "associations" do
-    it "responds to :expenses" do
-      pending "need more time to understand how to use factories"
+    let(:expense_status) { FactoryGirl.create(:expense_status) }
+    it "responds to expenses" do
+      expense_status.should respond_to(:expenses)
     end
-    it "tests related to Expense association" do
-      pending "need more time to understand how to do it"
+    it "retrieves expenses" do
+      expense = FactoryGirl.create(:expense, expense_status: expense_status)
+      expense_status.expenses.should == [expense]
     end
   end
     

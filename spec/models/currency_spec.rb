@@ -12,14 +12,19 @@ describe Currency do
   end
 
   context "associations" do
-    let(:currency) { FactoryGirl.build(:currency) }
+    let(:currency) { FactoryGirl.create(:currency) }
     [:companies, :expense_details].each do |assoc|
       it "responds to #{assoc}" do
         currency.should respond_to(assoc)
       end
-      it "tests related to #{assoc} association" do
-        pending "need more time to understand how to do it"
-      end
+    end
+    it "retrieves companies" do
+      company = FactoryGirl.create(:company, currency: currency)
+      currency.companies.should == [company]
+    end
+    it "retrieves expense_details" do
+      expense_detail = FactoryGirl.create(:expense_detail, currency: currency)
+      currency.expense_details.should == [expense_detail]
     end
   end
 
