@@ -8,13 +8,13 @@ FactoryGirl.define do
     contact_person  'SamplePerson'
     contact_phone   '5103531846'
     contact_title   'Sample Title'
-    currency_id     { Currency.find_by_code('USD').id }
+    currency
     sequence(:name) { |n| "SampleCompany#{n}" }    
   end
   
   factory :currency do
-    sequence(:code, 'A') { |char| "AA#{char}" }
-    sequence(:name)      { |n| "Sample Currency #{n}" }
+    sequence(:code, "A00") { |s| s }
+    sequence(:name)       { |n| "Sample Currency #{n}" }
   end
   
   factory :expense do
@@ -64,11 +64,11 @@ FactoryGirl.define do
   factory :expense_detail do
     sequence(:amount, 50)
     sequence(:comments) { |n| "Sample Comment #{n}" } 
-    currency_id         { Currency.find_by_code('USD').id }
+    currency
     date                { DateTime.now.to_date }
     exchange_rate       1.00
     expense
-    expense_type_id     { ExpenseType.find_by_name('Meal').id }
+    expense_type
   end
   
   factory :expense_status do
