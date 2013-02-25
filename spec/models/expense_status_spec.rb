@@ -60,8 +60,17 @@ describe ExpenseStatus do
   end
 
   context "callbacks" do
-    it "tests related to Expense callbacks" do
-      pending "need more time to understand how to do it"
+    describe "attempt to delete expense_status when an expense refers to it" do
+      let(:expense_status) { FactoryGirl.create(:expense_status) }
+      it "raises error when expense_status deleted" do
+        expect {
+          FactoryGirl.create(:expense, expense_status: expense_status)
+          expense_status.destroy
+        }.to raise_error(
+          RuntimeError,
+          "Cannot delete expense status '#{expense_status.name}'. There are expenses referencing this expense status."
+          )
+      end
     end
   end
       

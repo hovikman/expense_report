@@ -76,8 +76,17 @@ describe ExpenseType do
   end
 
   context "callbacks" do
-    it "tests related to ExpenseType callbacks" do
-      pending "need more time to understand how to do it"
+    describe "attempt to delete expense_type when an expense_detail refers to it" do
+      let(:expense_type) { FactoryGirl.create(:expense_type) }
+      it "raises error when expense_type deleted" do
+        expect {
+          FactoryGirl.create(:expense_detail, expense_type: expense_type)
+          expense_type.destroy
+        }.to raise_error(
+          RuntimeError,
+          "Cannot delete expense type '#{expense_type.name}'. There are expense details referencing this expense type."
+          )
+      end
     end
   end
 

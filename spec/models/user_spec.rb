@@ -134,8 +134,12 @@ describe User do
     end
   end
 
-  it "after_initialize" do
-    pending "need more time to understand how to do it"
+  context "after_initialize" do
+    it "generates password" do
+      user = User.new
+      user.password.should_not be_blank
+      user.password.should == user.password_confirmation
+    end
   end
 
   context "callbacks" do
@@ -150,14 +154,58 @@ describe User do
       user.save
       user.remember_token.should_not be_blank
     end
-    it "tests related to before_destroy :ensure_not_referenced_by_any_user" do
-      pending "need more time to understand how to do it"
+    describe "attempt to delete user(manager) when a user refer to it" do
+      let(:manager) { FactoryGirl.create(:user) }
+      it "raises error when manager deleted" do
+        expect {
+          FactoryGirl.create(:user, company: manager.company, manager: manager)
+          manager.destroy
+        }.to raise_error(
+          RuntimeError,
+          "Cannot delete user '#{manager.name}'. There are users referencing this user as manager."
+          )
+      end
     end
-    it "tests related to before_destroy :ensure_not_referenced_by_any_expense" do
-      pending "need more time to understand how to do it"
+    describe "attempt to delete user with expenses" do
+      let(:user) { FactoryGirl.create(:user) }
+      it "raises error when user deleted" do
+        expect {
+          FactoryGirl.create(:expense, user: user)
+          user.destroy
+        }.to raise_error(
+          RuntimeError,
+          "Cannot delete user '#{user.name}'. There are expenses referencing this user."
+          )
+      end
     end
-    it "tests related to before_destroy :ensure_not_accountant" do
-      pending "need more time to understand how to do it"
+    describe "attempt to delete user(accountant) when a company refer to it" do
+      let(:company) { FactoryGirl.create(:company) }
+      let(:user)    { FactoryGirl.create(:user, company: company) }
+      it "raises error when user deleted" do
+        expect {
+          company.accountant_id = user.id
+          user.destroy
+        }.to raise_error(
+          RuntimeError,
+          "Cannot delete user '#{user.name}'. The user is the accountant of the company."
+          )
+      end
+    end
+    describe "attempt to delete the last vendor_admin" do
+      let(:admin)   { User.where("user_type_id=:vendor_admin_id", {vendor_admin_id: UserType.vendor_admin_id}).first }
+      it "raises error when admin deleted" do
+        expect {
+          # user 'vendor_admin' is also the accountant of the vendor company,
+          # to be able to test this example, account_id should be assigned to nil
+          vendor = Company.find(Company.vendor_id)
+          vendor.accountant_id = nil
+          vendor.save
+          admin.destroy
+        }.to raise_error(
+          RuntimeError,
+          "Cannot delete last vendor admin."
+          )
+      end
     end
   end
 

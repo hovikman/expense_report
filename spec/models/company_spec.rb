@@ -140,8 +140,7 @@ describe Company do
       it "generates error message on :name when 'vendor' company is renamed" do
         vendor_company.name = 'some other name'
         vendor_company.save
-        #vendor_company.errors.include?(:name).should == true
-        vendor_company.errors[:name].should_not be nil
+        vendor_company.errors[:name].should_not be_nil
       end
     end
 
@@ -153,11 +152,30 @@ describe Company do
       company.reload.contact_email.should == mixed_case_email.downcase
     end
 
-    it "tests related to #ensure_not_referenced_by_any_user callback" do
-      pending "need more time to understand how to do it"
+    describe "attempt to delete company with expense_types" do
+      let(:company) { FactoryGirl.create(:company) }
+      it "raises error when company with expense_types deleted" do
+        expect {
+          FactoryGirl.create(:expense_type, company: company)
+          company.destroy
+        }.to raise_error(
+          RuntimeError,
+          "Cannot delete company '#{company.name}'. There are expense types referencing this company."
+          )
+      end
     end
-    it "tests related to #ensure_not_referenced_by_any_expense_type callback" do
-      pending "need more time to understand how to do it"
+
+    describe "attempt to delete company with users" do
+      let(:company) { FactoryGirl.create(:company) }
+      it "raises error when company with users deleted" do
+        expect {
+          FactoryGirl.create(:user, company: company)
+          company.destroy
+        }.to raise_error(
+          RuntimeError,
+          "Cannot delete company '#{company.name}'. There are users referencing this company."
+          )
+      end
     end
   end
 

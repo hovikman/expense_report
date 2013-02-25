@@ -39,9 +39,21 @@ describe Expense do
       expense_detail = FactoryGirl.create(:expense_detail, expense: expense)
       expense.expense_details.should == [expense_detail]
     end
+    it "deletes expense_details when expense is deleted" do
+      FactoryGirl.create(:expense_detail, expense: expense)
+      expect {
+        expense.destroy
+      }.to change {ExpenseDetail.count}.by(-1)
+    end
     it "retrieves expense_attachments" do
       expense_attachment = FactoryGirl.create(:expense_attachment, expense: expense)
       expense.expense_attachments.should == [expense_attachment]
+    end
+    it "deletes expense_attachments when expense is deleted" do
+      FactoryGirl.create(:expense_attachment, expense: expense)
+      expect {
+        expense.destroy
+      }.to change {ExpenseAttachment.count}.by(-1)
     end
     it "retrieves user" do
       user = FactoryGirl.create(:user)

@@ -42,7 +42,6 @@ class User < ActiveRecord::Base
   before_destroy :ensure_not_referenced_by_any_expense
   before_destroy :ensure_not_accountant
   after_destroy :ensure_an_admin_remains
-  after_update  :ensure_an_admin_remains
 
   after_initialize do
     if self.new_record? && self.password.nil?

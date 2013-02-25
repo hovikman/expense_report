@@ -69,8 +69,29 @@ describe Currency do
       currency.save
       currency.code.should == code
     end
-    it "tests related to Currency callbacks" do
-      pending "need more time to understand how to do it"
+    describe "attempt to delete currency when a company refers to it" do
+      let(:currency) { FactoryGirl.create(:currency) }
+      it "raises error when currency deleted" do
+        expect {
+          FactoryGirl.create(:company, currency: currency)
+          currency.destroy
+        }.to raise_error(
+          RuntimeError,
+          "Cannot delete currency '#{currency.name}'. There are companies referencing this currency."
+          )
+      end
+    end
+    describe "attempt to delete currency when an expense_detail refers to it" do
+      let(:currency) { FactoryGirl.create(:currency) }
+      it "raises error when currency deleted" do
+        expect {
+          FactoryGirl.create(:expense_detail, currency: currency)
+          currency.destroy
+        }.to raise_error(
+          RuntimeError,
+          "Cannot delete currency '#{currency.name}'. There are expens details referencing this currency."
+          )
+      end
     end
   end
 
