@@ -1,58 +1,43 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.3'
-gem 'bootstrap-sass', '~> 2.1.0.0'
-gem 'bcrypt-ruby', '3.0.1'
-gem 'cancan', '1.6.7'
-gem 'pg'
-gem 'carrierwave'
+gem 'attribute-defaults'       , '0.4.0'
+gem 'bcrypt-ruby'              , '3.0.1'
+gem 'bootstrap-sass'           , '2.1.0.0'
+gem 'cancan'                   , '1.6.7'
+gem 'carrierwave'              , '0.6.2'
+gem 'daemons'                  , '1.1.9'
+gem 'delayed_job_active_record', '0.3.2'
+gem 'delayed_job_web'          , '1.1.2'
+gem 'jquery-rails'             , '2.0.2'
+gem 'jquery-ui-themes'         , '0.0.6'
+gem 'kaminari'                 , '0.14.1'
+gem 'pg'                       , '0.14.1'
+gem 'rails'                    , '3.2.3'
 
-group :development, :test do
-  gem 'rspec-rails'
-  gem 'wdm', '~> 0.0.3'
-  gem 'guard-spork', '1.2.0'
-  gem 'spork', '0.9.2'
+group :assets do
+  gem 'coffee-rails'           , '3.2.1'
+  gem 'jquery-cookie-rails'    , '0.1.1'
+  gem 'jquery-datatables-rails', '1.10.00'
+  gem 'jquery-ui-rails'        , '1.0.0'
+  gem 'sass-rails'             , '3.2.3'
+  gem 'uglifier'               , '1.3.0'
 end
 
 group :development do
-  gem 'guard-rspec'
+  gem 'guard-rspec', '2.4.1'
+end
+
+group :development, :test do
+  gem 'guard-spork', '1.2.0'
+  gem 'rspec-rails', '2.12.2'
+  gem 'spork'      , '0.9.2'
+  gem 'wdm'        , '0.0.3'
 end
 
 group :test do
-  gem 'capybara'
-  gem 'factory_girl_rails'
-  gem 'rb-fchange'
-  gem 'rb-notifu'
-  gem 'win32console'
+  gem 'capybara'          , '1.1.2'
+  gem 'factory_girl_rails', '4.2.1'
+  gem 'rb-fchange'        , '0.0.6'
+  gem 'rb-notifu'         , '0.0.4'
+  gem 'win32console'      , '1.3.2'
 end
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
-  gem 'jquery-datatables-rails'
-  gem 'jquery-ui-rails'
-  gem 'jquery-cookie-rails'
-end
-
-gem 'jquery-ui-themes'
-gem 'jquery-rails'
-gem 'daemons'
-gem 'delayed_job_active_record'
-gem 'delayed_job_web'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
-# ActiveRecord plugin that allows to specify default values for attributes
-gem 'attribute-defaults'
-
-gem 'kaminari'
