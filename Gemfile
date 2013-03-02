@@ -23,21 +23,21 @@ group :assets do
   gem 'uglifier'               , '1.3.0'
 end
 
-group :development do
-  gem 'guard-rspec', '2.4.1'
-end
-
 group :development, :test do
-  gem 'guard-spork', '1.2.0'
-  gem 'rspec-rails', '2.12.2'
-  gem 'spork'      , '0.9.2'
-  gem 'wdm'        , '0.0.3'
+  gem 'factory_girl_rails', '4.2.1'
+  gem 'guard-spork'       , '1.2.0'
+  gem 'rspec-rails'       , '2.12.2'
+  gem 'guard-rspec'       , '2.4.1'
+  gem 'spork'             , '0.9.2'
+  gem 'wdm'               , '0.0.3'
 end
 
 group :test do
-  gem 'capybara'          , '1.1.2'
-  gem 'factory_girl_rails', '4.2.1'
-  gem 'rb-fchange'        , '0.0.6'
-  gem 'rb-notifu'         , '0.0.4'
-  gem 'win32console'      , '1.3.2'
+  gem 'capybara'        , '2.0.2'
+  gem 'database_cleaner', '0.9.1'
+  gem 'faker'           , '1.1.2'
+  gem 'launchy'         , '2.2.0'
+  gem 'rb-fchange'      , '0.0.6'
+  gem 'rb-notifu'       , '0.0.4'
+  gem 'win32console'    , '1.3.2'
 end
