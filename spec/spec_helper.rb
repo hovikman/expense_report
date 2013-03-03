@@ -73,6 +73,11 @@ Spork.prefork do
     # the seed, which is printed after each run.
     #     --seed 1234
     config.order = "random"
+    
+    # disable 'should' syntax
+    config.expect_with :rspec do |c|
+      c.syntax = :expect
+    end
   end
 
 end

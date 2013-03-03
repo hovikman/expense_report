@@ -6,14 +6,14 @@ describe ExpenseDetail do
     let(:expense_detail) { FactoryGirl.build(:expense_detail) }
     [:amount, :comments, :currency_id, :date, :exchange_rate, :expense_id, :expense_type_id].each do |attr|
       it "responds to #{attr}" do
-        expense_detail.should respond_to(attr)
+        expect(expense_detail).to respond_to(attr)
       end
     end
   end
 
   context "scope" do
     it "responds to #for_datatable" do
-      ExpenseDetail.should respond_to(:for_datatable)
+      expect(ExpenseDetail).to respond_to(:for_datatable)
     end
     describe "elements of for_datatable scope" do
       before(:each) do
@@ -22,7 +22,7 @@ describe ExpenseDetail do
       end
       [:id, :date, :type_name, :total_amount].each do |attr|
         it "responds to #{attr}" do
-          @expense_detail.should respond_to(attr)
+          expect(@expense_detail).to respond_to(attr)
         end
       end
     end
@@ -32,23 +32,23 @@ describe ExpenseDetail do
     let(:expense_detail) { FactoryGirl.build(:expense_detail) }
     [:currency, :expense, :expense_type].each do |assoc|
       it "responds to #{assoc}" do
-        expense_detail.should respond_to(assoc)
+        expect(expense_detail).to respond_to(assoc)
       end
     end
     it "retrieves currency" do
       currency = FactoryGirl.create(:currency)
       expense_detail.currency_id = currency.id
-      expense_detail.currency.should == currency
+      expect(expense_detail.currency).to eq(currency)
     end
     it "retrieves expense" do
       expense = FactoryGirl.create(:expense)
       expense_detail.expense_id = expense.id
-      expense_detail.expense.should == expense
+      expect(expense_detail.expense).to eq(expense)
     end
     it "retrieves expense_type" do
       expense_type = FactoryGirl.create(:expense_type)
       expense_detail.expense_type_id = expense_type.id
-      expense_detail.expense_type.should == expense_type
+      expect(expense_detail.expense_type).to eq(expense_type)
     end
   end
 
@@ -57,42 +57,37 @@ describe ExpenseDetail do
     [:amount, :currency_id, :date, :exchange_rate, :expense_id, :expense_type_id].each do |attr|
       it "requires #{attr}" do
         expense_detail[attr] = nil
-        expense_detail.should_not be_valid
-        expense_detail.errors[attr].should_not be_nil
+        expect(expense_detail.errors[attr]).not_to be_nil
       end
     end
     it "rejects 0 amounts" do
       expense_detail.amount = 0.0
-      expense_detail.should_not be_valid
-      expense_detail.errors[:amount].should_not be_nil
+      expect(expense_detail.errors[:amount]).not_to be_nil
     end
     it "rejects negative amounts" do
       expense_detail.amount = -5.0
-      expense_detail.should_not be_valid
-      expense_detail.errors[:amount].should_not be_nil
+      expect(expense_detail.errors[:amount]).not_to be_nil
     end
     it "rejects 0 exchange_rate" do
       expense_detail.exchange_rate = 0.0
-      expense_detail.should_not be_valid
-      expense_detail.errors[:exchange_rate].should_not be_nil
+      expect(expense_detail.errors[:exchange_rate]).not_to be_nil
     end
     it "rejects negative exchange_rate" do
       expense_detail.exchange_rate = -5.0
-      expense_detail.should_not be_valid
-      expense_detail.errors[:exchange_rate].should_not be_nil
+      expect(expense_detail.errors[:exchange_rate]).not_to be_nil
     end
   end
   
   context "default values" do
     let(:expense_detail) { ExpenseDetail.new }
     it "default value of amount is 0.0" do
-      expense_detail.amount.should == 0.0
+      expect(expense_detail.amount).to eq(0.0)
     end
     it "default value of date is today" do
-      expense_detail.date.should == DateTime.now.to_date
+      expect(expense_detail.date).to eq(DateTime.now.to_date)
     end
     it "default value of exchange_rate is 1.0" do
-      expense_detail.exchange_rate.should == 1.00
+      expect(expense_detail.exchange_rate).to eq(1.00)
     end
   end
 

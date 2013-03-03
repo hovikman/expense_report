@@ -5,34 +5,34 @@ describe UserType do
   context "attributes" do
     let(:user_type) { FactoryGirl.build(:user_type) }
     it "responds to #name" do
-      user_type.should respond_to(:name)
+      expect(user_type).to respond_to(:name)
     end
   end
     
   context "scope and number of rows" do
     let(:user_types) { UserType.all }
     it "number of UserTypes is 3" do 
-      user_types.count.should == 3
+      expect(user_types.count).to eq(3)
     end
     it "first element is 'Administrator'" do 
-      user_types[0].name.should == "Administrator"
+      expect(user_types[0].name).to eq("Administrator")
     end
     it "second element is 'Regular User'" do
-      user_types[1].name.should == "Regular User"
+      expect(user_types[1].name).to eq("Regular User")
     end
     it "third element is 'Vendor Administrator'" do
-      user_types[2].name.should == "Vendor Administrator"
+      expect(user_types[2].name).to eq("Vendor Administrator")
     end
   end
 
   context "associations" do
     let(:user_type) { FactoryGirl.create(:user_type) }
     it "responds to #users" do
-      user_type.should respond_to :users
+      expect(user_type).to respond_to(:users)
     end
     it "retrieves users" do
       user = FactoryGirl.create(:user, user_type: user_type)
-      user_type.users.should == [user]
+      expect(user_type.users).to eq([user])
     end
   end
     
@@ -40,19 +40,16 @@ describe UserType do
     let(:user_type) { FactoryGirl.build(:user_type) }
     it "requires name" do
       user_type.name = ''
-      user_type.should_not be_valid
-      user_type.errors[:name].should_not be_nil
+      expect(user_type.errors[:name]).not_to be_nil
     end
     it "rejects names that are too long" do
       user_type.name = "a" * 21
-      user_type.should_not be_valid
-      user_type.errors[:name].should_not be_nil
+      expect(user_type.errors[:name]).not_to be_nil
     end
     it "rejects duplicate names" do
       new_user_type = FactoryGirl.create(:user_type)
       user_type.name = new_user_type.name
-      user_type.should_not be_valid
-      user_type.errors[:name].should_not be_nil
+      expect(user_type.errors[:name]).not_to be_nil
     end
   end
 
@@ -86,10 +83,10 @@ describe UserType do
   context "methods" do
     [:admin_id, :regular_user_id, :vendor_admin_id].each do |method|
       it "responds to #{method}" do
-        UserType.should respond_to(method)
+        expect(UserType).to respond_to(method)
       end
       it "#{method} returns number" do
-        UserType.send(method).should be_a_kind_of(Fixnum)
+        expect(UserType.send(method)).to be_a_kind_of(Fixnum)
       end
     end
   end

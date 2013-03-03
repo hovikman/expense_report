@@ -6,7 +6,7 @@ describe Currency do
     let(:currency) { FactoryGirl.build(:currency) }
     [:name, :code].each do |attr|
       it "responds to #{attr}" do
-        currency.should respond_to(attr)
+        expect(currency).to respond_to(attr)
       end
     end
   end
@@ -15,16 +15,16 @@ describe Currency do
     let(:currency) { FactoryGirl.create(:currency) }
     [:companies, :expense_details].each do |assoc|
       it "responds to #{assoc}" do
-        currency.should respond_to(assoc)
+        expect(currency).to respond_to(assoc)
       end
     end
     it "retrieves companies" do
       company = FactoryGirl.create(:company, currency: currency)
-      currency.companies.should == [company]
+      expect(currency.companies).to eq([company])
     end
     it "retrieves expense_details" do
       expense_detail = FactoryGirl.create(:expense_detail, currency: currency)
-      currency.expense_details.should == [expense_detail]
+      expect(currency.expense_details).to eq([expense_detail])
     end
   end
 
@@ -33,31 +33,26 @@ describe Currency do
     [:name, :code].each do |attr|
       it "requires #{attr}" do
         currency[attr] = nil
-        currency.should_not be_valid
-        currency.errors[attr].should_not be_nil
+        expect(currency.errors[attr]).not_to be_nil
       end
     end
     it "rejects names that are too long" do
       currency.name = "a" * 31
-      currency.should_not be_valid
-      currency.errors[:name].should_not be_nil
+      expect(currency.errors[:name]).not_to be_nil
     end
     it "rejects duplicate names" do
       new_currency = FactoryGirl.create(:currency)
       currency.name = new_currency.name
-      currency.should_not be_valid
-      currency.errors[:name].should_not be_nil
+      expect(currency.errors[:name]).not_to be_nil
     end
     it "rejects codes that are too long" do
       currency.code = "a" * 4
-      currency.should_not be_valid
-      currency.errors[:code].should_not be_nil
+      expect(currency.errors[:code]).not_to be_nil
     end
     it "rejects duplicate codes" do
       new_currency = FactoryGirl.create(:currency)
       currency.code = new_currency.code
-      currency.should_not be_valid
-      currency.errors[:code].should_not be_nil
+      expect(currency.errors[:code]).not_to be_nil
     end
   end
 
@@ -67,7 +62,7 @@ describe Currency do
       code = currency.code
       currency.code.downcase!
       currency.save
-      currency.code.should == code
+      expect(currency.code).to eq(code)
     end
     describe "attempt to delete currency when a company refers to it" do
       let(:currency) { FactoryGirl.create(:currency) }
@@ -98,10 +93,10 @@ describe Currency do
   context "methods" do
     let(:currency) { FactoryGirl.build(:currency) }
     it "responds to #code_and_name" do
-      currency.should respond_to :code_and_name
+      expect(currency).to respond_to(:code_and_name)
     end
     it "#code_and_name returns correct value" do
-      currency.code_and_name.should == currency.code + ' ' + currency.name
+      expect(currency.code_and_name).to eq(currency.code + ' ' + currency.name)
     end
   end
 
