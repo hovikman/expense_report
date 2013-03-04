@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ExpenseDetail do
 
   context "attributes" do
-    let(:expense_detail) { FactoryGirl.build(:expense_detail) }
+    let(:expense_detail) { build(:expense_detail) }
     [:amount, :comments, :currency_id, :date, :exchange_rate, :expense_id, :expense_type_id].each do |attr|
       it "responds to #{attr}" do
         expect(expense_detail).to respond_to(attr)
@@ -17,7 +17,7 @@ describe ExpenseDetail do
     end
     describe "elements of for_datatable scope" do
       before(:each) do
-        FactoryGirl.create(:expense_detail)
+        create(:expense_detail)
         @expense_detail = ExpenseDetail.for_datatable.first
       end
       [:id, :date, :type_name, :total_amount].each do |attr|
@@ -29,31 +29,31 @@ describe ExpenseDetail do
   end
 
   context "associations" do
-    let(:expense_detail) { FactoryGirl.build(:expense_detail) }
+    let(:expense_detail) { build(:expense_detail) }
     [:currency, :expense, :expense_type].each do |assoc|
       it "responds to #{assoc}" do
         expect(expense_detail).to respond_to(assoc)
       end
     end
     it "retrieves currency" do
-      currency = FactoryGirl.create(:currency)
+      currency = create(:currency)
       expense_detail.currency_id = currency.id
       expect(expense_detail.currency).to eq(currency)
     end
     it "retrieves expense" do
-      expense = FactoryGirl.create(:expense)
+      expense = create(:expense)
       expense_detail.expense_id = expense.id
       expect(expense_detail.expense).to eq(expense)
     end
     it "retrieves expense_type" do
-      expense_type = FactoryGirl.create(:expense_type)
+      expense_type = create(:expense_type)
       expense_detail.expense_type_id = expense_type.id
       expect(expense_detail.expense_type).to eq(expense_type)
     end
   end
 
   context "validations" do
-    let(:expense_detail) { FactoryGirl.build(:expense_detail) }
+    let(:expense_detail) { build(:expense_detail) }
     [:amount, :currency_id, :date, :exchange_rate, :expense_id, :expense_type_id].each do |attr|
       it "requires #{attr}" do
         expense_detail[attr] = nil

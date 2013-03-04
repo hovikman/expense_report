@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ExpenseStatus do
   
   context "attributes" do
-    let(:expense_status) { FactoryGirl.build(:expense_status) }
+    let(:expense_status) { build(:expense_status) }
     it "responds to #name" do
       expect(expense_status).to respond_to(:name)
     end
@@ -29,18 +29,18 @@ describe ExpenseStatus do
   end
 
   context "associations" do
-    let(:expense_status) { FactoryGirl.create(:expense_status) }
+    let(:expense_status) { create(:expense_status) }
     it "responds to expenses" do
       expect(expense_status).to respond_to(:expenses)
     end
     it "retrieves expenses" do
-      expense = FactoryGirl.create(:expense, expense_status: expense_status)
+      expense = create(:expense, expense_status: expense_status)
       expect(expense_status.expenses).to eq([expense])
     end
   end
     
   context "validations" do
-    let(:expense_status) { FactoryGirl.build(:expense_status) }
+    let(:expense_status) { build(:expense_status) }
     it "requires name" do
       expense_status.name = ''
       expect(expense_status.errors[:name]).not_to be_nil
@@ -50,7 +50,7 @@ describe ExpenseStatus do
       expect(expense_status.errors[:name]).not_to be_nil
     end
     it "rejects duplicate names" do
-      new_expense_status = FactoryGirl.create(:expense_status)
+      new_expense_status = create(:expense_status)
       expense_status.name = new_expense_status.name
       expect(expense_status.errors[:name]).not_to be_nil
     end
@@ -58,10 +58,10 @@ describe ExpenseStatus do
 
   context "callbacks" do
     describe "attempt to delete expense_status when an expense refers to it" do
-      let(:expense_status) { FactoryGirl.create(:expense_status) }
+      let(:expense_status) { create(:expense_status) }
       it "raises error when expense_status deleted" do
         expect {
-          FactoryGirl.create(:expense, expense_status: expense_status)
+          create(:expense, expense_status: expense_status)
           expense_status.destroy
         }.to raise_error(
           RuntimeError,

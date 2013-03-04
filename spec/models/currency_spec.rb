@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Currency do
 
   context "attributes" do
-    let(:currency) { FactoryGirl.build(:currency) }
+    let(:currency) { build(:currency) }
     [:name, :code].each do |attr|
       it "responds to #{attr}" do
         expect(currency).to respond_to(attr)
@@ -12,24 +12,24 @@ describe Currency do
   end
 
   context "associations" do
-    let(:currency) { FactoryGirl.create(:currency) }
+    let(:currency) { create(:currency) }
     [:companies, :expense_details].each do |assoc|
       it "responds to #{assoc}" do
         expect(currency).to respond_to(assoc)
       end
     end
     it "retrieves companies" do
-      company = FactoryGirl.create(:company, currency: currency)
+      company = create(:company, currency: currency)
       expect(currency.companies).to eq([company])
     end
     it "retrieves expense_details" do
-      expense_detail = FactoryGirl.create(:expense_detail, currency: currency)
+      expense_detail = create(:expense_detail, currency: currency)
       expect(currency.expense_details).to eq([expense_detail])
     end
   end
 
   context "validations" do
-    let(:currency) { FactoryGirl.build(:currency) }
+    let(:currency) { build(:currency) }
     [:name, :code].each do |attr|
       it "requires #{attr}" do
         currency[attr] = nil
@@ -41,7 +41,7 @@ describe Currency do
       expect(currency.errors[:name]).not_to be_nil
     end
     it "rejects duplicate names" do
-      new_currency = FactoryGirl.create(:currency)
+      new_currency = create(:currency)
       currency.name = new_currency.name
       expect(currency.errors[:name]).not_to be_nil
     end
@@ -50,7 +50,7 @@ describe Currency do
       expect(currency.errors[:code]).not_to be_nil
     end
     it "rejects duplicate codes" do
-      new_currency = FactoryGirl.create(:currency)
+      new_currency = create(:currency)
       currency.code = new_currency.code
       expect(currency.errors[:code]).not_to be_nil
     end
@@ -58,17 +58,17 @@ describe Currency do
 
   context "callbacks" do
     it "calls upcase on 'code' field before save" do
-      currency = FactoryGirl.build(:currency)
+      currency = build(:currency)
       code = currency.code
       currency.code.downcase!
       currency.save
       expect(currency.code).to eq(code)
     end
     describe "attempt to delete currency when a company refers to it" do
-      let(:currency) { FactoryGirl.create(:currency) }
+      let(:currency) { create(:currency) }
       it "raises error when currency deleted" do
         expect {
-          FactoryGirl.create(:company, currency: currency)
+          create(:company, currency: currency)
           currency.destroy
         }.to raise_error(
           RuntimeError,
@@ -77,10 +77,10 @@ describe Currency do
       end
     end
     describe "attempt to delete currency when an expense_detail refers to it" do
-      let(:currency) { FactoryGirl.create(:currency) }
+      let(:currency) { create(:currency) }
       it "raises error when currency deleted" do
         expect {
-          FactoryGirl.create(:expense_detail, currency: currency)
+          create(:expense_detail, currency: currency)
           currency.destroy
         }.to raise_error(
           RuntimeError,
@@ -91,7 +91,7 @@ describe Currency do
   end
 
   context "methods" do
-    let(:currency) { FactoryGirl.build(:currency) }
+    let(:currency) { build(:currency) }
     it "responds to #code_and_name" do
       expect(currency).to respond_to(:code_and_name)
     end

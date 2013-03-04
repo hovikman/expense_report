@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UserType do
 
   context "attributes" do
-    let(:user_type) { FactoryGirl.build(:user_type) }
+    let(:user_type) { build(:user_type) }
     it "responds to #name" do
       expect(user_type).to respond_to(:name)
     end
@@ -26,18 +26,18 @@ describe UserType do
   end
 
   context "associations" do
-    let(:user_type) { FactoryGirl.create(:user_type) }
+    let(:user_type) { create(:user_type) }
     it "responds to #users" do
       expect(user_type).to respond_to(:users)
     end
     it "retrieves users" do
-      user = FactoryGirl.create(:user, user_type: user_type)
+      user = create(:user, user_type: user_type)
       expect(user_type.users).to eq([user])
     end
   end
     
   context "validations" do
-    let(:user_type) { FactoryGirl.build(:user_type) }
+    let(:user_type) { build(:user_type) }
     it "requires name" do
       user_type.name = ''
       expect(user_type.errors[:name]).not_to be_nil
@@ -47,7 +47,7 @@ describe UserType do
       expect(user_type.errors[:name]).not_to be_nil
     end
     it "rejects duplicate names" do
-      new_user_type = FactoryGirl.create(:user_type)
+      new_user_type = create(:user_type)
       user_type.name = new_user_type.name
       expect(user_type.errors[:name]).not_to be_nil
     end

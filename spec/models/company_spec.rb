@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Company do
 
   context "attributes" do
-    let(:company) { FactoryGirl.build(:company) }
+    let(:company) { build(:company) }
     [:accountant_id, :contact_email, :contact_person,
      :contact_phone, :contact_title, :currency_id, :name].each do |attr|
       it "responds to #{attr}" do
@@ -13,35 +13,35 @@ describe Company do
   end
 
   context "associations" do
-    let(:company) { FactoryGirl.create(:company) }
+    let(:company) { create(:company) }
     [:users, :expense_types, :currency, :accountant].each do |assoc|
       it "responds to #{assoc}" do
         expect(company).to respond_to(assoc)
       end
     end
     it "retrieves users" do
-      user = FactoryGirl.create(:user, company: company)
+      user = create(:user, company: company)
       expect(company.users).to eq([user])
     end
     it "retrieves expense_types" do
-      expense_type = FactoryGirl.create(:expense_type, company: company)
+      expense_type = create(:expense_type, company: company)
       expect(company.expense_types).to eq([expense_type])
     end
     it "retrieves currency" do
-      currency = FactoryGirl.create(:currency)
+      currency = create(:currency)
       company.currency_id = currency.id
       expect(company.currency).to eq(currency)
     end
     it "retrieves accountant" do
       company.save
-      accountant = FactoryGirl.create(:user, company: company)
+      accountant = create(:user, company: company)
       company.accountant_id = accountant.id
       expect(company.accountant).to eq(accountant)
     end
   end
 
   context "validations" do
-    let(:company) { FactoryGirl.build(:company) }
+    let(:company) { build(:company) }
     [:name, :contact_person, :contact_title, :contact_phone, :contact_email, :currency_id].each do |attr|
       it "requires #{attr}" do
         company[attr] = nil
@@ -53,7 +53,7 @@ describe Company do
       expect(company.errors[:name]).not_to be_nil
     end
     it "rejects duplicate names" do
-      new_company = FactoryGirl.create(:company)
+      new_company = create(:company)
       company.name = new_company.name
       expect(company.errors[:name]).not_to be_nil
     end
@@ -136,7 +136,7 @@ describe Company do
     end
 
     it "calls downcase on 'contact_email' field before save" do
-      company = FactoryGirl.build(:company)
+      company = build(:company)
       mixed_case_email = "Foo@ExAMPle.CoM"
       company.contact_email = mixed_case_email
       company.save
@@ -144,10 +144,10 @@ describe Company do
     end
 
     describe "attempt to delete company with expense_types" do
-      let(:company) { FactoryGirl.create(:company) }
+      let(:company) { create(:company) }
       it "raises error when company with expense_types deleted" do
         expect {
-          FactoryGirl.create(:expense_type, company: company)
+          create(:expense_type, company: company)
           company.destroy
         }.to raise_error(
           RuntimeError,
@@ -157,10 +157,10 @@ describe Company do
     end
 
     describe "attempt to delete company with users" do
-      let(:company) { FactoryGirl.create(:company) }
+      let(:company) { create(:company) }
       it "raises error when company with users deleted" do
         expect {
-          FactoryGirl.create(:user, company: company)
+          create(:user, company: company)
           company.destroy
         }.to raise_error(
           RuntimeError,
