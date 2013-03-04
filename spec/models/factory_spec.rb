@@ -6,7 +6,7 @@ describe 'factories' do
    :expense_attachment, :expense_detail, :expense_status, :expense_type,
    :user, :vendor_admin, :regular_user, :company_admin, :user_type].each do |factory|
     it "instance of #{factory} is valid" do
-      expect(FactoryGirl.create(factory)).to be_valid
+      expect(FactoryGirl.build(factory)).to be_valid
     end
   end
 end
