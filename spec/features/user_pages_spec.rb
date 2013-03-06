@@ -8,10 +8,10 @@ describe "User pages" do
 
     before { visit new_user_path }
 
-    describe "Heading and Titel" do
-      before { visit signin_path }
+    describe "Heading and Title" do
       let(:user) { FactoryGirl.create(:vendor_admin) }
       before do
+        visit signin_path
         fill_in "Email",    with: user.email
         fill_in "Password", with: user.password
         click_button "Sign in"
@@ -39,9 +39,9 @@ describe "User pages" do
     end
 
     describe "with valid information" do
-      before { visit signin_path }
       let(:user) { FactoryGirl.create(:vendor_admin) }
       before do
+        visit signin_path
         fill_in "Email",    with: user.email
         fill_in "Password", with: user.password
         click_button "Sign in"
@@ -62,9 +62,9 @@ describe "User pages" do
   end
   
   describe "Viewing User Page" do
-    before { visit signin_path }
     let(:user) { FactoryGirl.create(:user) }
     before do
+      visit signin_path
       fill_in "Email",    with: user.email
       fill_in "Password", with: user.password
       click_button "Sign in"

@@ -2,7 +2,7 @@ FactoryGirl.define do
 
   factory :company do
     accountant_id   nil
-    contact_email   { "#{contact_person}@#{name}.com".downcase }
+    contact_email   { "#{contact_person}@#{name.gsub(/\s+/, "")}.com".downcase }
     contact_person  'SamplePerson'
     contact_phone   '5103531846'
     contact_title   'Sample Title'

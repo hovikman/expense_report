@@ -81,6 +81,9 @@ Spork.prefork do
     
     # Include Factory Girl syntax to simplify calls to factories
     config.include FactoryGirl::Syntax::Methods
+    
+    # Include SessionHelper for sign_in and sign_out
+    config.include SessionsHelper
   end
 
 end
