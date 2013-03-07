@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CompaniesController do
-  shared_examples("guest access to companies") do |redirect_path|
+  shared_examples("public access to companies") do |redirect_path|
     describe 'GET #index' do
       it "requires login" do
         get :index
@@ -47,21 +47,21 @@ describe CompaniesController do
   end
 
   describe "guest access to companies" do
-    it_behaves_like "guest access to companies", Rails.application.routes.url_helpers.signin_path
+    it_behaves_like "public access to companies", Rails.application.routes.url_helpers.signin_path
   end
   
   describe "regular user access to companies" do
     before(:each) do
       sign_in(create(:regular_user))
     end
-    it_behaves_like "guest access to companies", Rails.application.routes.url_helpers.root_path
+    it_behaves_like "public access to companies", Rails.application.routes.url_helpers.root_path
   end
   
   describe "company admin access to companies" do
     before(:each) do
       sign_in(create(:company_admin))
     end
-    it_behaves_like "guest access to companies", Rails.application.routes.url_helpers.root_path
+    it_behaves_like "public access to companies", Rails.application.routes.url_helpers.root_path
   end
   
   describe "vendor admin access to companies" do
