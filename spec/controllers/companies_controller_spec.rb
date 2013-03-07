@@ -1,153 +1,72 @@
 require 'spec_helper'
 
 describe CompaniesController do
-  describe "guest access" do
+  shared_examples("guest access to companies") do |redirect_path|
     describe 'GET #index' do
       it "requires login" do
         get :index
-        expect(response).to redirect_to signin_path
+        expect(response).to redirect_to redirect_path
       end
     end
     describe 'GET #show' do
       it "requires login" do
         get :show, id: 1
-        expect(response).to redirect_to signin_path
+        expect(response).to redirect_to redirect_path
       end
     end
     describe "GET #new" do
       it "requires login" do
         get :new
-        expect(response).to redirect_to signin_path
+        expect(response).to redirect_to redirect_path
       end
     end
     describe "GET #edit" do
       it "requires login" do
         get :edit, id: create(:company)
-        expect(response).to redirect_to signin_path
+        expect(response).to redirect_to redirect_path
       end
     end
     describe "POST #create" do
       it "requires login" do
         post :create, id: create(:company), company: attributes_for(:company)
-        expect(response).to redirect_to signin_path
+        expect(response).to redirect_to redirect_path
       end
     end
     describe 'PUT #update' do
       it "requires login" do
         put :update, id: create(:company), company: attributes_for(:company)
-        expect(response).to redirect_to signin_path
+        expect(response).to redirect_to redirect_path
       end
     end
     describe 'DELETE #destroy' do
       it "requires login" do
         delete :destroy, id: create(:company)
-        expect(response).to redirect_to signin_path
+        expect(response).to redirect_to redirect_path
       end
     end
   end
-  
-  describe "regular user access" do
-    before(:each) do
-      @user = create(:regular_user)
-      sign_in(@user)
-    end
-    describe 'GET #index' do
-      it "requires login" do
-        get :index
-        expect(response).to redirect_to root_path
-      end
-    end
-    describe 'GET #show' do
-      it "requires login" do
-        get :show, id: 1
-        expect(response).to redirect_to root_path
-      end
-    end
-    describe "GET #new" do
-      it "requires login" do
-        get :new
-        expect(response).to redirect_to root_path
-      end
-    end
-    describe "GET #edit" do
-      it "requires login" do
-        get :edit, id: create(:company)
-        expect(response).to redirect_to root_path
-      end
-    end
-    describe "POST #create" do
-      it "requires login" do
-        post :create, id: create(:company), company: attributes_for(:company)
-        expect(response).to redirect_to root_path
-      end
-    end
-    describe 'PUT #update' do
-      it "requires login" do
-        put :update, id: create(:company), company: attributes_for(:company)
-        expect(response).to redirect_to root_path
-      end
-    end
-    describe 'DELETE #destroy' do
-      it "requires login" do
-        delete :destroy, id: create(:company)
-        expect(response).to redirect_to root_path
-      end
-    end
+
+  describe "guest access to companies" do
+    it_behaves_like "guest access to companies", Rails.application.routes.url_helpers.signin_path
   end
   
-  describe "company admin access" do
+  describe "regular user access to companies" do
     before(:each) do
-      @user = create(:company_admin)
-      sign_in(@user)
+      sign_in(create(:regular_user))
     end
-    describe 'GET #index' do
-      it "requires login" do
-        get :index
-        expect(response).to redirect_to root_path
-      end
-    end
-    describe 'GET #show' do
-      it "requires login" do
-        get :show, id: 1
-        expect(response).to redirect_to root_path
-      end
-    end
-    describe "GET #new" do
-      it "requires login" do
-        get :new
-        expect(response).to redirect_to root_path
-      end
-    end
-    describe "GET #edit" do
-      it "requires login" do
-        get :edit, id: create(:company)
-        expect(response).to redirect_to root_path
-      end
-    end
-    describe "POST #create" do
-      it "requires login" do
-        post :create, id: create(:company), company: attributes_for(:company)
-        expect(response).to redirect_to root_path
-      end
-    end
-    describe 'PUT #update' do
-      it "requires login" do
-        put :update, id: create(:company), company: attributes_for(:company)
-        expect(response).to redirect_to root_path
-      end
-    end
-    describe 'DELETE #destroy' do
-      it "requires login" do
-        delete :destroy, id: create(:company)
-        expect(response).to redirect_to root_path
-      end
-    end
+    it_behaves_like "guest access to companies", Rails.application.routes.url_helpers.root_path
   end
   
-  describe "vendor admin access" do
+  describe "company admin access to companies" do
     before(:each) do
-      @user = create(:vendor_admin)
-      sign_in(@user)
+      sign_in(create(:company_admin))
+    end
+    it_behaves_like "guest access to companies", Rails.application.routes.url_helpers.root_path
+  end
+  
+  describe "vendor admin access to companies" do
+    before(:each) do
+      sign_in(create(:vendor_admin))
     end
     describe 'GET #index' do
       it "populates an array of companies" do
