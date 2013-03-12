@@ -20,7 +20,8 @@ shared_examples("having no access") do |model, redirect_path|
   end
   describe 'GET #show' do
     it "requires login" do
-      get :show, id: 1
+      model_obj = create(model)
+      get :show, id: model_obj
       expect(response).to redirect_to redirect_path
     end
   end
