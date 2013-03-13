@@ -2,9 +2,6 @@ require 'spec_helper'
 
 shared_examples("can create") do  
   describe 'GET #new' do
-    before :each do
-      @expense = create(:expense, user_id: @user.id)
-    end
     it "assigns a new Expense detail to @expense_detail" do
       get :new, expense_id: @expense
       expect(assigns(:expense_detail)).to be_a_new(ExpenseDetail)
@@ -17,7 +14,6 @@ shared_examples("can create") do
 
   describe "POST #create" do
     before :each do
-      @expense = create(:expense, user_id: @user.id)
       @usd_id  = Currency.find_by_code('USD').id
       @meal_id = ExpenseType.find_by_name('Meal').id
     end
@@ -168,7 +164,7 @@ describe ExpenseDetailsController do
       @user = create(:vendor_admin)
       sign_in(@user)
       @expense = create(:expense)
-      @expense_detail = create(:expense_detail)
+      @expense_detail = create(:expense_detail, expense: @expense)
     end
     it_behaves_like "having proper permissions"
   end
