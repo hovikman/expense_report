@@ -62,8 +62,7 @@ private
     regular_user_permission(user)
 
     # ExpenseType
-    can :create, ExpenseType
-    can [:update, :destroy], ExpenseType, company_id: user.company_id
+    can [:create, :update, :destroy], ExpenseType, company_id: user.company_id
 
     # User
     can :create, User

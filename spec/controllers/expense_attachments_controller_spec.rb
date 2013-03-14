@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-shared_examples("can create") do  
+shared_examples("can create expense_attachment") do  
   describe 'GET #new' do
     it "assigns a new Expense attachment to @expense_attachment" do
       get :new, expense_id: @expense
@@ -42,7 +42,7 @@ shared_examples("can create") do
   end
 end  
 
-shared_examples("can update") do
+shared_examples("can update expense_attachment") do
   describe 'GET #edit' do
     it "assigns the requested expense_attachment to @expense_attachment" do
       get :edit, id: @expense_attachment
@@ -85,7 +85,7 @@ shared_examples("can update") do
   end
 end  
 
-shared_examples("can destroy") do
+shared_examples("can destroy expense_attachment") do
   describe 'DELETE #destroy' do
     it "deletes the expense_attachment from the database" do
       expect{
@@ -99,7 +99,7 @@ shared_examples("can destroy") do
   end
 end
 
-shared_examples("can read") do
+shared_examples("can read expense_attachment") do
   describe 'GET #index' do
     it "populates an array of expense_attachments" do
       get :index, expense_id: @expense
@@ -123,11 +123,11 @@ shared_examples("can read") do
   end
 end
 
-shared_examples("having proper permissions") do
-  it_behaves_like "can create"
-  it_behaves_like "can update"
-  it_behaves_like "can destroy"
-  it_behaves_like "can read"
+shared_examples("can manage expense_attachment") do
+  it_behaves_like "can create expense_attachment"
+  it_behaves_like "can read expense_attachment"
+  it_behaves_like "can update expense_attachment"
+  it_behaves_like "can destroy expense_attachment"
 end
 
 describe ExpenseAttachmentsController do
@@ -141,7 +141,7 @@ describe ExpenseAttachmentsController do
       @expense = create(:expense, user: @user)
       @expense_attachment = create(:expense_attachment, expense: @expense)
     end
-    it_behaves_like "having proper permissions"
+    it_behaves_like "can manage expense_attachment"
   end
   describe "company admin access to expense_attachments" do
     before(:each) do
@@ -151,7 +151,7 @@ describe ExpenseAttachmentsController do
       @expense = create(:expense, user: regular_user)
       @expense_attachment = create(:expense_attachment, expense: @expense)
     end
-    it_behaves_like "having proper permissions"
+    it_behaves_like "can manage expense_attachment"
   end
   describe "vendor admin access to expense_attachments" do
     before(:each) do
@@ -160,6 +160,6 @@ describe ExpenseAttachmentsController do
       @expense = create(:expense)
       @expense_attachment = create(:expense_attachment, expense: @expense)
     end
-    it_behaves_like "having proper permissions"
+    it_behaves_like "can manage expense_attachment"
   end
 end

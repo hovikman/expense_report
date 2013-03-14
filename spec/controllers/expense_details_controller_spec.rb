@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-shared_examples("can create") do  
+shared_examples("can create expense_detail") do  
   describe 'GET #new' do
     it "assigns a new Expense detail to @expense_detail" do
       get :new, expense_id: @expense
@@ -48,7 +48,7 @@ shared_examples("can create") do
   end
 end  
 
-shared_examples("can update") do
+shared_examples("can update expense_detail") do
   describe 'GET #edit' do
     it "assigns the requested expense_detail to @expense_detail" do
       get :edit, id: @expense_detail
@@ -91,7 +91,7 @@ shared_examples("can update") do
   end
 end  
 
-shared_examples("can destroy") do
+shared_examples("can destroy expense_detail") do
   describe 'DELETE #destroy' do
     it "deletes the expense_detail from the database" do
       expect{
@@ -105,7 +105,7 @@ shared_examples("can destroy") do
   end
 end
 
-shared_examples("can read") do
+shared_examples("can read expense_detail") do
   describe 'GET #index' do
     it "populates an array of expense_details" do
       get :index, expense_id: @expense
@@ -129,11 +129,11 @@ shared_examples("can read") do
   end
 end
 
-shared_examples("having proper permissions") do
-  it_behaves_like "can create"
-  it_behaves_like "can update"
-  it_behaves_like "can destroy"
-  it_behaves_like "can read"
+shared_examples("can manage expense_detail") do
+  it_behaves_like "can create expense_detail"
+  it_behaves_like "can read expense_detail"
+  it_behaves_like "can update expense_detail"
+  it_behaves_like "can destroy expense_detail"
 end
 
 describe ExpenseDetailsController do
@@ -147,7 +147,7 @@ describe ExpenseDetailsController do
       @expense = create(:expense, user: @user)
       @expense_detail = create(:expense_detail, expense: @expense)
     end
-    it_behaves_like "having proper permissions"
+    it_behaves_like "can manage expense_detail"
   end
   describe "company admin access to expense_details" do
     before(:each) do
@@ -157,7 +157,7 @@ describe ExpenseDetailsController do
       @expense = create(:expense, user: regular_user)
       @expense_detail = create(:expense_detail, expense: @expense)
     end
-    it_behaves_like "having proper permissions"
+    it_behaves_like "can manage expense_detail"
   end
   describe "vendor admin access to expense_details" do
     before(:each) do
@@ -166,6 +166,6 @@ describe ExpenseDetailsController do
       @expense = create(:expense)
       @expense_detail = create(:expense_detail, expense: @expense)
     end
-    it_behaves_like "having proper permissions"
+    it_behaves_like "can manage expense_detail"
   end
 end
