@@ -2,7 +2,7 @@ FactoryGirl.define do
 
   factory :user, aliases: [:regular_user] do
     company               
-    email                 { "#{name}@#{company.name}.com".downcase }
+    email                 { "#{name}@samplecompany.com".downcase }
     manager_id            nil
     sequence(:name)       { |n| "RegularUser#{n}" }
     password              'foobar'

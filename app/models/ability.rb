@@ -65,8 +65,7 @@ private
     can [:create, :update, :destroy], ExpenseType, company_id: user.company_id
 
     # User
-    can :create, User
-    can [:read, :update, :destroy], User, company_id: user.company_id
+    can [:create, :read, :update, :destroy], User, company_id: user.company_id
 
     # Expense
     can [:read, :update, :destroy], Expense, user: {company_id: user.company_id}
