@@ -11,4 +11,5 @@ describe ApplicationHelper do
       expect(full_title("")).to eq('Expense Report')
     end
   end
+  
 end

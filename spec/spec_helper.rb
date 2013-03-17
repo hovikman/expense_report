@@ -84,6 +84,9 @@ Spork.prefork do
     
     # Include SessionHelper for sign_in and sign_out
     config.include SessionsHelper
+    
+    # Include LoginMacros for sign_in via capybara
+    config.include LoginMacros
   end
 
 end
