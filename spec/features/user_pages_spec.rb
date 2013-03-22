@@ -3,7 +3,6 @@ require 'spec_helper'
 feature "User pages" do
 
   describe "New User Page" do
-    before { visit new_user_path }
     describe "Heading and Title" do
       before do
         login_in(create(:vendor_admin))
