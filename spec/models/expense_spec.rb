@@ -30,7 +30,7 @@ describe Expense do
 
   context "associations" do
     let(:expense) { create(:expense) }
-    [:expense_details, :expense_attachments, :user, :expense_status, :owner].each do |assoc|
+    [:expense_details, :expense_attachments, :user, :expense_status, :owner, :reject_notes].each do |assoc|
       it "responds to #{assoc}" do
         expect(expense).to respond_to(assoc)
       end
@@ -69,6 +69,10 @@ describe Expense do
       owner = create(:user)
       expense.owner_id = owner.id
       expect(expense.owner).to eq(owner)
+    end
+    it "retrieves reject_notes" do
+      reject_note = create(:reject_note, expense: expense)
+      expect(expense.reject_notes).to eq([reject_note])
     end
   end
 
